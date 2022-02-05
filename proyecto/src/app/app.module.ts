@@ -8,6 +8,8 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { NoticiasComponent } from './noticias/noticias.component';
+import { TiendaComponent } from './tienda/tienda.component';
 
 
 
@@ -15,7 +17,9 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NoticiasComponent,
+    TiendaComponent
   ],
   imports: [
     BrowserModule,

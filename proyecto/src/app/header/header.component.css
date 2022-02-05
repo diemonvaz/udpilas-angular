@@ -1,5 +1,12 @@
-#header-banner{
+#header-container{
     background-color: rgb(91, 124, 235);
+}
+
+#banner-botones{
+    text-align: right;
+}
+
+#banner-ppal{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -9,18 +16,16 @@
 }
 
 #menu-container{
+    margin-top: 20px;
     text-align: center;
+    background-color: white;
 }
 
-#banner-ppal{
-    display: flex;
-}
-
-#banner-botones{
-    display: block;
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
+#titulo{
     align-self: center;
-    order: 0;
+}
+
+#logo{
+    width: 120px;
+    height: auto
 }

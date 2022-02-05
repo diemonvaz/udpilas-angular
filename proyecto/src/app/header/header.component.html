@@ -1,20 +1,14 @@
 <div id="header-container">
 
-
-    <div id="header-banner">
-
-        <div id = "banner-ppal">
-            <img style="width: 120px; height: auto;" id = 'logo' src="assets/images/logo.png" alt="image">
-            <h1>U.D. Pilas</h1>
-        </div>
-        
-        <div id = "banner-botones">
-            
-        </div>
+    <div id = "banner-botones">
+        <p>BOTONES</p>
+    </div>
     
-    </div> 
+    <div id = "banner-ppal">
+        <img id = 'logo' src="assets/images/logo.png" alt="image">
+        <h1 id="titulo">U.D. Pilas</h1>
+    </div>
     
-
     <div id="menu-container">
 
         <button mat-button [matMenuTriggerFor]="clubMenu">Club</button>
@@ -24,7 +18,7 @@
             <button mat-menu-item>Estadio</button>
         </mat-menu>
         
-        <button mat-button>Noticias</button>
+        <button mat-button routerLink = "/noticias" routerLinkActive = "Active">Noticias</button>
         
         <button mat-button [matMenuTriggerFor]="equipoMenu">Equipo</button>
         <mat-menu #equipoMenu = "matMenu">
@@ -33,10 +27,9 @@
         </mat-menu>
         
         
-        <button mat-button>Tienda</button>
+        <button mat-button routerLink = "/tienda" routerLinkActive = "Active">Tienda</button>
         
         <button mat-button [matMenuTriggerFor]="abonadosMenu">Abonados</button>
-        
         <mat-menu #abonadosMenu = "matMenu">
             <button mat-menu-item>Menu Item 1</button>
             <button mat-menu-item>Menu Item 2</button>
@@ -46,3 +39,6 @@
         
 
 </div>
+
+<router-outlet></router-outlet>
+      
