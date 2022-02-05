@@ -1,0 +1,26 @@
+#header-banner{
+    background-color: rgb(91, 124, 235);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: normal;
+    align-content: stretch;
+}
+
+#menu-container{
+    text-align: center;
+}
+
+#banner-ppal{
+    display: flex;
+}
+
+#banner-botones{
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: center;
+    order: 0;
+}
