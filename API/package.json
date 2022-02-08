@@ -1,0 +1,42 @@
+{
+   "name": "copper",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "devDependencies": {
+      "@types/bcryptjs": "^2.4.2",
+      "@types/cors": "^2.8.8",
+      "@types/express": "^4.17.9",
+      "@types/jsonwebtoken": "^8.5.0",
+      "@types/node": "^8.10.66",
+      "ts-node": "3.3.0",
+      "ts-node-dev": "^1.0.0",
+      "typescript": "^3.3.3333"
+   },
+   "dependencies": {
+      "@types/socket.io": "^3.0.2",
+      "bcryptjs": "^2.4.3",
+      "body-parser": "^1.18.1",
+      "class-validator": "^0.12.2",
+      "connect-multiparty": "^2.2.0",
+      "cors": "^2.8.5",
+      "express": "^4.15.4",
+      "helmet": "^4.2.0",
+      "jsonwebtoken": "^8.5.1",
+      "md5-typescript": "^1.0.5",
+      "mysql": "^2.14.1",
+      "node-cron": "^3.0.0",
+      "node-redsys-api": "^0.0.5",
+      "nodemailer": "^6.5.0",
+      "reflect-metadata": "^0.1.10",
+      "shelljs": "^0.8.4",
+      "socket.io": "^4.3.1",
+      "ssh2-sftp-client": "^7.2.0",
+      "stripe": "^8.191.0",
+      "typeorm": "0.2.29"
+   },
+   "scripts": {
+      "start": "ts-node-dev ./src/index.ts",
+      "tsc": "tsc",
+      "dev": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts"
+   }
+}
