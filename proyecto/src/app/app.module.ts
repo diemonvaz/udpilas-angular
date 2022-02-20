@@ -10,7 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { NoticiasComponent } from './noticias/noticias.component';
 import { TiendaComponent } from './tienda/tienda.component';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import { EditorComponent } from './editor/editor.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -19,14 +21,17 @@ import { TiendaComponent } from './tienda/tienda.component';
     HeaderComponent,
     FooterComponent,
     NoticiasComponent,
-    TiendaComponent
+    TiendaComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

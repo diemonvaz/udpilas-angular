@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.master-container{
+    margin-left: 180px;
+    margin-right: 180px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
