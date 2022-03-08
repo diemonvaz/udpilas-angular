@@ -5,7 +5,7 @@ import moment = require("moment");
 import { validate } from "class-validator";
 
 
-export class CitasController {
+export class SociosController {
 
     static getById = async (req: Request, res: Response)=>{
 
@@ -90,4 +90,4 @@ export class CitasController {
 
 }
 
-export default CitasController;
+export default SociosController;
