@@ -1,0 +1,13 @@
+<div mat-dialog-title id="editor-date-dialog">Programar publicación
+
+    <mat-dialog-actions>
+        <mat-form-field>
+            <input matInput type="datetime-local" placeholder="start date"   [(ngModel)]= fechaProgramada>
+        </mat-form-field>
+    </mat-dialog-actions>
+    <mat-dialog-actions>
+        <button mat-raised-button color="accent" (click)="programar()">Programar</button>
+        <button mat-raised-button mat-dialog-close (click)="cancelar()">Cancelar</button>
+    </mat-dialog-actions>
+
+</div>

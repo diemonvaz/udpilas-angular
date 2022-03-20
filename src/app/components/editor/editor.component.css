@@ -1,8 +1,45 @@
 #editor-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: normal;
-    align-content: stretch;
+   margin-top: 65px;
+   margin-bottom: 60px;
+   display: flex;
+   flex-flow: column wrap;
+   justify-content: center;
+   align-items: center;
+   align-content: stretch;   
+}
+
+#editor{
+   /* Para ajustar la anchura inicial y anchura maxima del editor*/
+   min-width: 70%;
+   max-width: 70%;
+}
+
+
+/* Para el form de subida */
+.mat-form-field {
+   margin: 40px 0;
+   width: 400px !important;
+}
+.mat-toolbar-single-row {
+   height: auto !important;
+   background: transparent;
+}
+.mat-toolbar-single-row button {
+   width: 200px;
+}
+
+#uploadFile {
+   top: 0px;
+   left: 0px;
+   width: 100%;    
+   z-index: 9;
+   opacity: 0;
+   height: 100%;
+   cursor: pointer;
+   position: absolute;
+}
+
+#imgP{
+   font-size: 14px;
+   color: gray;
 }
