@@ -129,7 +129,7 @@ export class EditorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => { 
       console.log(res);
       this.fechaSet = res.data.check;
-        
+      this.fechaSetted = res.data.date;  
     })
   
   }
