@@ -1,11 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, Column, Unique} from "typeorm";
 
 @Entity("socios")
-@Unique(['n_socio'])
+@Unique(['idsocio'])
 export class Socios {
 
     @PrimaryGeneratedColumn()
-    n_socio: number;
+    idsocio: number;
     
     @Column({type: "text", nullable: false})
     nombre_completo: string;

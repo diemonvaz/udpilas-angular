@@ -8,7 +8,8 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-
+import {NgForm} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -20,12 +21,18 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
 export class EditorComponent implements OnInit {
 
+  postId;
   ngOnInit(): void {
+    this.http.post<any>('https://reqres.in/api/posts', { title: 'Angular POST Request Example' }).subscribe(data => {
+        this.postId = data.title;
+    })
+    
   }
 
   public Editor = ClassicEditor;
+  
 
-  constructor(public dialog: MatDialog) { 
+  constructor(public dialog: MatDialog, private http: HttpClient) { 
     
     /*CHIPS PARA LAS ETIQUETAS*/
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -40,12 +47,12 @@ export class EditorComponent implements OnInit {
 
   /*SUBIDA DE IMAGEN*/
   @ViewChild('fileInput') fileInput: ElementRef;
-  fileAttr = 'Imagen de portada';
+  archivoImagen = '';
   uploadFileEvt(imgFile: any) {
     if (imgFile.target.files && imgFile.target.files[0]) {
-      this.fileAttr = '';
+      this.archivoImagen = '';
       Array.from(imgFile.target.files).forEach((file: any) => {
-        this.fileAttr += file.name + ' - ';
+        this.archivoImagen += file.name + ' - ';
       });
       // HTML5 FileReader API
       let reader = new FileReader();
@@ -60,7 +67,7 @@ export class EditorComponent implements OnInit {
       // Reset if duplicate image uploaded again
       this.fileInput.nativeElement.value = '';
     } else {
-      this.fileAttr = 'Imagen de portada';
+      this.archivoImagen = 'Imagen de portada';
     }
   }
   /*SUBIDA DE IMAGEN*/
@@ -141,6 +148,19 @@ export class EditorComponent implements OnInit {
     console.log(this.fechaSet)
   }
   
+/* Para realizar el submit del formulario completo, incluyendo contenido del editor */
 
+
+  @ViewChild('myEditor') myEditor: any;
+  onSubmit(f: NgForm) {
+    console.log(f.value);  // { first: '', last: '' }
+    console.log(f.valid);  
+    console.log(this.tags);
+    if (this.myEditor && this.myEditor.editorInstance) {
+      console.log(this.myEditor.editorInstance.getData());
+    }
+  }
+
+  
 
 }

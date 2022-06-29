@@ -1,83 +1,82 @@
 
 <div id="editor-container">
+  
+  <ckeditor #myEditor [editor]="Editor" data="<p></p>" id="editor"></ckeditor>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate style='margin-top: 50px;'>
 
     <mat-form-field>
-      <input matInput placeholder="Título de la publicación" >
+      <input matInput ngModel name = "tituloPub" required placeholder="Título de la publicación" id="form">
     </mat-form-field>
+   
+    <div>
+        <mat-form-field>
+          <div>
+              <mat-toolbar>
+                <!-- Display files names -->
+                <input matInput [(ngModel)]="archivoImagen" readonly name="name" id="imgP" required placeholder="Imagen de portada" />
+                <!-- Browse Button -->
+                <button mat-flat-button color="primary">Elegir imagen</button>
+              </mat-toolbar>
+              <!-- Fetch selected filed on change -->
+              <input
+                type="file"
+                #fileInput
+                id="uploadFile"
+                (change)="uploadFileEvt($event)"
+                name="uploadFile"
+                multiple="multiple"
+                accept="image/*"
+              />
+            </div>
+        </mat-form-field>
+    </div>
+      
+    <div>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Etiquetas</mat-label>
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip
+            *ngFor="let tag of tags"
+            (removed)="remove(tag)">
+            {{tag}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Nueva Etiqueta..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{tag}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
 
-    <ckeditor [editor]="Editor" data="<p></p>" id="editor"></ckeditor>
+    <mat-slide-toggle *ngIf="!fechaSet" (change)="openDialog()" [checked]="fechaSet" id="toggleProgramar">Programar publicación</mat-slide-toggle>
 
-    <form style='margin-top: 50px;'>
+    <p *ngIf="!fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará de inmediato tras su confirmación</p>
+    <p *ngIf="fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
 
-        <div>
-            <mat-form-field>
-              <div>
-                  <mat-toolbar>
-                    <!-- Display files names -->
-                    <input matInput [(ngModel)]="fileAttr" readonly name="name" id="imgP" />
-                    <!-- Browse Button -->
-                    <button mat-flat-button color="primary">Elegir imagen</button>
-                  </mat-toolbar>
-                  <!-- Fetch selected filed on change -->
-                  <input
-                    type="file"
-                    #fileInput
-                    id="uploadFile"
-                    (change)="uploadFileEvt($event)"
-                    name="uploadFile"
-                    multiple="multiple"
-                    accept="image/*"
-                  />
-                </div>
-            </mat-form-field>
-        </div>
+    <div *ngIf="!fechaSet" style="text-align: center; margin-top: 65px;">
+        <button mat-raised-button color="primary" style="margin-right: 4px;" type="submit">Publicar</button>
+    </div> 
 
-        <div>
-            <mat-form-field class="example-chip-list" appearance="fill">
-                <mat-label>Etiquetas</mat-label>
-                <mat-chip-list #chipList aria-label="Tag selection">
-                  <mat-chip
-                    *ngFor="let tag of tags"
-                    (removed)="remove(tag)">
-                    {{tag}}
-                    <button matChipRemove>
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip>
-                  <input
-                    placeholder="Nueva Etiqueta..."
-                    #tagInput
-                    [formControl]="tagCtrl"
-                    [matAutocomplete]="auto"
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                  <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-                    {{tag}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-        </div>
-
-        <mat-slide-toggle *ngIf="!fechaSet" (click)="openDialog()"  [checked]="fechaSet">Programar publicación</mat-slide-toggle>
-
-        <p *ngIf="!fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará de inmediato tras su confirmación</p>
-        <p *ngIf="fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
-
-        <div *ngIf="!fechaSet" style="text-align: center; margin-top: 65px;">
-            <button mat-raised-button color="primary" style="margin-right: 4px;">Publicar</button>
-        </div> 
-
-        <div *ngIf="fechaSet" style="text-align: center; margin-top: 65px;">
-          <button mat-raised-button color="accent" style="margin-right: 4px;">Programar</button>
-          <button mat-raised-button color="warn" style="margin-right: 4px;" (click)="cancelarProgramacion()">Cancelar</button>
-
-        </div>
+    <div *ngIf="fechaSet" style="text-align: center; margin-top: 65px;">
+      <button mat-raised-button color="accent" style="margin-right: 4px;">Programar</button>
+      <button mat-raised-button color="warn" style="margin-right: 4px;" (click)="cancelarProgramacion()">Cancelar</button>
+    </div>
                   
 
-    </form>
+  </form>
     
     
 </div>

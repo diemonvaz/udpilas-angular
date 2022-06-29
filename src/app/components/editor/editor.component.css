@@ -8,10 +8,11 @@
    align-content: stretch;   
 }
 
+
 #editor{
    /* Para ajustar la anchura inicial y anchura maxima del editor*/
-   min-width: 70%;
-   max-width: 70%;
+   min-width: 60%;
+   max-width: 60%;
 }
 
 

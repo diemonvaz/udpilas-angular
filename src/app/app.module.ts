@@ -29,6 +29,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { EditorDateDialogComponent } from './components/editor-date-dialog/editor-date-dialog.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -39,7 +44,9 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     NoticiasComponent,
     TiendaComponent,
     EditorComponent,
-    EditorDateDialogComponent
+    EditorDateDialogComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +72,9 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     MatSlideToggleModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatMomentModule
+    NgxMatMomentModule,
+    FlexLayoutModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
