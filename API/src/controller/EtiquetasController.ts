@@ -17,13 +17,46 @@ export class EtiquetasController {
                 res.send(etiqueta);
             }
             else {
-                res.status(404).json({message: 'Socio no encontrado'});
+                res.status(404).json({message: 'Etiqueta no encontrada'});
             }
         }catch(e){
             console.log(e);
             res.status(500).json({message: 'Error'});
         }
     };
+
+    
+    static getAll = async (req: Request, res: Response)=>{
+
+        const repository = getRepository(Etiquetas);
+        try{
+            const etiquetas = await repository.find();
+            res.send(etiquetas);
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+
+    static postEtiqueta = async (req: Request, res: Response)=>{
+        try {
+            const {
+                nombre
+            } = req.body;
+            const etiqueta = Etiquetas.create({
+                nombre: nombre
+            });
+            await etiqueta.save();
+            return res.json(etiqueta);
+        } catch(e) {
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+        
+    };
+
+
 }
 
 export default EtiquetasController;

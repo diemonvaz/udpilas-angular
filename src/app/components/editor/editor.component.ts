@@ -1,3 +1,7 @@
+import { EtiquetasService } from './../../services/etiquetas.service';
+import { Etiqueta } from './../../models/Etiqueta';
+import { NoticiasService } from './../../services/noticias.service';
+import { Noticia } from 'src/app/models/Noticia';
 import { EditorDateDialogComponent } from './../editor-date-dialog/editor-date-dialog.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -9,30 +13,26 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
+  providers: [NoticiasService,
+              EtiquetasService],
   styleUrls: ['./editor.component.css']
 })
 
-
 export class EditorComponent implements OnInit {
 
-  postId;
   ngOnInit(): void {
-    this.http.post<any>('https://reqres.in/api/posts', { title: 'Angular POST Request Example' }).subscribe(data => {
-        this.postId = data.title;
-    })
-    
+
   }
 
   public Editor = ClassicEditor;
   
 
-  constructor(public dialog: MatDialog, private http: HttpClient) { 
+  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
     
     /*CHIPS PARA LAS ETIQUETAS*/
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -79,9 +79,10 @@ export class EditorComponent implements OnInit {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
-  tags: string[] = ['UDPilas'];
-  allTags: string[] = ['Senior', 'Juveniles', 'Portada','Directiva','Liga','Anuncios', 'Abonos'];
+  filteredTags: Observable<String[]>;
+  tags: String[] = ['UDPilas'];
+  allTags: String[] = ['eee', 'eee'];
+  
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -97,7 +98,7 @@ export class EditorComponent implements OnInit {
     this.tagCtrl.setValue(null);
   }
 
-  remove(tag: string): void {
+  remove(tag: String): void {
     const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
@@ -111,7 +112,7 @@ export class EditorComponent implements OnInit {
     this.tagCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: String): String[] {
     const filterValue = value.toLowerCase();
 
     return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
@@ -156,11 +157,60 @@ export class EditorComponent implements OnInit {
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  
     console.log(this.tags);
+    console.log(this.fechaSetted);
+    let tituloPublicacion = f.value.tituloPub;
+    let contenidoNoticia;
     if (this.myEditor && this.myEditor.editorInstance) {
       console.log(this.myEditor.editorInstance.getData());
+       contenidoNoticia = this.myEditor.editorInstance.getData();
     }
+    //aqui buscamos el nick del usuario logeado que está escribiendo la publicacion
+    ////
+    let fechaElegida = this.fechaSetted.toISOString().slice(0, 19).replace('T', ' ');;
+    let fechaCre = new Date();
+    let fechaCreStr;
+    let fechaPub;
+    let fechaPubStr;
+
+    if(this.fechaSet){ //aun no funciona si programamos
+      fechaCreStr = fechaCre.toISOString().slice(0, 19).replace('T', ' ');
+      fechaPubStr = fechaElegida;
+    }else{
+      fechaCreStr = fechaElegida;
+      fechaPubStr = fechaElegida;
+    }
+
+    const et: Etiqueta = {nombre: ''} as Etiqueta;
+    let etiquetasAsociadas: Etiqueta[] = [];
+    for (let i = 0; i < this.tags.length; i++) {
+      const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
+      etiquetasAsociadas.push(et);
+    }
+    
+    //this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas);
   }
 
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  //Llamadas al servicio para post noticias, get etiquetas y demás
+
+  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[]): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas} as Noticia;
+    this.noticiasService.addNoticia(nuevaNoticia).subscribe();
+
+  }
+
+  getAllEtiquetas(): String[] {
+    let etiquetasArray: String[];
+    this.etiquetasService.getAllEtiquetas().subscribe(res => {
+      console.log(res);
+      for (let i = 0; i < res.length; i++) {
+        etiquetasArray.push(res[i].nombre);
+      }
+    });
+    return etiquetasArray;
+  }
   
 
 }
