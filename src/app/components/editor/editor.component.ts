@@ -26,7 +26,7 @@ import {NgForm} from '@angular/forms';
 export class EditorComponent implements OnInit {
 
   ngOnInit(): void {
-
+    
   }
 
   public Editor = ClassicEditor;
@@ -35,6 +35,7 @@ export class EditorComponent implements OnInit {
   constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
     
     /*CHIPS PARA LAS ETIQUETAS*/
+    this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
@@ -81,7 +82,7 @@ export class EditorComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: Observable<String[]>;
   tags: String[] = ['UDPilas'];
-  allTags: String[] = ['eee', 'eee'];
+  allTags: String[];
   
 
   add(event: MatChipInputEvent): void {
@@ -90,6 +91,7 @@ export class EditorComponent implements OnInit {
     // Add our tag
     if (value) {
       this.tags.push(value);
+      this.addNuevaEtiqueta(value);
     }
 
     // Clear the input value
@@ -187,7 +189,7 @@ export class EditorComponent implements OnInit {
       etiquetasAsociadas.push(et);
     }
     
-    //this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas);
+    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas);
   }
 
 
@@ -201,15 +203,20 @@ export class EditorComponent implements OnInit {
 
   }
 
-  getAllEtiquetas(): String[] {
-    let etiquetasArray: String[];
+   getAllEtiquetas(): String[] {
+    let etiquetasArray: String[] = [];
     this.etiquetasService.getAllEtiquetas().subscribe(res => {
-      console.log(res);
       for (let i = 0; i < res.length; i++) {
         etiquetasArray.push(res[i].nombre);
       }
     });
     return etiquetasArray;
+  }
+
+  //en typeorm verificamos si ya existe, y si es el caso, no la introducimos en BD
+  addNuevaEtiqueta(nombre: String): void {
+    const nuevaEtiqueta: Etiqueta = {nombre} as Etiqueta;
+    this.etiquetasService.addEtiqueta(nuevaEtiqueta).subscribe();
   }
   
 

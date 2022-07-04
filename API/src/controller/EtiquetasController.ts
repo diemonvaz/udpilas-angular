@@ -44,11 +44,14 @@ export class EtiquetasController {
             const {
                 nombre
             } = req.body;
-            const etiqueta = Etiquetas.create({
-                nombre: nombre
-            });
-            await etiqueta.save();
-            return res.json(etiqueta);
+            const aux = await Etiquetas.findOne({nombre: req.body.nombre});
+            if(aux == null) {
+                const etiqueta = Etiquetas.create({
+                    nombre: nombre
+                });
+                await etiqueta.save();
+                return res.json(etiqueta);
+            }
         } catch(e) {
             console.log(e);
             res.status(500).json({message: 'Error'});
