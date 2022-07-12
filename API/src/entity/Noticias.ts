@@ -23,7 +23,7 @@ export class Noticias extends BaseEntity{
     @Column({type: "date", nullable: true})
     fechaPublicacion: Date;
 
-    @ManyToMany(() => Etiquetas, etiq => etiq.noticias, {cascade: true})
+    @ManyToMany(() => Etiquetas, etiq => etiq.nombre, {cascade: true})
     @JoinTable()
     etiquetas: Etiquetas[];
 

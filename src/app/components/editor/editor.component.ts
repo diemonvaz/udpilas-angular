@@ -89,9 +89,13 @@ export class EditorComponent implements OnInit {
     const value = (event.value || '').trim();
 
     // Add our tag
+    
     if (value) {
-      this.tags.push(value);
-      this.addNuevaEtiqueta(value);
+      if (!this.tags.includes(value)) {
+        this.tags.push(value);
+        this.addNuevaEtiqueta(value);
+      }
+      
     }
 
     // Clear the input value
@@ -109,9 +113,13 @@ export class EditorComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
+    
+    if (!this.tags.includes(event.option.viewValue)) {
+      this.tags.push(event.option.viewValue);
+      this.tagInput.nativeElement.value = '';
+      this.tagCtrl.setValue(null);
+    }
+    
   }
 
   private _filter(value: String): String[] {

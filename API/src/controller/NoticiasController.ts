@@ -35,6 +35,7 @@ export class NoticiasController {
                 fechaPublicacion,
                 etiquetas
             } = req.body;
+            //await funcion auxiliar para checkear si las etiquetas ya están en BD
             const noticia = Noticias.create({
                 tituloNoticia: tituloNoticia,
                 contenidoNoticia: contenidoNoticia,
