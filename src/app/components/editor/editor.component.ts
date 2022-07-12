@@ -168,16 +168,17 @@ export class EditorComponent implements OnInit {
     }
     //aqui buscamos el nick del usuario logeado que está escribiendo la publicacion
     ////
-    let fechaElegida = this.fechaSetted.toISOString().slice(0, 19).replace('T', ' ');;
+    
     let fechaCre = new Date();
     let fechaCreStr;
     let fechaPub;
     let fechaPubStr;
 
-    if(this.fechaSet){ //aun no funciona si programamos
+    if(this.fechaSet){ //Si programamos la fecha
       fechaCreStr = fechaCre.toISOString().slice(0, 19).replace('T', ' ');
-      fechaPubStr = fechaElegida;
+      fechaPubStr = this.fechaSetted;
     }else{
+      let fechaElegida = this.fechaSetted.toISOString().slice(0, 19).replace('T', ' ');
       fechaCreStr = fechaElegida;
       fechaPubStr = fechaElegida;
     }
