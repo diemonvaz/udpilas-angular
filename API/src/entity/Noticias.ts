@@ -23,6 +23,9 @@ export class Noticias extends BaseEntity{
     @Column({type: "date", nullable: true})
     fechaPublicacion: Date;
 
+    @Column({type: "bool", nullable: false})
+    esPortada: Boolean;
+
     @ManyToMany(type => Etiquetas, etiqueta => etiqueta.noticias)
     @JoinTable()
     etiquetas: Etiquetas[];

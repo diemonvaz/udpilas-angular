@@ -61,10 +61,15 @@
       </mat-form-field>
     </div>
 
-    <mat-slide-toggle *ngIf="!fechaSet" (change)="openDialog()" [checked]="fechaSet" id="toggleProgramar">Programar publicación</mat-slide-toggle>
-
-    <p *ngIf="!fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará de inmediato tras su confirmación</p>
-    <p *ngIf="fechaSet" style="font-style:italic; margin-top: 40px;"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
+    <div style="text-align: center; margin-top: 30px;">
+      <mat-slide-toggle *ngIf="!fechaSet" (change)="openDialog()" [checked]="fechaSet" id="toggleProgramar">Programar publicación</mat-slide-toggle>
+      <p></p>
+      <mat-slide-toggle (change)="cambiaEstado()" id="toggleSetPortada" >Publicación de portada</mat-slide-toggle>
+    </div>
+    
+    
+    <p *ngIf="!fechaSet" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará de inmediato tras su confirmación</p>
+    <p *ngIf="fechaSet" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
 
     <div *ngIf="!fechaSet" style="text-align: center; margin-top: 65px;">
         <button mat-raised-button color="primary" style="margin-right: 4px;" type="submit">Publicar</button>

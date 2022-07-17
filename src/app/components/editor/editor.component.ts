@@ -161,7 +161,13 @@ export class EditorComponent implements OnInit {
   
 /* Para realizar el submit del formulario completo, incluyendo contenido del editor */
 
+  public portada = false;
+  
+  cambiaEstado() {
+    this.portada = !this.portada;
+  }
 
+  
   @ViewChild('myEditor') myEditor: any;
   onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
@@ -197,17 +203,18 @@ export class EditorComponent implements OnInit {
       const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
       etiquetasAsociadas.push(et);
     }
-    
-    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas);
+    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada);
   }
+
+
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //Llamadas al servicio para post noticias, get etiquetas y demás
 
-  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[]): void {
-    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas} as Noticia;
+  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada} as Noticia;
     this.noticiasService.addNoticia(nuevaNoticia).subscribe();
 
   }
@@ -227,6 +234,8 @@ export class EditorComponent implements OnInit {
     const nuevaEtiqueta: Etiqueta = {nombre} as Etiqueta;
     this.etiquetasService.addEtiqueta(nuevaEtiqueta).subscribe();
   }
-  
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
 
 }

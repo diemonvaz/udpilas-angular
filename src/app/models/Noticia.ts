@@ -8,4 +8,5 @@ export interface Noticia {
     fechaCreacion: String;
     fechaPublicacion: String;
     etiquetas: Etiqueta[];
+    esPortada: Boolean;
   }

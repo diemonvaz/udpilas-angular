@@ -34,7 +34,8 @@ export class NoticiasController {
                 usuario,
                 fechaCreacion,
                 fechaPublicacion,
-                etiquetas
+                etiquetas,
+                esPortada
             } = req.body;
             
             const noticia = Noticias.create({
@@ -44,6 +45,7 @@ export class NoticiasController {
                 fechaCreacion: fechaCreacion,
                 fechaPublicacion: fechaPublicacion,
                 etiquetas: etiquetas,
+                esPortada: esPortada,
             });
             await noticia.save();
            
