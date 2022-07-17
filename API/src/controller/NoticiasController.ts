@@ -1,6 +1,7 @@
 import {getRepository} from "typeorm";
 import { Request, Response} from "express";
 import { Noticias } from "../entity/Noticias";
+import { Etiquetas } from "../entity/Etiquetas";
 
 
 
@@ -35,16 +36,33 @@ export class NoticiasController {
                 fechaPublicacion,
                 etiquetas
             } = req.body;
-            //await funcion auxiliar para checkear si las etiquetas ya están en BD
+            
             const noticia = Noticias.create({
                 tituloNoticia: tituloNoticia,
                 contenidoNoticia: contenidoNoticia,
                 usuario: usuario,
                 fechaCreacion: fechaCreacion,
                 fechaPublicacion: fechaPublicacion,
-                etiquetas: etiquetas
+                etiquetas: etiquetas,
             });
             await noticia.save();
+           
+            let etiquetasTotales: Etiquetas[] = [];
+            for (let i = 0; i < etiquetas.length; i++) {
+                console.log(etiquetas[i].nombre);
+                const aux = await Etiquetas.findOne({nombre: etiquetas[i].nombre}); 
+                if(aux==null) { //si es una etiqueta nueva que no se encuentra en BD
+                    let e1 = Etiquetas.create();
+                    e1.nombre = etiquetas[i].nombre;
+                    await e1.save();
+                    etiquetasTotales.push(e1);
+                }else{
+                    etiquetasTotales.push(aux);
+                }
+            }
+            noticia.etiquetas = etiquetasTotales;
+            await noticia.save();
+            
             return res.json(noticia);
         } catch(e) {
             console.log(e);
