@@ -1,4 +1,5 @@
 import { Etiqueta } from "./Etiqueta";
+import { Imagen } from "./Imagen";
 
 //interfaz con las propiedades requeridas de la noticia
 export interface Noticia {
@@ -9,4 +10,6 @@ export interface Noticia {
     fechaPublicacion: String;
     etiquetas: Etiqueta[];
     esPortada: Boolean;
+    imagen: Imagen;
+    imagenes: Imagen[];
   }

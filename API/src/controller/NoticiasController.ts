@@ -35,9 +35,11 @@ export class NoticiasController {
                 fechaCreacion,
                 fechaPublicacion,
                 etiquetas,
-                esPortada
+                esPortada,
+                imagen,
+                imagenes
             } = req.body;
-            
+            console.log(req.body);
             const noticia = Noticias.create({
                 tituloNoticia: tituloNoticia,
                 contenidoNoticia: contenidoNoticia,
@@ -46,6 +48,8 @@ export class NoticiasController {
                 fechaPublicacion: fechaPublicacion,
                 etiquetas: etiquetas,
                 esPortada: esPortada,
+                imagen: imagen,
+                imagenes: imagenes
             });
             await noticia.save();
            

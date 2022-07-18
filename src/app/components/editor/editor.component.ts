@@ -5,7 +5,7 @@ import { Noticia } from 'src/app/models/Noticia';
 import { EditorDateDialogComponent } from './../editor-date-dialog/editor-date-dialog.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER, O} from '@angular/cdk/keycodes';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
+import { Imagen } from 'src/app/models/Imagen';
 
 
 @Component({
@@ -203,7 +204,11 @@ export class EditorComponent implements OnInit {
       const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
       etiquetasAsociadas.push(et);
     }
-    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada);
+    //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
+    let imgPrincipal: Imagen = {nombre: 'imagenPrueba'} as Imagen;
+    let imagenesEnPublicacion: Imagen[] = [];
+    imagenesEnPublicacion.push(imgPrincipal);
+    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, imgPrincipal, imagenesEnPublicacion);
   }
 
 
@@ -211,10 +216,10 @@ export class EditorComponent implements OnInit {
 
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
-  //Llamadas al servicio para post noticias, get etiquetas y demás
+  //Llamadas a los servicios para post noticias, get etiquetas y demás
 
-  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean): void {
-    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada} as Noticia;
+  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, imagen: Imagen, imagenes: Imagen[]): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, imagen, imagenes} as Noticia;
     this.noticiasService.addNoticia(nuevaNoticia).subscribe();
 
   }
@@ -233,6 +238,11 @@ export class EditorComponent implements OnInit {
   addNuevaEtiqueta(nombre: String): void {
     const nuevaEtiqueta: Etiqueta = {nombre} as Etiqueta;
     this.etiquetasService.addEtiqueta(nuevaEtiqueta).subscribe();
+  }
+
+
+  storeImage(): void {
+
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////

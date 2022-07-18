@@ -1,5 +1,6 @@
+import { Imagenes } from './Imagenes';
 import { Etiquetas } from './Etiquetas';
-import {Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable, BaseEntity, ManyToOne} from "typeorm";
 
 @Entity("noticias")
 @Unique(["idnoticias"])
@@ -26,9 +27,17 @@ export class Noticias extends BaseEntity{
     @Column({type: "bool", nullable: false})
     esPortada: Boolean;
 
+    @ManyToOne(() => Imagenes, imagen => imagen.noticias, {cascade: true})
+    imagen: Imagenes;
+
+    @ManyToMany(type => Imagenes, imagen => imagen.noticiasMTM, {cascade: true} )
+    @JoinTable()
+    imagenes: Imagenes[];
+
     @ManyToMany(type => Etiquetas, etiqueta => etiqueta.noticias)
     @JoinTable()
     etiquetas: Etiquetas[];
 
+   
 
 }
