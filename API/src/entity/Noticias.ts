@@ -27,10 +27,10 @@ export class Noticias extends BaseEntity{
     @Column({type: "bool", nullable: false})
     esPortada: Boolean;
 
-    @ManyToOne(() => Imagenes, imagen => imagen.noticias, {cascade: true})
+    @ManyToOne(type => Imagenes, imagen => imagen.noticias)
     imagen: Imagenes;
 
-    @ManyToMany(type => Imagenes, imagen => imagen.noticiasMTM, {cascade: true} )
+    @ManyToMany(type => Imagenes, imagen => imagen.noticiasMTM)
     @JoinTable()
     imagenes: Imagenes[];
 

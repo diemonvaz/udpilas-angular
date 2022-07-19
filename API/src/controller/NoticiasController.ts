@@ -2,6 +2,7 @@ import {getRepository} from "typeorm";
 import { Request, Response} from "express";
 import { Noticias } from "../entity/Noticias";
 import { Etiquetas } from "../entity/Etiquetas";
+import { Imagenes } from "../entity/Imagenes";
 
 
 
@@ -51,8 +52,21 @@ export class NoticiasController {
                 imagen: imagen,
                 imagenes: imagenes
             });
+            //tratamos imagen principal para evitar duplicidades en caso de usarse en varias noticias a la vez
+            //a diferencia de los manyToMany, tenemos que asignar el id de la imagen principal a la noticia antes
+            //de guardarla, ya que es foreing key hacia la tabla imagenes.
+            const aux3 = await Imagenes.findOne({nombre: imagen.nombre});
+            if(aux3==null){
+                let e3 = Imagenes.create();
+                e3.nombre = imagen.nombre;
+                await e3.save();
+                noticia.imagen = e3;
+            }else{
+                noticia.imagen = aux3;
+            }
+
             await noticia.save();
-           
+           //tratamos etiquetas para evitar duplicidades en las tablas de relaciones
             let etiquetasTotales: Etiquetas[] = [];
             for (let i = 0; i < etiquetas.length; i++) {
                 console.log(etiquetas[i].nombre);
@@ -68,7 +82,24 @@ export class NoticiasController {
             }
             noticia.etiquetas = etiquetasTotales;
             await noticia.save();
-            
+
+            //tratamos imagenes para evitar duplicidades en las tablas de relaciones
+            let imagenesTotales: Imagenes[] = [];
+            for (let i = 0; i < imagenes.length; i++) {
+                console.log(imagenes[i].nombre);
+                const aux2 = await Imagenes.findOne({nombre: imagenes[i].nombre}); 
+                if(aux2==null) { 
+                    let e2 = Imagenes.create();
+                    e2.nombre = imagenes[i].nombre;
+                    await e2.save();
+                    imagenesTotales.push(e2);
+                }else{
+                    imagenesTotales.push(aux2);
+                }
+            }
+            noticia.imagenes = imagenesTotales;
+            await noticia.save();
+        
             return res.json(noticia);
         } catch(e) {
             console.log(e);

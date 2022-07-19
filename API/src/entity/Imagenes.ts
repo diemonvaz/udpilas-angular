@@ -11,7 +11,7 @@ export class Imagenes extends BaseEntity{
     @Column({type: "text", nullable: false})
     nombre: string;
     //este oneToMany es opcional en el contexto, dudo que nos haga falta. Eliminarlo eventualmente.
-    @OneToMany(()  => Noticias, noticia  => noticia.imagen)
+    @OneToMany(type  => Noticias, noticia  => noticia.imagen)
     noticias: Noticias[];
 
     @ManyToMany(type => Noticias, noticia => noticia.imagenes)

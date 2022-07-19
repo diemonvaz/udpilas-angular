@@ -204,10 +204,14 @@ export class EditorComponent implements OnInit {
       const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
       etiquetasAsociadas.push(et);
     }
+    
+    let imgPrincipal: Imagen = {nombre: this.archivoImagen} as Imagen;
     //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
-    let imgPrincipal: Imagen = {nombre: 'imagenPrueba'} as Imagen;
+    let imgTest1: Imagen = {nombre: 'imagenTest1'} as Imagen;
+    let imgTest2: Imagen = {nombre: 'imagenTest2'} as Imagen;
     let imagenesEnPublicacion: Imagen[] = [];
-    imagenesEnPublicacion.push(imgPrincipal);
+    imagenesEnPublicacion.push(imgTest1);
+    imagenesEnPublicacion.push(imgTest2);
     this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, imgPrincipal, imagenesEnPublicacion);
   }
 
