@@ -6,16 +6,15 @@
         
         <!-- elemento fxFlex que contedrá la noticia de portada 1 -->
         <!-- el fxFlex.sm se puede poner auto tambien para que al reducir coja el 100% o modificar al gusto-->
-        <div fxFlex = "60%"  fxFlex.xs="auto" fxFlex.sm="50%" >
+        <div fxFlex = "60%"  fxFlex.xs="auto" fxFlex.sm="50%"  *ngFor="">
 
             <mat-card class="mat-elevation-z4">
                 
                 <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
                 <mat-card-content>
         
-                    <p style="font-size:medium">
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
+                    <p style="font-size:medium" >
+                        
                     </p>
         
                 </mat-card-content>
@@ -23,7 +22,7 @@
                 <mat-card-actions>
                     <button mat-raised-button basic="primary">Compartir</button>
                 </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
+                <mat-card-subtitle></mat-card-subtitle>
             </mat-card>
 
         </div>
@@ -31,7 +30,7 @@
         <!-- elemento fxFlex que contedrá la noticia de portada 2  -->
         <!-- el fxFlex.sm se puede poner auto tambien para que al reducir coja el 100%  o modificar al gusto-->
 
-        <div fxFlex = "40%"  fxFlex.xs="auto" fxFlex.sm="50%"  >
+        <div fxFlex = "40%"  fxFlex.xs="auto" fxFlex.sm="50%" *ngFor="" >
 
             <mat-card class="mat-elevation-z4">
                 
@@ -39,9 +38,7 @@
                 <mat-card-content>
         
                     <p style="font-size:medium">
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
-
+                        
                     </p>
         
                 </mat-card-content>
@@ -49,7 +46,7 @@
                 <mat-card-actions>
                     <button mat-raised-button basic="primary">Compartir</button> 
                 </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
+                <mat-card-subtitle></mat-card-subtitle>
             </mat-card>
 
         </div>
@@ -71,89 +68,27 @@
         </div>
 
         <!-- el ngFor podría iterar por el número de post existentes,   -->
-        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]" >
-
+        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let noticia of noticiasArray" >
             <mat-card class="mat-elevation-z4">
     
                 <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
                 <mat-card-content>
-            
+                     
                     <p style="font-size:medium">
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
-                        Esto es una descripcion de noticia test Esto es una descripcion de noticia test
+                        {{noticia.tituloNoticia}}
                     </p>
-            
+                    
                 </mat-card-content>
             
                 <mat-card-actions>
                     <button mat-raised-button basic="primary">Compartir</button>
                 </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
+                <mat-card-subtitle>{{noticia.fechaPublicacion}}</mat-card-subtitle>
+
             </mat-card>
-            
         </div>
 
-        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2]" >
-            <mat-card class="mat-elevation-z4">
         
-                <img mat-card-image src="./../../../assets/images/logo.png">
-                <mat-card-content>
-            
-                    <p style="font-size:medium">
-                        PRESIDENTE DIMISION
-                    </p>
-            
-                </mat-card-content>
-            
-                <mat-card-actions>
-                    <button mat-raised-button basic="primary">Compartir</button>
-                </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
-            </mat-card>
-        </div>
-
-        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%">
-            <mat-card class="mat-elevation-z4">
-        
-                <img mat-card-image src="./../../../assets/images/2020-Tuscany-Grand-Prix-Thursday-4-scaled.jpg">
-                <mat-card-content>
-            
-                    <p style="font-size:medium">
-                        PRESIDENTE DIMISION
-                    </p>
-            
-                </mat-card-content>
-            
-                <mat-card-actions>
-                    <button mat-raised-button basic="primary">Compartir</button>
-                </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
-            </mat-card>
-        </div>
-
-        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%">
-            <mat-card class="mat-elevation-z4">
-        
-                <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
-                <mat-card-content>
-            
-                    <p style="font-size:medium">
-                        PRESIDENTE DIMISION
-                    </p>
-            
-                </mat-card-content>
-            
-                <mat-card-actions>
-                    <button mat-raised-button basic="primary">Compartir</button>
-                </mat-card-actions>
-                <mat-card-subtitle>dd/MM/YYYY</mat-card-subtitle>
-            </mat-card>
-        </div>
-
-
-
-
-     
 
     </div>
 

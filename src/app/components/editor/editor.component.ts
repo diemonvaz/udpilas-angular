@@ -16,6 +16,9 @@ import {NgForm} from '@angular/forms';
 import { Imagen } from 'src/app/models/Imagen';
 
 
+
+
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -29,9 +32,10 @@ export class EditorComponent implements OnInit {
   ngOnInit(): void {
     
   }
-
+  //el ckeditor5 tiene integracion automatica con el textarea de html. Eventualmente se podria modificar,
+  //lo que nos ahorraria el editor.getData() y enviarlo, al hacer el submit del form automaticamente
+  //se enviarian los datos
   public Editor = ClassicEditor;
-  
 
   constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
     
@@ -221,6 +225,8 @@ export class EditorComponent implements OnInit {
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //Llamadas a los servicios para post noticias, get etiquetas y demás
+
+  
 
   addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, imagen: Imagen, imagenes: Imagen[]): void {
     const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, imagen, imagenes} as Noticia;

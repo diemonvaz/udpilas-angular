@@ -26,6 +26,25 @@ export class NoticiasController {
         }
     };
 
+    static getAll = async (req: Request, res: Response)=>{
+
+        const repository = getRepository(Noticias);
+        try{
+            const noticia = await repository.find();
+            if(noticia) {
+                res.send(noticia);
+            }
+            else {
+                res.status(404).json({message: 'Error al realizar GET sobre Noticias'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+
+
 
     static postNoticia = async (req: Request, res: Response)=>{
         try {

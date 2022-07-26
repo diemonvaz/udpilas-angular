@@ -19,7 +19,7 @@ const httpOptions = {
 
 
 export class NoticiasService {
-  urlPost = 'http://localhost:3000/noticias/';
+  urlNoticias = 'http://localhost:3000/noticias/';
   constructor(
     private http: HttpClient,
   ) {
@@ -29,10 +29,12 @@ export class NoticiasService {
 
   //metodo de tipo POST que ataca al controller de la API
   addNoticia(noticia: Noticia): Observable<Noticia> {
-    return this.http.post<Noticia>(this.urlPost+"postNoticia", noticia, httpOptions);
+    return this.http.post<Noticia>(this.urlNoticias+"postNoticia", noticia, httpOptions);
   }
 
-
+  getNoticias():Observable<Noticia[]> {
+    return this.http.get<Noticia[]>(this.urlNoticias+"getAll", httpOptions);
+  }
 
 
 

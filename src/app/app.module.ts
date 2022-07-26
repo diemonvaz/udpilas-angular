@@ -31,6 +31,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-mat
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     NoticiasComponent,
     TiendaComponent,
     EditorComponent,
-    EditorDateDialogComponent
+    EditorDateDialogComponent,
+    NoticiaViewComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgxMatTimepickerModule,
     NgxMatMomentModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

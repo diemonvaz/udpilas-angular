@@ -15,6 +15,20 @@ mat-card{
   flex-direction: column;
 }
 
+.mat-card:hover {
+  background-color: rgba(243, 243, 243, 0.938);
+  transition: all .35s ease-in-out;
+  
+}
+.mat-card:not(:hover) {
+  transition: all .35s ease-in-out;
+  
+}
+
+.mat-card:active {
+  background-color: rgba(243, 243, 243, 0.938);
+}
+
 
 .mat-card-content{
   flex-grow: 1;

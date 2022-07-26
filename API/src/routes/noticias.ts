@@ -4,7 +4,10 @@ import NoticiasController from '../controller/NoticiasController';
 const router = Router();
 
 //buscar noticias por id
-router.get('/:id', NoticiasController.getById);
+router.get('/getById/:id', NoticiasController.getById);
+
+//get a todas las noticias
+router.get('/getAll', NoticiasController.getAll);
 
 //insertar nuevas noticias
 router.post('/postNoticia', NoticiasController.postNoticia);
