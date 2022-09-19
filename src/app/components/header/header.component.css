@@ -29,3 +29,8 @@
     width: 280px;
     height: auto
 }
+
+a{
+    text-decoration:none;
+    color: black;
+}

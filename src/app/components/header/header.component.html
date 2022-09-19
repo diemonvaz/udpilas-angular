@@ -5,6 +5,19 @@
         <button mat-raised-button routerLink = "/registro" routerLinkActive = "Active" style="margin-right:8px">Registro</button>
     </div>
     -->
+
+    <div class="row" style="background-color: white;">
+        <div class="col-1"></div>
+        <div class="col-2 mt-2 mb-2">
+            <a routerLink = "/calendario" routerLinkActive="active"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i> CALENDARIO</a>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-2 mt-2 mb-2">
+            <a href="https://twitter.com/UDPilas/" target="_blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a href="https://facebook.com/UDPilas/" target="_blank"><i class="ms-3 fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+            <a href="https://instagram.com/UDPilas/" target="_blank"><i class="ms-3 fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </div>
     
     <div id = "banner-ppal">
         <a href="/"><img id = 'logo' src="assets/images/logo-PILAS.png" alt="image"></a>
@@ -12,27 +25,26 @@
     
     <div id="menu-container">
 
-        <button mat-button [matMenuTriggerFor]="clubMenu">Club</button>
+        <button mat-button [matMenuTriggerFor]="clubMenu">CLUB</button>
         <mat-menu #clubMenu = "matMenu" [overlapTrigger]="false">
-            <button mat-menu-item>Historia</button>
-            <button mat-menu-item>Organigrama</button>
-            <button mat-menu-item>Estadio</button>
+            <button mat-menu-item>HISTORIA</button>
+            <button mat-menu-item>ORGANIGRAMA</button>
+            <button mat-menu-item>ESTADIO</button>
         </mat-menu>
         
-        <button mat-button routerLink = "/noticias" routerLinkActive = "Active">Noticias</button>
+        <button mat-button routerLink = "/noticias" routerLinkActive = "Active">NOTICIAS</button>
         
-        <button mat-button [matMenuTriggerFor]="equipoMenu">Equipo</button>
+        <button mat-button [matMenuTriggerFor]="equipoMenu">EQUIPOS</button>
         <mat-menu #equipoMenu = "matMenu">
-            <button mat-menu-item>Senior</button>
-            <button mat-menu-item>Juveniles</button>
+            <button mat-menu-item>SENIOR</button>
+            <button mat-menu-item>JUVENILES</button>
+            <button mat-menu-item>CADETES</button>
+            <button mat-menu-item>UD PILAS FUTSAL</button>
+            <button mat-menu-item>C.D. TOR DEL REY DE PILAS</button>
         </mat-menu>
         
         
-        <button mat-button [matMenuTriggerFor]="abonadosMenu">Abonados</button>
-        <mat-menu #abonadosMenu = "matMenu">
-            <button mat-menu-item>Menu Item 1</button>
-            <button mat-menu-item>Menu Item 2</button>
-        </mat-menu>
+        <button mat-button routerLink = "/abonados" routerLinkActive = "Active">ABONADOS</button>
     
     </div>
         
