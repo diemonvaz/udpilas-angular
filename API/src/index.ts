@@ -1,6 +1,5 @@
 import { Usuarios } from './entity/Usuarios';
 import { Etiquetas } from './entity/Etiquetas';
-import { SociosController } from './controller/SociosController';
 import { Noticias } from './entity/Noticias';
 import 'reflect-metadata';
 import { Connection, ConnectionManager, createConnections, createConnection, getRepository, getConnectionManager, getManager } from 'typeorm';
@@ -11,7 +10,6 @@ import * as http from 'http';
 import * as cron from 'node-cron';
 import * as shell from 'shelljs';
 import routes from './routes';
-import { Socios } from './entity/Socios';
 import {Request, Response} from "express";
 import { print } from 'util';
 

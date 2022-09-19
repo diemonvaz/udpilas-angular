@@ -1,12 +1,13 @@
 <div id="header-container">
 
+    <!-- REGISTRO
     <div id = "banner-botones">
         <button mat-raised-button routerLink = "/registro" routerLinkActive = "Active" style="margin-right:8px">Registro</button>
     </div>
+    -->
     
     <div id = "banner-ppal">
-        <img id = 'logo' src="assets/images/logo.png" alt="image">
-        <h1 id="titulo">U.D. Pilas</h1>
+        <a href="/"><img id = 'logo' src="assets/images/logo-PILAS.png" alt="image"></a>
     </div>
     
     <div id="menu-container">
@@ -26,8 +27,6 @@
             <button mat-menu-item>Juveniles</button>
         </mat-menu>
         
-        
-        <button mat-button routerLink = "/tienda" routerLinkActive = "Active">Tienda</button>
         
         <button mat-button [matMenuTriggerFor]="abonadosMenu">Abonados</button>
         <mat-menu #abonadosMenu = "matMenu">
