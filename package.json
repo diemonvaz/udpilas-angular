@@ -30,6 +30,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.1",
+    "@ckeditor/ckeditor5-upload": "^34.2.0",
     "ckeditor5-custom-build": "file:ckeditor-custom",
     "ckeditor5-imgur-uploader": "^0.0.1",
     "font-awesome": "^4.7.0",

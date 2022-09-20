@@ -1,10 +1,6 @@
 
-import { map } from 'rxjs/operators';
 import { NoticiasService } from './../../services/noticias.service';
 import { Component, OnInit, VERSION } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Noticia } from 'src/app/models/Noticia';
 
 
@@ -34,8 +30,11 @@ export class NoticiasComponent implements OnInit {
   
 
   constructor( private noticiasService: NoticiasService) {
+    //aqui desarrollaremos la logica pa sacar tanto la foto de portada, como las etiquetas asociadas a cada noticia
     this.noticiasArray = this.getAllNoticias();
+    console.log(this.noticiasArray);
     this.noticiasPortadaArray = this.getNoticiasPortada();
+    
     
    }
   

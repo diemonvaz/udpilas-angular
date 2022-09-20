@@ -56,7 +56,7 @@ export class NoticiasController {
                 fechaPublicacion,
                 etiquetas,
                 esPortada,
-                imagen,
+                urlImagen,
                 imagenes
             } = req.body;
             console.log(req.body);
@@ -68,16 +68,17 @@ export class NoticiasController {
                 fechaPublicacion: fechaPublicacion,
                 etiquetas: etiquetas,
                 esPortada: esPortada,
-                imagen: imagen,
+                imagen: urlImagen,
                 imagenes: imagenes
             });
             //tratamos imagen principal para evitar duplicidades en caso de usarse en varias noticias a la vez
             //a diferencia de los manyToMany, tenemos que asignar el id de la imagen principal a la noticia antes
             //de guardarla, ya que es foreing key hacia la tabla imagenes.
-            const aux3 = await Imagenes.findOne({nombre: imagen.nombre});
+            
+            const aux3 = await Imagenes.findOne({nombre: urlImagen});
             if(aux3==null){
                 let e3 = Imagenes.create();
-                e3.nombre = imagen.nombre;
+                e3.nombre = urlImagen;
                 await e3.save();
                 noticia.imagen = e3;
             }else{

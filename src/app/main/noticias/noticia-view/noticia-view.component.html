@@ -1,1 +1,129 @@
-<p>noticia-view works!</p>
+<div class="noticia-view-container">
+
+    <div fxLayout="row wrap"  fxLayoutGap="50px grid">
+
+        <!-- elemento fxFlex que contedrá el mat card con la imagen de la noticia y to las cosas de la noticia debajo, en grande a la izquierda del contenedor -->
+        <div fxFlex = "75%"  fxFlex.xs="auto" fxFlex.sm="70%">
+            <mat-card class="mat-elevation-z4">
+                
+                <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
+                <mat-card-title>
+                    <h1 style="font-size:medium; font-weight: bold;" >
+                        Titulo de la noticia
+                    </h1>
+        
+                </mat-card-title>
+
+                <mat-card-actions>
+                    <div class="icons-box">
+                        <mat-icon svgIcon="instagram"></mat-icon>
+                        <mat-icon svgIcon="twitter"></mat-icon>
+                        <mat-icon svgIcon="facebook"></mat-icon>
+                        <mat-icon svgIcon="whatsapp"></mat-icon>
+                    </div>
+                    
+                </mat-card-actions>
+
+                <mat-card-content>
+        
+                    <p style="font-size:medium" >
+                        El Sevilla FC cayó duramente derrotado este sábado en Londres en la Emirates Cup, ante un Arsenal que fue claro merecedor de un t
+                        riunfo que comenzó a fraguar en el primer cuarto de encuentro. Dos tantos de Saka y otros dos de Gabriel Jesús dejaban todo prácticamente 
+                        sentenciado en el minuto 20, ante un Sevilla que no pudo replicar las buenas sensaciones de los tres primeros choques y se encontró con un Arsenal que lleg
+                        a muy enchufado al arranque de la Premier League dentro de seis días. Gabriel Jesús y Nketiah, en la recta final, terminaron de redondear el marcador para los de Mikel Arteta. 
+                        El partido estuvo repleto de actos en recuerdo a José Antonio Reyes, desde un aplauso en el minuto 9, intercambio de camisetas entre los técnicos o la entrega 
+                        del trofeo al MVP del partido a Gabriel Jesús por parte del padre del futbolista, Francisco Reyes.
+                    </p>
+        
+                </mat-card-content>
+    
+                <mat-card-subtitle></mat-card-subtitle>
+
+            </mat-card>
+
+        </div>
+
+        
+        <div fxFlex = "25%"  fxFlex.xs="auto" fxFlex.sm="30%"  >
+
+            <div fxLayout="column wrap"  fxLayoutGap="50px grid">
+
+                <div fxFlex = "100%"  fxFlex.xs="auto" fxFlex.sm="100%">
+
+                    <mat-card class="mat-elevation-z4">
+
+                        <mat-card-title>
+                            <h1 style="font-size:medium; font-weight: bold; text-align: center; background-color: rgb(91, 124, 235); color: white ;" >
+                                PRÓXIMOS PARTIDOS
+                            </h1>
+                
+                        </mat-card-title>
+                        <mat-card-content>
+                            <mat-grid-list cols="1" rowHeight="100px">
+                                <mat-grid-tile>1</mat-grid-tile>
+                                <mat-grid-tile>2</mat-grid-tile>
+                                <mat-grid-tile>3</mat-grid-tile>
+                            </mat-grid-list>
+                        </mat-card-content>
+
+                    </mat-card>
+
+                </div>
+
+                <div fxFlex = "100%"  fxFlex.xs="auto" fxFlex.sm="100%" >
+
+                    <mat-card class="mat-elevation-z4" >
+                        
+                        <mat-card-title>
+                            <h1 style="font-size:medium; font-weight: bold; text-align: center;" >
+                                ULTIMAS NOTICIAS
+                            </h1>
+                        </mat-card-title>
+                
+                        <mat-card-content>
+
+                            <mat-card fxLayout="row" fxLayoutGap="20px">
+                                <p>Text to be placed next to picture</p>
+                                <img mat-card-image id ="min-image" src="./../../../assets/images/E90cw7-XsAA2-kI.jpg">  
+                            </mat-card>
+
+                        </mat-card-content>
+
+                        <mat-card-content>
+                           
+                            <mat-card fxLayout="row" fxLayoutGap="20px">
+                                <p>Text to be placed next to picture</p>
+                                <img mat-card-image id ="min-image" src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">  
+                            </mat-card>
+                        </mat-card-content>
+
+                        <mat-card-content>
+                           
+                            <mat-card fxLayout="row" fxLayoutGap="20px">
+                                <p>Text to be placed next to picture</p>
+                                <img mat-card-image id ="min-image" src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">  
+                            </mat-card>
+                        </mat-card-content>
+                        
+                        <button mat-raised-button basic="primary" id="mas-noticias-btn" routerLink="/noticias">MÁS NOTICIAS</button> 
+                       
+                    </mat-card>
+
+                </div>
+               
+            </div>
+
+            
+        </div>
+          
+   
+         <!-- elemento fxFlex que contedrá "utilidades" a la derecha del contenedor  -->
+        
+
+
+    </div>
+
+    
+
+
+</div>

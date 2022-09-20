@@ -1,3 +1,4 @@
+import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoticiasComponent } from './main/noticias/noticias.component';
@@ -9,7 +10,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent},
-  { path: 'socios', component: AbonadosComponent}
+  { path: 'socios', component: AbonadosComponent},
+  { path: 'noticia/:titulo', component: NoticiaViewComponent}
+  //definir route default para 404
 ];
 
 @NgModule({

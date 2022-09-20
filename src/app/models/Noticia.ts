@@ -10,6 +10,6 @@ export interface Noticia {
     fechaPublicacion: String;
     etiquetas: Etiqueta[];
     esPortada: Boolean;
-    imagen: Imagen;
+    urlImagen: String;
     imagenes: Imagen[];
   }

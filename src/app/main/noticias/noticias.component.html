@@ -69,7 +69,7 @@
 
         <!-- el ngFor podría iterar por el número de post existentes,   -->
         <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let noticia of noticiasArray" >
-            <mat-card class="mat-elevation-z4">
+            <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.tituloNoticia]">
     
                 <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
                 <mat-card-content>
@@ -83,8 +83,15 @@
                 <mat-card-actions>
                     <button mat-raised-button basic="primary">Compartir</button>
                 </mat-card-actions>
-                <mat-card-subtitle>{{noticia.fechaPublicacion}}</mat-card-subtitle>
-
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+                    <mat-card-subtitle>{{noticia.fechaPublicacion}}</mat-card-subtitle>
+                    <mat-chip-list aria-label="Tags noticia">
+                        <mat-chip>Etiqueta1</mat-chip>
+                        <mat-chip>Etiqueta2</mat-chip>
+                        <mat-chip >Etiqueta2</mat-chip>
+                    </mat-chip-list>
+                </div>
+                
             </mat-card>
         </div>
 

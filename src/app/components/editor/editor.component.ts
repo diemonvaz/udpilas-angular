@@ -1,10 +1,11 @@
+import { Response } from 'express';
 import { EtiquetasService } from './../../services/etiquetas.service';
 import { Etiqueta } from './../../models/Etiqueta';
 import { NoticiasService } from './../../services/noticias.service';
 import { Noticia } from 'src/app/models/Noticia';
 import { EditorDateDialogComponent } from './../editor-date-dialog/editor-date-dialog.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as customBuild from '../../ckCustomBuild/build/ckeditor.js';
 import {COMMA, ENTER, O} from '@angular/cdk/keycodes';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
@@ -27,18 +28,20 @@ import { Imagen } from 'src/app/models/Imagen';
   styleUrls: ['./editor.component.css']
 })
 
-export class EditorComponent implements OnInit {
 
+export class EditorComponent implements OnInit {
+  http: any;
+  
   ngOnInit(): void {
     
   }
   //el ckeditor5 tiene integracion automatica con el textarea de html. Eventualmente se podria modificar,
   //lo que nos ahorraria el editor.getData() y enviarlo, al hacer el submit del form automaticamente
   //se enviarian los datos
-  public Editor = ClassicEditor;
-
+ 
+ 
   constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
-    
+    //this.authenticateOauth2Imgur();
     /*CHIPS PARA LAS ETIQUETAS*/
     this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -51,6 +54,46 @@ export class EditorComponent implements OnInit {
   }
 
 
+  public Editor = customBuild;
+
+  public editorConfig = {
+  
+    simpleUpload : {
+      
+      // The URL that the images are uploaded to.
+      uploadUrl: "https://api.imgur.com/3/image",
+            
+      // El problema es que no está detectando correctamente la imagen, el formato 
+      headers: {
+        Authorization: 'Bearer c209fe8601a9933fe0abba7fe0fb62f67ccd773a'
+        
+      },
+      data: 'image'
+    }
+  };
+
+  authenticateOauth2Imgur() {
+    var data = new FormData();
+    data.append("refresh_token", "a0fbf2adcffea1391280cd32d8bbe031a9f1d049");
+    data.append("client_id", "038629c1648a675");
+    data.append("client_secret", "cd1720a9bbdc179c353c43da47e36bea68f8090b");
+    data.append("grant_type", "refresh_token");
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function() {
+      if(this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+    xhr.open("POST", "https://api.imgur.com/oauth2/token");
+    xhr.send(data);
+  }
+
+  /* Este dataImagen seria un objeto que contendrá el archivo de la imagen ppal y al hacer submit de la noticia, se guardará en assets */
+  archivoSeleccionado: any;
+  urlImagen:any;
   /*SUBIDA DE IMAGEN*/
   @ViewChild('fileInput') fileInput: ElementRef;
   archivoImagen = '';
@@ -59,6 +102,7 @@ export class EditorComponent implements OnInit {
       this.archivoImagen = '';
       Array.from(imgFile.target.files).forEach((file: any) => {
         this.archivoImagen += file.name + ' - ';
+        this.archivoSeleccionado = file;
       });
       // HTML5 FileReader API
       let reader = new FileReader();
@@ -174,7 +218,7 @@ export class EditorComponent implements OnInit {
 
   
   @ViewChild('myEditor') myEditor: any;
-  onSubmit(f: NgForm) {
+  async onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  
     console.log(this.tags);
@@ -208,15 +252,16 @@ export class EditorComponent implements OnInit {
       const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
       etiquetasAsociadas.push(et);
     }
-    
-    let imgPrincipal: Imagen = {nombre: this.archivoImagen} as Imagen;
+    let urlImgPrincipal = await this.storeImage2(); 
+    //let imgPrincipal: Imagen = {nombre: this.archivoImagen} as Imagen;
     //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
+    //realmente esto no hará falta luego, puesto todas las imagenes a excepcion de la principal iran referenciadas en el content
     let imgTest1: Imagen = {nombre: 'imagenTest1'} as Imagen;
     let imgTest2: Imagen = {nombre: 'imagenTest2'} as Imagen;
     let imagenesEnPublicacion: Imagen[] = [];
     imagenesEnPublicacion.push(imgTest1);
     imagenesEnPublicacion.push(imgTest2);
-    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, imgPrincipal, imagenesEnPublicacion);
+    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal, imagenesEnPublicacion);
   }
 
 
@@ -228,8 +273,8 @@ export class EditorComponent implements OnInit {
 
   
 
-  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, imagen: Imagen, imagenes: Imagen[]): void {
-    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, imagen, imagenes} as Noticia;
+  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String, imagenes: Imagen[]): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen, imagenes} as Noticia;
     this.noticiasService.addNoticia(nuevaNoticia).subscribe();
 
   }
@@ -251,9 +296,27 @@ export class EditorComponent implements OnInit {
   }
 
 
-  storeImage(): void {
 
+  async storeImage2(): Promise<String> {
+    let response = await new Promise(resolve => {
+      var xhr = new XMLHttpRequest();
+      var data = new FormData();
+      data.append("image", this.archivoSeleccionado);
+      xhr.open("POST", "https://api.imgur.com/3/image", true);    
+      xhr.setRequestHeader("Authorization", "Bearer c209fe8601a9933fe0abba7fe0fb62f67ccd773a");
+      xhr.onload = function(e) {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function () {
+        resolve(undefined);
+        console.error("** An error occurred during the XMLHttpRequest");
+      };
+      xhr.send(data);
+   })
+   var obj = JSON.parse(response as string);
+   return obj.data.link;
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
 

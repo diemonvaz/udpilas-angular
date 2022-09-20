@@ -48,3 +48,8 @@ mat-card{
   
 }
 
+mat-chip {
+  padding: 10px 10px !important;
+  background-color:  rgb(91, 124, 235) !important;
+  color: white !important;
+}
