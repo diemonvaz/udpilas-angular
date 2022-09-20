@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { NoticiasComponent } from './main/noticias/noticias.component';
+import { AbonadosComponent } from './main/abonados/abonados.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -45,7 +46,8 @@ import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.
     NoticiasComponent,
     EditorComponent,
     EditorDateDialogComponent,
-    NoticiaViewComponent
+    NoticiaViewComponent,
+    AbonadosComponent
   ],
   imports: [
     BrowserModule,
