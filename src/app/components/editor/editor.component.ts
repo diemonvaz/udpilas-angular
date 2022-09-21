@@ -220,9 +220,6 @@ export class EditorComponent implements OnInit {
   @ViewChild('myEditor') myEditor: any;
   async onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  
-    console.log(this.tags);
-    console.log(this.fechaSetted);
     let tituloPublicacion = f.value.tituloPub;
     let contenidoNoticia;
     if (this.myEditor && this.myEditor.editorInstance) {
@@ -231,10 +228,8 @@ export class EditorComponent implements OnInit {
     }
     //aqui buscamos el nick del usuario logeado que está escribiendo la publicacion
     ////
-    
     let fechaCre = new Date();
     let fechaCreStr;
-    let fechaPub;
     let fechaPubStr;
 
     if(this.fechaSet){ //Si programamos la fecha
@@ -252,16 +247,21 @@ export class EditorComponent implements OnInit {
       const et: Etiqueta = {nombre: this.tags[i]} as Etiqueta;
       etiquetasAsociadas.push(et);
     }
-    let urlImgPrincipal = await this.storeImage2(); 
-    //let imgPrincipal: Imagen = {nombre: this.archivoImagen} as Imagen;
+    let urlImgPrincipal;
+    if (this.archivoSeleccionado != null) {
+      urlImgPrincipal = await this.storeImage2(); 
+    }
     //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
-    //realmente esto no hará falta luego, puesto todas las imagenes a excepcion de la principal iran referenciadas en el content
+    //realmente esto no hará falta luego, puesto todas las imagenes (incluyendo la portada) iran referenciadas en el content
     let imgTest1: Imagen = {nombre: 'imagenTest1'} as Imagen;
     let imgTest2: Imagen = {nombre: 'imagenTest2'} as Imagen;
     let imagenesEnPublicacion: Imagen[] = [];
     imagenesEnPublicacion.push(imgTest1);
     imagenesEnPublicacion.push(imgTest2);
-    this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal, imagenesEnPublicacion);
+    //Si el formulario cumple las validaciones de front-end, lo enviamos a backend
+    if(f.valid) {
+      this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal, imagenesEnPublicacion);
+    }
   }
 
 
