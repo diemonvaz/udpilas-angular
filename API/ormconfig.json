@@ -2,13 +2,14 @@
    {
       "name": "default",
       "type": "mysql",
-      "host": "127.0.0.1",
+      "host": "apiudp.mysql.database.azure.com",
       "port": 3306,
-      "username": "root",
-      "password": "",
+      "username": "Presi1971",
+      "password": "UDPdevel0p",
       "database": "udpilas",
       "synchronize": false,
       "logging": true,
+      "ssl": true,
       "entities": [
          "src/entity/**/*.ts"
       ],
