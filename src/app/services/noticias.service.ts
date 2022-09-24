@@ -1,3 +1,4 @@
+import { NoticiaRequest } from '../models/NoticiaRequest';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
@@ -32,11 +33,9 @@ export class NoticiasService {
     return this.http.post<Noticia>(this.urlNoticias+"postNoticia", noticia, httpOptions);
   }
 
-  getNoticias():Observable<Noticia[]> {
-    return this.http.get<Noticia[]>(this.urlNoticias+"getAll", httpOptions);
+  getNoticias():Observable<NoticiaRequest[]> {
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAll", httpOptions);
   }
-
-
 
 
 }

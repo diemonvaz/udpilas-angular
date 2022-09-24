@@ -2,6 +2,7 @@
 import { NoticiasService } from './../../services/noticias.service';
 import { Component, OnInit, VERSION } from '@angular/core';
 import { Noticia } from 'src/app/models/Noticia';
+import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 
 
 
@@ -24,13 +25,13 @@ export class NoticiasComponent implements OnInit {
     
   }
 
-
-  noticiasArray: Noticia[] = [];
-  noticiasPortadaArray: Noticia[] = [];
+  noticiasArray: NoticiaRequest[] = [];
+  noticiasPortadaArray: NoticiaRequest[] = [];
   
 
   constructor( private noticiasService: NoticiasService) {
     //aqui desarrollaremos la logica pa sacar tanto la foto de portada, como las etiquetas asociadas a cada noticia
+    //tendremos que sacar cada instancia de cada noticia, cada imagen de portada asociada a cada una y sus etiquetas
     this.noticiasArray = this.getAllNoticias();
     console.log(this.noticiasArray);
     this.noticiasPortadaArray = this.getNoticiasPortada();
@@ -50,9 +51,10 @@ export class NoticiasComponent implements OnInit {
   ///////////////////////////////////////////////////////////////////////////////////////////
   //LLAMADAS A LOS SERVICIOS
  
-  getAllNoticias(): Noticia[]{
+
+  getAllNoticias(): NoticiaRequest[]{
    
-    let todasNoticias: Noticia[] = [];
+    let todasNoticias: NoticiaRequest[] = [];
     this.noticiasService.getNoticias().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         todasNoticias.push(res[i]);
@@ -62,9 +64,9 @@ export class NoticiasComponent implements OnInit {
     
   }
 
-  getNoticiasPortada(): Noticia[]{
+  getNoticiasPortada(): NoticiaRequest[]{
    
-    let todasNoticiasPortada: Noticia[] = [];
+    let todasNoticiasPortada: NoticiaRequest[] = [];
     this.noticiasService.getNoticias().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         if(res[i].esPortada && todasNoticiasPortada.length < 2) {

@@ -5,7 +5,6 @@ import { Etiquetas } from "../entity/Etiquetas";
 import { Imagenes } from "../entity/Imagenes";
 
 
-
 export class NoticiasController {
 
     static getById = async (req: Request, res: Response)=>{
@@ -29,8 +28,10 @@ export class NoticiasController {
     static getAll = async (req: Request, res: Response)=>{
 
         const repository = getRepository(Noticias);
-        try{
-            const noticia = await repository.find();
+        try {
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .leftJoinAndSelect("noticia.imagen", "imagen").getMany();
+            console.log(noticia);
             if(noticia) {
                 res.send(noticia);
             }

@@ -15,9 +15,7 @@ import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
 import { Imagen } from 'src/app/models/Imagen';
-
-
-
+import { MyUploadAdapter } from './myCustomUploader';
 
 
 @Component({
@@ -41,7 +39,6 @@ export class EditorComponent implements OnInit {
  
  
   constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
-    //this.authenticateOauth2Imgur();
     /*CHIPS PARA LAS ETIQUETAS*/
     this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -49,29 +46,26 @@ export class EditorComponent implements OnInit {
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
     );
     /*CHIPS PARA LAS ETIQUETAS*/
-
-
   }
 
 
   public Editor = customBuild;
 
-  public editorConfig = {
-  
-    simpleUpload : {
-      
-      // The URL that the images are uploaded to.
-      uploadUrl: "https://api.imgur.com/3/image",
-            
-      // El problema es que no está detectando correctamente la imagen, el formato 
-      headers: {
-        Authorization: 'Bearer c209fe8601a9933fe0abba7fe0fb62f67ccd773a'
-        
-      },
-      data: 'image'
-    }
-  };
+ 
 
+  public onReady(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return new MyUploadAdapter(loader);
+    };
+    editor.ui
+      .getEditableElement()
+      .parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+      );
+  }
+
+  //Metodo para generar tokens cuando sea necesario
   authenticateOauth2Imgur() {
     var data = new FormData();
     data.append("refresh_token", "a0fbf2adcffea1391280cd32d8bbe031a9f1d049");
@@ -178,8 +172,6 @@ export class EditorComponent implements OnInit {
   }
   /*CHIPS PARA LAS ETIQUETAS*/
 
-
-
   /*PROCESAMIENTO DIALOG PARA FECHA DE PUBLICACION*/
   public fechaSet = false;
   public fechaSetted  = new Date();
@@ -259,11 +251,13 @@ export class EditorComponent implements OnInit {
     imagenesEnPublicacion.push(imgTest1);
     imagenesEnPublicacion.push(imgTest2);
     //Si el formulario cumple las validaciones de front-end, lo enviamos a backend
+    console.log(contenidoNoticia);
     if(f.valid) {
       this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal, imagenesEnPublicacion);
+      f.onReset();
+      window.location.reload();
     }
   }
-
 
 
 

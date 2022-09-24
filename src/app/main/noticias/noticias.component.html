@@ -1,3 +1,4 @@
+<meta name="referrer" content="no-referrer">
 
 <div class="noticias-container">
     <!-- el fxLayout es el contenedor flex, y los fxFlex, los hijos -->
@@ -71,7 +72,7 @@
         <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let noticia of noticiasArray" >
             <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.tituloNoticia]">
     
-                <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
+                <img mat-card-image src={{noticia.imagen.nombre}}>
                 <mat-card-content>
                      
                     <p style="font-size:medium">

@@ -1,13 +1,13 @@
-import { Etiqueta } from "./Etiqueta";
 import { Imagen } from "./Imagen";
 
-//interfaz con las propiedades requeridas de la noticia
-export interface Noticia {
+//Interfaz alternativa para los objetos noticias, para trabajar con los request de la API y poder 
+//obtener las relaciones existentes (Imagen)
+export interface NoticiaRequest {
     tituloNoticia: String;
     contenidoNoticia: String;
     usuario: String;
     fechaCreacion: String;
     fechaPublicacion: String;
     esPortada: Boolean;
-    urlImagen: String;
+    imagen: Imagen;
   }
