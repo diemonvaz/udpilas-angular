@@ -1,3 +1,4 @@
+import { Etiqueta } from './Etiqueta';
 import { Imagen } from "./Imagen";
 
 //Interfaz alternativa para los objetos noticias, para trabajar con los request de la API y poder 
@@ -10,4 +11,5 @@ export interface NoticiaRequest {
     fechaPublicacion: String;
     esPortada: Boolean;
     imagen: Imagen;
+    etiquetas: Etiqueta[];
   }

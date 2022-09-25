@@ -87,9 +87,7 @@
                 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
                     <mat-card-subtitle>{{noticia.fechaPublicacion}}</mat-card-subtitle>
                     <mat-chip-list aria-label="Tags noticia">
-                        <mat-chip>Etiqueta1</mat-chip>
-                        <mat-chip>Etiqueta2</mat-chip>
-                        <mat-chip >Etiqueta2</mat-chip>
+                        <mat-chip *ngFor="let etiqueta of noticia.etiquetas">{{etiqueta.nombre}}</mat-chip>
                     </mat-chip-list>
                 </div>
                 

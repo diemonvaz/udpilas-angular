@@ -26,11 +26,12 @@ export class NoticiasController {
     };
 
     static getAll = async (req: Request, res: Response)=>{
-
         const repository = getRepository(Noticias);
         try {
             const noticia = await repository.createQueryBuilder("noticia")
-                    .leftJoinAndSelect("noticia.imagen", "imagen").getMany();
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .orderBy("noticia.fechaPublicacion", "DESC")
+                    .getMany();
             console.log(noticia);
             if(noticia) {
                 res.send(noticia);

@@ -1,6 +1,6 @@
 
 import { NoticiasService } from './../../services/noticias.service';
-import { Component, OnInit, VERSION } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, VERSION } from '@angular/core';
 import { Noticia } from 'src/app/models/Noticia';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 
@@ -13,6 +13,7 @@ import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
   templateUrl: './noticias.component.html',
   providers: [NoticiasService],
   styleUrls: ['./noticias.component.css']
+  
 })
 
 
@@ -24,11 +25,11 @@ export class NoticiasComponent implements OnInit {
   ngOnInit() {
     
   }
-
+ 
+  
   noticiasArray: NoticiaRequest[] = [];
   noticiasPortadaArray: NoticiaRequest[] = [];
   
-
   constructor( private noticiasService: NoticiasService) {
     //aqui desarrollaremos la logica pa sacar tanto la foto de portada, como las etiquetas asociadas a cada noticia
     //tendremos que sacar cada instancia de cada noticia, cada imagen de portada asociada a cada una y sus etiquetas
@@ -39,9 +40,8 @@ export class NoticiasComponent implements OnInit {
     
    }
   
-
-
- 
+   
+    
 
 
 
