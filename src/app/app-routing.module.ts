@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent},
   { path: 'socios', component: AbonadosComponent},
-  { path: 'noticia/:titulo', component: NoticiaViewComponent}
+  { path: 'noticia/:idnoticias', component: NoticiaViewComponent}
   //definir route default para 404
 ];
 

@@ -70,7 +70,7 @@
 
         <!-- el ngFor podría iterar por el número de post existentes,   -->
         <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let noticia of noticiasArray" >
-            <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.tituloNoticia]">
+            <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.idnoticias]">
     
                 <img mat-card-image src={{noticia.imagen.nombre}}>
                 <mat-card-content>

@@ -23,7 +23,8 @@ export class NoticiasService {
   urlNoticias = 'http://localhost:3000/noticias/';
   constructor(
     private http: HttpClient,
-  ) {
+  ) 
+  {
       
   }
 
@@ -35,6 +36,10 @@ export class NoticiasService {
 
   getNoticias():Observable<NoticiaRequest[]> {
     return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAll", httpOptions);
+  }
+
+  getNoticiaById(id: String):Observable<NoticiaRequest> {
+    return this.http.get<NoticiaRequest>(this.urlNoticias+"getById/" + id, httpOptions);
   }
 
 

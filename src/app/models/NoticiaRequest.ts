@@ -4,6 +4,7 @@ import { Imagen } from "./Imagen";
 //Interfaz alternativa para los objetos noticias, para trabajar con los request de la API y poder 
 //obtener las relaciones existentes (Imagen)
 export interface NoticiaRequest {
+    idnoticias: Number;
     tituloNoticia: String;
     contenidoNoticia: String;
     usuario: String;

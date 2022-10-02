@@ -11,8 +11,8 @@
 
 #editor{
    /* Para ajustar la anchura inicial y anchura maxima del editor*/
-   min-width: 60%;
-   max-width: 60%;
+   min-width: 50%;
+   max-width: 50%;
 }
 
 
@@ -44,3 +44,5 @@
    font-size: 14px;
    color: gray;
 }
+
+

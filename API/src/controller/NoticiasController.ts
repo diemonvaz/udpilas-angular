@@ -12,8 +12,12 @@ export class NoticiasController {
         const id = req.params.id;
         const repository = getRepository(Noticias);
         try{
-            const noticia = await repository.findOne(id);
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .where("noticia.idnoticias = :id", { id: id})
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .getOne();
             if(noticia) {
+                console.log(noticia);
                 res.send(noticia);
             }
             else {

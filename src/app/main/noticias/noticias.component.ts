@@ -1,7 +1,7 @@
+import { NoticiaViewComponent } from './noticia-view/noticia-view.component';
 
 import { NoticiasService } from './../../services/noticias.service';
-import { Component, EventEmitter, OnInit, Output, VERSION } from '@angular/core';
-import { Noticia } from 'src/app/models/Noticia';
+import { Component, EventEmitter, OnInit, Output, VERSION, ViewChild } from '@angular/core';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 
 
@@ -25,7 +25,6 @@ export class NoticiasComponent implements OnInit {
   ngOnInit() {
     
   }
- 
   
   noticiasArray: NoticiaRequest[] = [];
   noticiasPortadaArray: NoticiaRequest[] = [];
@@ -39,10 +38,8 @@ export class NoticiasComponent implements OnInit {
     
     
    }
-  
-   
-    
 
+   
 
 
 
