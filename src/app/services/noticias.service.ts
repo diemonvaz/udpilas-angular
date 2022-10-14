@@ -42,5 +42,13 @@ export class NoticiasService {
     return this.http.get<NoticiaRequest>(this.urlNoticias+"getById/" + id, httpOptions);
   }
 
+  getNoticiaByTitulo(titulo: String):Observable<NoticiaRequest[]> {
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getByTitulo/" + titulo, httpOptions);
+  }
+
+  getNoticiaByEtiqueta(etiqueta: String):Observable<NoticiaRequest[]> {
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getByEtiqueta/" + etiqueta, httpOptions);
+  }
+
 
 }

@@ -2,8 +2,8 @@
 .noticias-container{
   /*display: flex;*/
   margin-top: 50px;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 15%;
+  margin-right: 15%;
   margin-bottom: 50px;
 }
 
@@ -53,3 +53,23 @@ mat-chip {
   background-color:  rgb(91, 124, 235) !important;
   color: white !important;
 }
+
+
+mat-button:focus{
+  background:rgb(91, 124, 235);
+  color: white;
+}
+
+
+
+mat-button-toggle-group {
+  margin-left: 12px;
+  margin-right: 12px;
+  border: none !important;
+ 
+}
+
+
+
+
+

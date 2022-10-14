@@ -3,9 +3,33 @@ import { Request, Response} from "express";
 import { Noticias } from "../entity/Noticias";
 import { Etiquetas } from "../entity/Etiquetas";
 import { Imagenes } from "../entity/Imagenes";
+import etiquetas from "../routes/etiquetas";
 
 
 export class NoticiasController {
+
+
+    static getAll = async (req: Request, res: Response)=>{
+        const repository = getRepository(Noticias);
+        try {
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .orderBy("noticia.fechaPublicacion", "DESC")
+                    .getMany();
+            console.log(noticia);
+            if(noticia) {
+                res.send(noticia);
+            }
+            else {
+                res.status(404).json({message: 'Error al realizar GET sobre Noticias'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+
 
     static getById = async (req: Request, res: Response)=>{
 
@@ -29,19 +53,24 @@ export class NoticiasController {
         }
     };
 
-    static getAll = async (req: Request, res: Response)=>{
+
+    //En getByTitulo tenemos que aplicar alguna medida de seguridad extra, sanetizar la query para evitar sql injection 
+    //aunque en el peor de los casos aqui solo podrian sacar informacion de otras noticias, no de usuarios
+
+    static getByTitulo = async (req: Request, res: Response)=>{
+        const tituloNoticia = req.params.tituloNoticia;
         const repository = getRepository(Noticias);
-        try {
+        try{
             const noticia = await repository.createQueryBuilder("noticia")
+                    .where("noticia.tituloNoticia like :tituloNoticia", { tituloNoticia: `%${tituloNoticia}%`})
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
-                    .orderBy("noticia.fechaPublicacion", "DESC")
                     .getMany();
-            console.log(noticia);
             if(noticia) {
+                console.log(noticia);
                 res.send(noticia);
             }
             else {
-                res.status(404).json({message: 'Error al realizar GET sobre Noticias'});
+                res.status(404).json({message: 'Noticia no encontrada'});
             }
         }catch(e){
             console.log(e);
@@ -49,7 +78,29 @@ export class NoticiasController {
         }
     };
 
+    static getByEtiqueta = async (req: Request, res: Response)=>{
+        const etiqueta = req.params.etiqueta;
+        const repository = getRepository(Noticias);
+        console.log(etiqueta);
+        try{
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .where('etiquetas.nombre = :etiqueta', { etiqueta: etiqueta})
+                    .getMany();
+            if(noticia) {
+                console.log(noticia);
+                res.send(noticia);
+            }
+            else {
+                res.status(404).json({message: 'Noticia no encontrada'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
 
+   
 
 
     static postNoticia = async (req: Request, res: Response)=>{

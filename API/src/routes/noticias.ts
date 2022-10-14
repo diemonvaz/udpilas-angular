@@ -6,6 +6,12 @@ const router = Router();
 //buscar noticias por id
 router.get('/getById/:id', NoticiasController.getById);
 
+//buscar noticias por titulo 
+router.get('/getByTitulo/:tituloNoticia', NoticiasController.getByTitulo);
+
+//buscar noticias por etiqueta 
+router.get('/getByEtiqueta/:etiqueta', NoticiasController.getByEtiqueta);
+
 //get a todas las noticias
 router.get('/getAll', NoticiasController.getAll);
 

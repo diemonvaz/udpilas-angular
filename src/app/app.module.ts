@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -35,6 +34,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -77,7 +77,9 @@ import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.
     NgxMatMomentModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonToggleModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

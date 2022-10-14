@@ -1,75 +1,32 @@
 <meta name="referrer" content="no-referrer">
 
+<!-- QUITAR ESTE DIV INICIAL Y APLICAR LOS MARGENES DIRECTAMENTE SOBRE EL DIV DEL LAYOUT -->
 <div class="noticias-container">
     <!-- el fxLayout es el contenedor flex, y los fxFlex, los hijos -->
     <!-- fxLayoutAlign="start strecht" por default -->
     <div fxLayout="row wrap"  fxLayoutGap="50px grid">
-        
-        <!-- elemento fxFlex que contedrá la noticia de portada 1 -->
-        <!-- el fxFlex.sm se puede poner auto tambien para que al reducir coja el 100% o modificar al gusto-->
-        <div fxFlex = "60%"  fxFlex.xs="auto" fxFlex.sm="50%"  *ngFor="">
 
-            <mat-card class="mat-elevation-z4">
-                
-                <img mat-card-image src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">
-                <mat-card-content>
-        
-                    <p style="font-size:medium" >
-                        
-                    </p>
-        
-                </mat-card-content>
-        
-                <mat-card-actions>
-                    <button mat-raised-button basic="primary">Compartir</button>
-                </mat-card-actions>
-                <mat-card-subtitle></mat-card-subtitle>
-            </mat-card>
-
-        </div>
-
-        <!-- elemento fxFlex que contedrá la noticia de portada 2  -->
-        <!-- el fxFlex.sm se puede poner auto tambien para que al reducir coja el 100%  o modificar al gusto-->
-
-        <div fxFlex = "40%"  fxFlex.xs="auto" fxFlex.sm="50%" *ngFor="" >
-
-            <mat-card class="mat-elevation-z4">
-                
-                <img mat-card-image src="./../../../assets/images/E90cw7-XsAA2-kI.jpg">
-                <mat-card-content>
-        
-                    <p style="font-size:medium">
-                        
-                    </p>
-        
-                </mat-card-content>
-        
-                <mat-card-actions>
-                    <button mat-raised-button basic="primary">Compartir</button> 
-                </mat-card-actions>
-                <mat-card-subtitle></mat-card-subtitle>
-            </mat-card>
-
-        </div>
-
-
+      
         <!-- elemento fxFlex que contedrá la barra de busqueda y navegacion por las noticias  -->
         <div fxFlex = "100%"  fxFlex.xs="100%" fxFlex.sm="100%" >
 
             <mat-toolbar>
-                <button mat-button color="custom">Senior</button>
-                <button mat-button color="custom">Juveniles</button>
-                <button mat-button color="custom">Club</button>
-                <button mat-button color="custom">General</button>
+                <mat-button-toggle-group value="Todas">
+                    <mat-button-toggle mat-button (click)="getAllNoticias()" value="Todas">Todas</mat-button-toggle>
+                    <mat-button-toggle mat-button  (click)="searchByEtiqueta('Actualidad')">Actualidad</mat-button-toggle>
+                    <mat-button-toggle (click)="searchByEtiqueta('Cronica')">Cronica</mat-button-toggle>
+                    <mat-button-toggle mat-button (click)="searchByEtiqueta('Juveniles')">Juveniles</mat-button-toggle>
+                    <mat-button-toggle mat-button (click)="searchByEtiqueta('Club')" >Club</mat-button-toggle>
+                </mat-button-toggle-group>
                 <div>
-                    <input type="text"><i class="material-icons">search</i>
+                    <input type="text" (keyup.enter)="searchByTitulo($event)"><i class="material-icons">search</i>
                 </div>
             </mat-toolbar>
 
         </div>
 
         <!-- el ngFor podría iterar por el número de post existentes,   -->
-        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let noticia of noticiasArray" >
+        <div fxFlex = "25%" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.md="33%" *ngFor="let noticia of noticiasArray" >
             <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.idnoticias]">
     
                 <img mat-card-image src={{noticia.imagen.nombre}}>
@@ -87,7 +44,7 @@
                 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
                     <mat-card-subtitle>{{noticia.fechaPublicacion}}</mat-card-subtitle>
                     <mat-chip-list aria-label="Tags noticia">
-                        <mat-chip *ngFor="let etiqueta of noticia.etiquetas">{{etiqueta.nombre}}</mat-chip>
+                        <mat-chip *ngFor="let etiqueta of noticia.etiquetas"  (click)="searchByEtiqueta(etiqueta.nombre)">{{etiqueta.nombre}}</mat-chip>
                     </mat-chip-list>
                 </div>
                 
@@ -97,5 +54,5 @@
         
 
     </div>
-
+    
 </div>
