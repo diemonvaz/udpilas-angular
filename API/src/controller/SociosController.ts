@@ -2,13 +2,11 @@ import {getRepository} from "typeorm";
 import { Request, Response} from "express";
 import { Socios } from "../entity/Socios";
 import moment = require("moment");
-import { validate } from "class-validator";
 
 
 export class SociosController {
 
     static getById = async (req: Request, res: Response)=>{
-
         const id = req.params.id;
         const repository = getRepository(Socios);
         try{
@@ -25,6 +23,92 @@ export class SociosController {
         }
     };
     
+
+    static getAll = async (req: Request, res: Response)=>{
+        const repository = getRepository(Socios);
+        try{
+            const etiquetas = await repository.find();
+            res.send(etiquetas);
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error al hacer GET sobre Socios'});
+        }
+    };
+
+
+
+    static postSocio = async (req: Request, res: Response)=>{
+        console.log(req);
+        try {
+            const {
+                nombre_completo,
+                domicilio,
+                poblacion,
+                telefono,
+                correo_electronico,
+                fecha_nacimiento,
+                dni,
+                tipo_carnet
+            } = req.body;
+            console.log(req.body);
+            const socio = Socios.create({
+                nombre_completo: nombre_completo,
+                domicilio: domicilio,
+                poblacion: poblacion,
+                telefono: telefono,
+                correo_electronico: correo_electronico,
+                fecha_nacimiento: fecha_nacimiento,
+                dni: dni,
+                tipo_carnet: tipo_carnet
+            });
+            await socio.save();
+            return res.json(socio);
+        } catch(e) {
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+        
+    };
+
+    static deleteById = async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Socios);
+        try{
+            const socio = await repository.findOne(id);
+            if(socio) {
+                await repository.delete(socio);
+                res.status(200);
+            }
+            else {
+                res.status(404).json({message: 'Socio no encontrado'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+    static updateById= async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Socios);
+        try{
+            const socio = await repository.findOne(id);
+            console.log(socio);
+            if(socio) {
+                await repository.merge(socio, req.body);
+                await repository.save(socio);
+                res.status(200);
+            }
+            else {
+                res.status(404).json({message: 'Socio no encontrado'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+
 /*
     static newCitaFromTicket = async (req: Request, res: Response)=>{
         console.log('EL BODY');

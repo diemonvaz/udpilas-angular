@@ -161,6 +161,7 @@ export class NoticiasController {
             await noticia.save();
 
             //tratamos imagenes para evitar duplicidades en las tablas de relaciones
+            //ESTO SE PUEDE ELIMINAR TODO, LAS IMAGENES YA SE REFERENCIAN DE OTRA FORMA
             let imagenesTotales: Imagenes[] = [];
             for (let i = 0; i < imagenes.length; i++) {
                 console.log(imagenes[i].nombre);

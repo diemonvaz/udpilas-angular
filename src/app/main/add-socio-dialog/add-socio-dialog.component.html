@@ -1,0 +1,39 @@
+<div mat-dialog-title id="editor-date-dialog">{{banner}} 
+    <div mat-dialog-content style="margin-top:30px">
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Nombre Completo" [(ngModel)]= nuevoSocio.nombre_completo >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Domicilio" [(ngModel)]= nuevoSocio.domicilio >
+        </mat-form-field >
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Población" [(ngModel)]="nuevoSocio.poblacion" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="tel" placeholder="Teléfono" [(ngModel)]="nuevoSocio.telefono" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="email" placeholder="Correo Electrónico" [(ngModel)]="nuevoSocio.correo_electronico">
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="date" placeholder="Fecha Nacimiento" [(ngModel)]="nuevoSocio.fecha_nacimiento" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="DNI" [(ngModel)]="nuevoSocio.dni">
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <mat-label>Tipo de carnet</mat-label>
+            <mat-select [(ngModel)]="nuevoSocio.tipo_carnet">
+                <mat-option *ngFor="let tipo_carnet of tipos_carnet" [value]="tipo_carnet"  name="fieldName" ngDefaultControl>
+                  {{tipo_carnet}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-dialog-actions>
+        <button mat-raised-button style="background-color: rgb(0, 223, 0);" *ngIf="check" (click)="registrar()">Registrar</button>
+        <button mat-raised-button color=accent *ngIf="!check" (click)="actualizar()">Modificar</button>
+        <button mat-raised-button mat-dialog-close (click)="cancelar()">Cancelar</button>
+    </mat-dialog-actions>
+
+</div>

@@ -35,7 +35,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { AddSocioDialogComponent } from './main/add-socio-dialog/add-socio-dialog.component';
+import { DeleteConfirmDialogComponent } from './main/abonados/delete-confirm-dialog/delete-confirm-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     EditorComponent,
     EditorDateDialogComponent,
     NoticiaViewComponent,
-    AbonadosComponent
+    AbonadosComponent,
+    AddSocioDialogComponent,
+    DeleteConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +86,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     HttpClientModule,
     MatExpansionModule,
     MatButtonToggleModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTooltipModule
     
   ],
   providers: [],

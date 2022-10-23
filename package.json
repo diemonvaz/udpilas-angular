@@ -33,12 +33,15 @@
     "bootstrap": "^5.2.1",
     "ckeditor5-custom-build": "file:ckeditor-custom",
     "ckeditor5-imgur-uploader": "^0.0.1",
+    "datatables.net": "^1.12.1",
+    "datatables.net-dt": "^1.12.1",
     "font-awesome": "^4.7.0",
     "html-to-text": "^8.2.1",
     "jquery": "^3.6.1",
     "proyecto": "file:",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

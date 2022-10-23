@@ -4,43 +4,94 @@
     </div>
 
     <div class="row mt-4 mb-4 d-flex justify-content-center">
-
+      
         <div class="col-10 ">
-            
-            <table class="table text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Nº SOCIO</th>
-                        <th scope="col">NOMBRE COMPLETO</th>
-                        <th scope="col">DOMICILIO</th>
-                        <th scope="col">POBLACIÓN</th>
-                        <th scope="col">TELÉFONO</th>
-                        <th scope="col">CORREO ELECTRÓNICO</th>
-                        <th scope="col">FECHA NACIMIENTO</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">TIPO CARNET</th>
-                        <th scope="col">ACCIONES</th>
-                    </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>
-                        <button type="submit" class="fa fa-edit btn btn-primary btn"></button>
-                        <button type="submit" class="fa fa-trash btn btn-danger btn"></button>
-                    </td>
+
+            <mat-form-field appearance="standard">
+              <mat-label>Búsqueda</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pensionista" #input>
+            </mat-form-field>
+            <button mat-mini-fab color="" matTooltip="Exportar datos a EXCEL" (click)="exportAsExcel()" style="margin-top:5px; margin-bottom:5px; margin-right:5px; float:right">
+                <mat-icon style="color: black">file_copy</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" matTooltip="Registrar socio" (click)="addRow()" style="margin-top:5px; margin-bottom:5px; margin-right:5px; float:right">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+            <table mat-table #tabla [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                <ng-container matColumnDef="idsocio">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> PK SOCIO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.idsocio}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre_completo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="domicilio">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Domicilio </th>
+                  <td mat-cell *matCellDef="let element"> {{element.domicilio}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="poblacion">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Población </th>
+                  <td mat-cell *matCellDef="let element"> {{element.poblacion}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="telefono">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+                    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="correo_electronico">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo Electrónico </th>
+                    <td mat-cell *matCellDef="let element"> {{element.correo_electronico}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha_nacimiento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Nacimiento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fecha_nacimiento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dni">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dni}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipo_carnet">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Carnet </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tipo_carnet}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-mini-fab color="secondary" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="updateRow(element)">
+                      <mat-icon>edit</mat-icon>
+                    </button> 
+                    <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="deleteRow(element)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-mini-fab *ngIf="!element.nombre_completo || !element.domicilio || !element.poblacion || !element.telefono ||!element.correo_electronico || !element.fecha_nacimiento
+                        || !element.dni || !element.tipo_carnet" matTooltip="Faltan datos del registro" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px">
+                      <mat-icon style="color: black">error</mat-icon>
+                    </button>
+                  </td>
+              </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                 <!-- Se muestra cuando no existen datos que concuerden con el filtro. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">No existen registros con los datos proporcionados "{{input.value}}"</td>
                 </tr>
-            </tbody>
-        </table>
-        
-    </div>
+              </table>
+
+              <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>        
+        </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, BaseEntity} from "typeorm";
 
 @Entity("socios")
 @Unique(['idsocio'])
-export class Socios {
+export class Socios extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     idsocio: number;
