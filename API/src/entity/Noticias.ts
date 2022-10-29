@@ -29,11 +29,7 @@ export class Noticias extends BaseEntity{
 
     @OneToOne(() => Imagenes)
     @JoinColumn()
-    imagen: Imagenes
-
-    @ManyToMany(type => Imagenes, imagen => imagen.noticiasMTM)
-    @JoinTable()
-    imagenes: Imagenes[];
+    imagen: Imagenes;
 
     @ManyToMany(type => Etiquetas, etiqueta => etiqueta.noticias)
     @JoinTable()

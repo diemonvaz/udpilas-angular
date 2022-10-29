@@ -30,7 +30,7 @@ export class NoticiasComponent implements OnInit {
   constructor( private noticiasService: NoticiasService) {
     this.getAllNoticias();
     this.getNoticiasPortada();
-    console.log(this.noticiasPortadaArray);
+    console.log(this.noticiasArray);
     
    }
 

@@ -245,15 +245,10 @@ export class EditorComponent implements OnInit {
     }
     //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
     //realmente esto no hará falta luego, puesto todas las imagenes (incluyendo la portada) iran referenciadas en el content
-    let imgTest1: Imagen = {nombre: 'imagenTest1'} as Imagen;
-    let imgTest2: Imagen = {nombre: 'imagenTest2'} as Imagen;
-    let imagenesEnPublicacion: Imagen[] = [];
-    imagenesEnPublicacion.push(imgTest1);
-    imagenesEnPublicacion.push(imgTest2);
     //Si el formulario cumple las validaciones de front-end, lo enviamos a backend
     console.log(contenidoNoticia);
     if(f.valid) {
-      this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal, imagenesEnPublicacion);
+      this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
       f.onReset();
       window.location.reload();
     }
@@ -267,8 +262,8 @@ export class EditorComponent implements OnInit {
 
   
 
-  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String, imagenes: Imagen[]): void {
-    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen, imagenes} as Noticia;
+  addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen} as Noticia;
     this.noticiasService.addNoticia(nuevaNoticia).subscribe();
 
   }

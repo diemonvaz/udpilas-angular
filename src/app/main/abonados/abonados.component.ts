@@ -9,6 +9,7 @@ import { AddSocioDialogComponent } from '../add-socio-dialog/add-socio-dialog.co
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 import * as XLSX from 'xlsx';
 
+
 @Component({
   selector: 'app-abonados',
   templateUrl: './abonados.component.html',
@@ -51,7 +52,7 @@ export class AbonadosComponent implements AfterViewInit, Socio {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['idsocio','nombre_completo', 'domicilio', 'poblacion', 'telefono', 'correo_electronico', 'fecha_nacimiento', 'dni', 'tipo_carnet', 'acciones'];
+  displayedColumns: string[] = ['idsocio','nombre_completo', 'domicilio', 'poblacion', 'telefono', 'correo_electronico', 'fecha_nacimiento', 'dni', 'tipo_carnet', 'pagadoRecogido', 'acciones'];
  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

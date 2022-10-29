@@ -2,7 +2,7 @@
    {
       "name": "default",
       "type": "mysql",
-      "host": "apiudp.mysql.database.azure.com",
+      "host": "udpilasapi.mysql.database.azure.com",
       "port": 3306,
       "username": "Presi1971",
       "password": "UDPdevel0p",

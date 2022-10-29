@@ -11,8 +11,5 @@ export class Imagenes extends BaseEntity{
     @Column({type: "text", nullable: false})
     nombre: string;
    
-    @ManyToMany(type => Noticias, noticia => noticia.imagenes)
-    @JoinTable()
-    noticiasMTM: Noticias[];
 
 }

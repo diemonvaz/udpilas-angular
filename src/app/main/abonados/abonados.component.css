@@ -1,3 +1,16 @@
 table {
     width: 100%;
   }
+
+.pagado-chip{
+     background-color: rgb(0, 240, 228);
+}
+
+.por-pagar-chip{
+  background-color: rgb(255, 136, 0);
+}
+
+.recogido-chip{
+  background-color: rgb(123, 255, 0);
+}
+

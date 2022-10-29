@@ -114,7 +114,7 @@ export class NoticiasController {
                 etiquetas,
                 esPortada,
                 urlImagen,
-                imagenes
+                
             } = req.body;
             console.log(req.body);
             const noticia = Noticias.create({
@@ -125,8 +125,7 @@ export class NoticiasController {
                 fechaPublicacion: fechaPublicacion,
                 etiquetas: etiquetas,
                 esPortada: esPortada,
-                imagen: urlImagen,
-                imagenes: imagenes
+                imagen: urlImagen
             });
             //tratamos imagen principal para evitar duplicidades en caso de usarse en varias noticias a la vez
             //a diferencia de los manyToMany, tenemos que asignar el id de la imagen principal a la noticia antes
@@ -159,25 +158,6 @@ export class NoticiasController {
             }
             noticia.etiquetas = etiquetasTotales;
             await noticia.save();
-
-            //tratamos imagenes para evitar duplicidades en las tablas de relaciones
-            //ESTO SE PUEDE ELIMINAR TODO, LAS IMAGENES YA SE REFERENCIAN DE OTRA FORMA
-            let imagenesTotales: Imagenes[] = [];
-            for (let i = 0; i < imagenes.length; i++) {
-                console.log(imagenes[i].nombre);
-                const aux2 = await Imagenes.findOne({nombre: imagenes[i].nombre}); 
-                if(aux2==null) { 
-                    let e2 = Imagenes.create();
-                    e2.nombre = imagenes[i].nombre;
-                    await e2.save();
-                    imagenesTotales.push(e2);
-                }else{
-                    imagenesTotales.push(aux2);
-                }
-            }
-            noticia.imagenes = imagenesTotales;
-            await noticia.save();
-        
             return res.json(noticia);
         } catch(e) {
             console.log(e);
