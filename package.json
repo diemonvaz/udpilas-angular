@@ -30,6 +30,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@popperjs/core": "^2.11.6",
+    "angular-twitter-timeline": "^13.0.0",
     "bootstrap": "^5.2.1",
     "ckeditor5-custom-build": "file:ckeditor-custom",
     "ckeditor5-imgur-uploader": "^0.0.1",

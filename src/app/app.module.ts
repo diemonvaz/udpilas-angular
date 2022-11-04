@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { AddSocioDialogComponent } from './main/add-socio-dialog/add-socio-dialog.component';
 import { DeleteConfirmDialogComponent } from './main/abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {AngularTwitterTimelineModule} from "angular-twitter-timeline";
 
 @NgModule({
   declarations: [
@@ -54,10 +56,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NoticiaViewComponent,
     AbonadosComponent,
     AddSocioDialogComponent,
-    DeleteConfirmDialogComponent
+    DeleteConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -89,7 +92,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    AngularTwitterTimelineModule
     
   ],
   providers: [],

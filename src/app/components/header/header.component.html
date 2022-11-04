@@ -27,7 +27,7 @@
 
         <button mat-button [matMenuTriggerFor]="clubMenu">CLUB</button>
         <mat-menu #clubMenu = "matMenu" [overlapTrigger]="false">
-            <button mat-menu-item>HISTORIA</button>
+            <button mat-menu-item routerLink = "/historia" routerLinkActive = "Active">HISTORIA</button>
             <button mat-menu-item>ORGANIGRAMA</button>
             <button mat-menu-item>ESTADIO</button>
         </mat-menu>
@@ -36,11 +36,13 @@
         
         <button mat-button [matMenuTriggerFor]="equipoMenu">EQUIPOS</button>
         <mat-menu #equipoMenu = "matMenu">
-            <button mat-menu-item>SENIOR</button>
+            <button mat-menu-item routerLink = "/senior" routerLinkActive = "Active">SENIOR</button>
+            <!--
             <button mat-menu-item>JUVENILES</button>
             <button mat-menu-item>CADETES</button>
             <button mat-menu-item>UD PILAS FUTSAL</button>
             <button mat-menu-item>C.D. TOR DEL REY DE PILAS</button>
+            -->
         </mat-menu>
         
         <button mat-button routerLink = "/socios" routerLinkActive = "Active">MIEMBROS</button>
