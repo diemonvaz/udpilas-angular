@@ -22,10 +22,18 @@
             <input matInput type="text" placeholder="DNI" [(ngModel)]="nuevoSocio.dni">
         </mat-form-field>
         <mat-form-field style="margin-left:10px; margin-right:10px">
-            <mat-label>Tipo de carnet</mat-label>
-            <mat-select [(ngModel)]="nuevoSocio.tipo_carnet">
-                <mat-option *ngFor="let tipo_carnet of tipos_carnet" [value]="tipo_carnet"  name="fieldName" ngDefaultControl>
-                  {{tipo_carnet}}
+            <mat-label>Tipo de abono</mat-label>
+            <mat-select  [(ngModel)]="nuevoSocio.tipo_abono.tipo">
+                <mat-option *ngFor="let tipo_abono of tipos_abono" [value]="tipo_abono.tipo"  name="fieldName" ngDefaultControl>
+                  {{tipo_abono.tipo}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <mat-label>Estado abono 22/23</mat-label>
+            <mat-select [(ngModel)]="nuevoSocio.estado_2223.codigo">
+                <mat-option *ngFor="let estado of estados_socios" [value]="estado.codigo"  name="fieldName" ngDefaultControl >
+                  {{estado.codigo}}
                 </mat-option>
               </mat-select>
         </mat-form-field>

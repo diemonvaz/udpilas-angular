@@ -1,7 +1,9 @@
-import {getRepository} from "typeorm";
+import {getRepository, Repository} from "typeorm";
 import { Request, Response} from "express";
 import { Socios } from "../entity/Socios";
 import moment = require("moment");
+import { TiposAbono } from "../entity/TiposAbono";
+import { EstadosSocios } from "../entity/EstadosSocios";
 
 
 export class SociosController {
@@ -27,8 +29,11 @@ export class SociosController {
     static getAll = async (req: Request, res: Response)=>{
         const repository = getRepository(Socios);
         try{
-            const etiquetas = await repository.find();
-            res.send(etiquetas);
+            const socios = await repository.createQueryBuilder("socio")
+            .leftJoinAndSelect("socio.tipo_abono", "tipo_abono")
+            .leftJoinAndSelect("socio.estado_2223", "estado_2223")
+            .getMany();
+            res.send(socios);
         }catch(e){
             console.log(e);
             res.status(500).json({message: 'Error al hacer GET sobre Socios'});
@@ -38,7 +43,6 @@ export class SociosController {
 
 
     static postSocio = async (req: Request, res: Response)=>{
-        console.log(req);
         try {
             const {
                 nombre_completo,
@@ -48,7 +52,8 @@ export class SociosController {
                 correo_electronico,
                 fecha_nacimiento,
                 dni,
-                tipo_carnet
+                tipo_abono,
+                estado_2223
             } = req.body;
             console.log(req.body);
             const socio = Socios.create({
@@ -59,9 +64,17 @@ export class SociosController {
                 correo_electronico: correo_electronico,
                 fecha_nacimiento: fecha_nacimiento,
                 dni: dni,
-                tipo_carnet: tipo_carnet
+                tipo_abono: tipo_abono,
+                estado_2223: estado_2223
             });
+            const tipoCarnetRepo = getRepository(TiposAbono);
+            const tipo = await tipoCarnetRepo.findOne(tipo_abono);
+            const estadoRepo = getRepository(EstadosSocios);
+            const estado = await estadoRepo.findOne(estado_2223);
+            socio.tipo_abono = tipo;
+            socio.estado_2223 = estado;
             await socio.save();
+            
             return res.json(socio);
         } catch(e) {
             console.log(e);
@@ -92,8 +105,11 @@ export class SociosController {
         const id = req.params.id;
         const repository = getRepository(Socios);
         try{
-            const socio = await repository.findOne(id);
-            console.log(socio);
+            const socio = await repository.createQueryBuilder("socio")
+            .leftJoinAndSelect("socio.tipo_abono", "tipo_abono")
+            .leftJoinAndSelect("socio.estado_2223", "estado_2223")
+            .where("socio.idsocio = :id", { id: id})
+            .getOne();
             if(socio) {
                 await repository.merge(socio, req.body);
                 await repository.save(socio);

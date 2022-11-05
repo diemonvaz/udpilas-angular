@@ -1,3 +1,5 @@
+import { EstadoSocio } from './../../models/EstadoSocio';
+import { TipoAbono } from '../../models/TipoAbono';
 import { SociosService } from './../../services/socios.service';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Socio } from 'src/app/models/Socio';
@@ -32,7 +34,8 @@ export class AbonadosComponent implements AfterViewInit, Socio {
   correo_electronico: String;
   fecha_nacimiento: String;
   dni: String;
-  tipo_carnet: String;
+  tipo_abono: TipoAbono;
+  estado_2223: EstadoSocio;
 
 
   ngAfterViewInit() {
@@ -69,8 +72,14 @@ export class AbonadosComponent implements AfterViewInit, Socio {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
+    
     let nuevoSocio = {} as Socio;
+    let tipoCarnetNuevoSocio = {} as TipoAbono;
+    let estadoNuevoSocio = {} as EstadoSocio;
+    estadoNuevoSocio.codigo = 'ESTADO_POR_PAGAR';
+    tipoCarnetNuevoSocio.precio = 0;
+    nuevoSocio.tipo_abono = tipoCarnetNuevoSocio;
+    nuevoSocio.estado_2223 = estadoNuevoSocio;
     let dialogRef = this.dialog.open(AddSocioDialogComponent, {data: {nuevoSocio:nuevoSocio, banner: "Registrar nuevo socio", check:true} });
 
     dialogRef.afterClosed().subscribe(res => {
@@ -96,19 +105,20 @@ export class AbonadosComponent implements AfterViewInit, Socio {
     copia.poblacion = socio.poblacion ?? null;
     copia.telefono = socio.telefono ?? null;
     copia.correo_electronico = socio.correo_electronico ?? null;
-    //copia.fecha_nacimiento = socio.fecha_nacimiento ?? null;
+    copia.fecha_nacimiento = socio.fecha_nacimiento ?? null;
     //para la fecha
-    let fechaSplitted = socio.fecha_nacimiento.split("/",3);
+    let fechaSplitted = socio.fecha_nacimiento.split("/",3) ?? null;
     let stringAlterado = fechaSplitted[2] + "-" + fechaSplitted [1] + "-" + fechaSplitted [0];
     let fechaFormateada = new Date(stringAlterado);
     //para la fecha
     copia.dni = socio.dni ?? null;
-    copia.tipo_carnet = socio.tipo_carnet ?? null;
+    copia.tipo_abono = socio.tipo_abono ?? null;
+    copia.estado_2223 = socio.estado_2223 ?? null;
     let dialogRef = this.dialog.open(AddSocioDialogComponent, {data: {nuevoSocio:copia, banner: "Modificar datos de registro", check:false} });
     dialogRef.afterClosed().subscribe(res => {
       if(res.data.modificacion) {
-      this.sociosService.updateById(res.data.nuevoSocio).subscribe();
-      window.location.reload();
+        this.sociosService.updateById(res.data.nuevoSocio).subscribe();
+        window.location.reload();
       }
     
     })    
