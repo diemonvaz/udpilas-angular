@@ -18,5 +18,7 @@ router.get('/getAll', NoticiasController.getAll);
 //insertar nuevas noticias
 router.post('/postNoticia', NoticiasController.postNoticia);
 
+//buscar ultimas X noticias
+router.get('/getUltimasInsertadas/:num', NoticiasController.getUltimasInsertadas);
 
 export default router;

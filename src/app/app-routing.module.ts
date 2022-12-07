@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,8 +12,9 @@ const routes: Routes = [
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent},
   { path: 'socios', component: AbonadosComponent},
-  { path: 'noticia/:idnoticias', component: NoticiaViewComponent}
-  //definir route default para 404
+  { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
+  { path: '**', component: NotFoundComponent} 
+  // Wildcard route for a 404 page
 ];
 
 @NgModule({

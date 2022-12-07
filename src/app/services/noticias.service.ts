@@ -50,5 +50,9 @@ export class NoticiasService {
     return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getByEtiqueta/" + etiqueta, httpOptions);
   }
 
-
+  //metodo para rescatar las ultimas X noticias en BBDD
+  getUltimasInsertadas(num: Number):Observable<NoticiaRequest[]> {
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getUltimasInsertadas/" + num, httpOptions);
+  }
+  
 }

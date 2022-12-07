@@ -100,7 +100,31 @@ export class NoticiasController {
         }
     };
 
-   
+    static getUltimasInsertadas = async (req: Request, res: Response)=>{
+        const num = req.params.num;
+        var y: number = +num;
+        const repository = getRepository(Noticias);
+        try {
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .orderBy("noticia.idnoticias", "DESC")
+                    .getMany();
+            let arrayRes: Noticias[] = [];
+            for (let k = 0; k <= y; k++) {
+                arrayRes.push(noticia[k]);
+            }
+            console.log(arrayRes);
+            if(arrayRes) {
+                res.send(arrayRes);
+            }
+            else {
+                res.status(404).json({message: 'Error al realizar GET sobre Noticias'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
 
 
     static postNoticia = async (req: Request, res: Response)=>{

@@ -64,40 +64,20 @@
                 <div fxFlex = "100%"  fxFlex.xs="auto" fxFlex.sm="100%" >
 
                     <mat-card class="mat-elevation-z4" >
-                        
                         <mat-card-title>
-                            <h1 style="font-size:medium; font-weight: bold; text-align: center;" >
+                            <h1 style="font-size:medium; font-weight: bold; text-align: center; background-color: rgb(91, 124, 235); color: white ;">
                                 ULTIMAS NOTICIAS
                             </h1>
                         </mat-card-title>
-                
-                        <mat-card-content>
+                        <mat-card-content *ngFor="let noticia of ultimasInsertadas" [routerLink]="['/noticia', noticia.idnoticias]" (click)="cambioPaginaRedirect()">
 
-                            <mat-card fxLayout="row" fxLayoutGap="20px">
-                                <p>Text to be placed next to picture</p>
-                                <img mat-card-image id ="min-image" src="./../../../assets/images/E90cw7-XsAA2-kI.jpg">  
+                            <mat-card fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+                                <p>{{noticia.tituloNoticia}}</p>
+                                <img mat-card-image id ="min-image" style="align-self: right;" src={{noticia.imagen.nombre}} >  
                             </mat-card>
 
                         </mat-card-content>
-
-                        <mat-card-content>
-                           
-                            <mat-card fxLayout="row" fxLayoutGap="20px">
-                                <p>Text to be placed next to picture</p>
-                                <img mat-card-image id ="min-image" src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">  
-                            </mat-card>
-                        </mat-card-content>
-
-                        <mat-card-content>
-                           
-                            <mat-card fxLayout="row" fxLayoutGap="20px">
-                                <p>Text to be placed next to picture</p>
-                                <img mat-card-image id ="min-image" src="./../../../assets/images/DUI6_mQWkAASe7B.jpg">  
-                            </mat-card>
-                        </mat-card-content>
-                        
                         <button mat-raised-button basic="primary" id="mas-noticias-btn" routerLink="/noticias">MÁS NOTICIAS</button> 
-                       
                     </mat-card>
 
                 </div>

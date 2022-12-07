@@ -18,7 +18,7 @@ import { NoticiasService } from 'src/app/services/noticias.service';
 export class NoticiaViewComponent implements OnInit {
 
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private route: ActivatedRoute, private noticiasService: NoticiasService) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private route: ActivatedRoute, private router:Router, private noticiasService: NoticiasService) {
     iconRegistry.addSvgIcon('instagram', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/instagram-logo-svgrepo-com.svg'));
     iconRegistry.addSvgIcon('twitter', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/twitter-svgrepo-com.svg'));
     iconRegistry.addSvgIcon('facebook', sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/facebook-svgrepo-com.svg'));
@@ -27,7 +27,7 @@ export class NoticiaViewComponent implements OnInit {
       this.idNoticiaSeleccionada = params.get('idnoticias');
     });
     this.getNoticiaById(this.idNoticiaSeleccionada);
-    
+    this.getUltimasInsertadas(2);
    }
 
     ngOnInit(): void {  
@@ -39,6 +39,7 @@ export class NoticiaViewComponent implements OnInit {
   idNoticiaSeleccionada: String;
   noticiaSeleccionada: NoticiaRequest;
   contenidoNoticia: Text;
+  ultimasInsertadas: NoticiaRequest[] = [];
 
   htmlToText(): void {
     let tmp = document.createElement("DIV");
@@ -46,6 +47,12 @@ export class NoticiaViewComponent implements OnInit {
 
   }
 
+  cambioPaginaRedirect(): void {
+    this.route.params.subscribe(params => {
+      let id = +params['idnoticias']; // (+) converts string 'id' to a number
+      window.location.reload();
+    });
+  }
 
   //Llamadas a los servicios necesarios
   
@@ -53,6 +60,14 @@ export class NoticiaViewComponent implements OnInit {
   getNoticiaById(id): void{
     this.noticiasService.getNoticiaById(id).subscribe(res => {
       this.noticiaSeleccionada = res;
+    })
+  }
+
+  getUltimasInsertadas(num): void{
+    this.noticiasService.getUltimasInsertadas(num).subscribe(res => {
+      for (let i = 0; i < res.length; i++) {
+        this.ultimasInsertadas.push(res[i]);
+      }
     })
   }
 

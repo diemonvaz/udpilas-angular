@@ -1,8 +1,7 @@
 import { NoticiasService } from './../../services/noticias.service';
 import { Component, ElementRef, EventEmitter, OnInit, Output, VERSION, ViewChild } from '@angular/core';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
-import * as $ from 'jquery';
-import { fromEvent } from 'rxjs';
+
 
 
 
