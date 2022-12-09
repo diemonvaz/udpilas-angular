@@ -207,8 +207,14 @@ export class EditorComponent implements OnInit {
   public portada = false;
   
   cambiaEstado() {
-    this.portada = !this.portada;
-    this.alertService.warn("REDIMENSIONA LA IMAGEN DE PORTADA A LOS ESTÁNDARES PROPORCIONADOS PARA LAS NOTICIAS DE PORTADA");
+    if(this.portada == false) {
+      this.portada = !this.portada;
+      this.alertService.warn("REDIMENSIONA LA IMAGEN DE PORTADA A LOS ESTÁNDARES PROPORCIONADOS PARA LAS NOTICIAS DE PORTADA");
+    }else {
+      this.portada = !this.portada;
+      this.alertService.clear();
+    }
+    
   }
 
   
