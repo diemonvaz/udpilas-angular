@@ -3,7 +3,6 @@ import { Request, Response} from "express";
 import { Noticias } from "../entity/Noticias";
 import { Etiquetas } from "../entity/Etiquetas";
 import { Imagenes } from "../entity/Imagenes";
-import etiquetas from "../routes/etiquetas";
 
 
 export class NoticiasController {
@@ -151,10 +150,22 @@ export class NoticiasController {
                 esPortada: esPortada,
                 imagen: urlImagen
             });
+
+            //en caso de que sea portada, buscamos las noticias portada en BBDD. Si hay menos de 3, insertamos. Si hay 3 o más,
+            //le quitamos el true de portada a la más antigua e insertamos la nueva
+            const noticiasRepo = await Noticias.getRepository();
+            const noticiasPortada = noticiasRepo.createQueryBuilder("noticia")
+            .where('esPortada = :portada', { portada: true})
+            .orderBy("noticia.idnoticias", "DESC")
+            .getMany();
+            if((await noticiasPortada).length > 2) {
+                let popped = (await noticiasPortada).pop();
+                popped.esPortada = false;
+                await popped.save();
+            }
             //tratamos imagen principal para evitar duplicidades en caso de usarse en varias noticias a la vez
             //a diferencia de los manyToMany, tenemos que asignar el id de la imagen principal a la noticia antes
             //de guardarla, ya que es foreing key hacia la tabla imagenes.
-            
             const aux3 = await Imagenes.findOne({nombre: urlImagen});
             if(aux3==null){
                 let e3 = Imagenes.create();

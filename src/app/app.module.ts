@@ -42,6 +42,9 @@ import { AddSocioDialogComponent } from './main/add-socio-dialog/add-socio-dialo
 import { DeleteConfirmDialogComponent } from './main/abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { AlertComponent } from './components/alert/alert.component';
+
+
 
 @NgModule({
   declarations: [
@@ -56,7 +59,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     AbonadosComponent,
     AddSocioDialogComponent,
     DeleteConfirmDialogComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -91,8 +95,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTooltipModule
-    
+    MatTooltipModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 import { EstadoSocio } from './../../models/EstadoSocio';
 import { TipoAbono } from '../../models/TipoAbono';
 import { SociosService } from './../../services/socios.service';
@@ -15,12 +16,12 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-abonados',
   templateUrl: './abonados.component.html',
-  providers: [SociosService],
+  providers: [SociosService, AlertService],
   styleUrls: ['./abonados.component.css']
 })
 export class AbonadosComponent implements AfterViewInit, Socio {
 
-  constructor(private sociosService: SociosService, public dialog: MatDialog) { 
+  constructor(private sociosService: SociosService, private alertService: AlertService, public dialog: MatDialog) { 
     this.dataSource = new MatTableDataSource(this.sociosArray);
     
   }
@@ -81,16 +82,15 @@ export class AbonadosComponent implements AfterViewInit, Socio {
     nuevoSocio.tipo_abono = tipoCarnetNuevoSocio;
     nuevoSocio.estado_2223 = estadoNuevoSocio;
     let dialogRef = this.dialog.open(AddSocioDialogComponent, {data: {nuevoSocio:nuevoSocio, banner: "Registrar nuevo socio", check:true} });
-
     dialogRef.afterClosed().subscribe(res => {
       if(res.data.nuevoSocio.nombre_completo != undefined && res.data.modificacion) {
         this.sociosService.addSocio(nuevoSocio).subscribe();
         window.location.reload();
       }else {
-
+        
       }
-    
-    })    
+    })
+   
   }
 
   updateRow(socio: Socio) {
@@ -148,7 +148,9 @@ export class AbonadosComponent implements AfterViewInit, Socio {
   }
 
 
-
+  delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
+  }
   
 
  ////////////////////////////////////////////////////////////////////////////////////////////

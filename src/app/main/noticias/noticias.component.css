@@ -70,5 +70,8 @@ mat-button-toggle-group {
 
 
 
-
+.carouselImg {
+  width: 100%;
+  height: auto;
+}
 

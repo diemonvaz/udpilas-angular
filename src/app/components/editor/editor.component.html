@@ -2,6 +2,7 @@
 
 <div id="editor-container">
   
+  <app-alert></app-alert>
   <ckeditor #myEditor [editor]="Editor" (ready)="onReady($event)" id="editor"  ></ckeditor>
 
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate style='margin-top: 50px;'>

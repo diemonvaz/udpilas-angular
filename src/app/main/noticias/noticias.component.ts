@@ -4,7 +4,6 @@ import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 
 
 
-
 @Component({
   selector: 'app-noticias',
   templateUrl: './noticias.component.html',
@@ -29,8 +28,6 @@ export class NoticiasComponent implements OnInit {
   constructor( private noticiasService: NoticiasService) {
     this.getAllNoticias();
     this.getNoticiasPortada();
-    console.log(this.noticiasArray);
-    
    }
 
    
@@ -44,7 +41,9 @@ export class NoticiasComponent implements OnInit {
     let todasNoticias: NoticiaRequest[] = [];
     this.noticiasService.getNoticias().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
-        todasNoticias.push(res[i]);
+        if(!res[i].esPortada) {
+          todasNoticias.push(res[i]);
+        }
       }
     })
     this.noticiasArray = todasNoticias;

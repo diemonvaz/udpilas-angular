@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 import { Response } from 'express';
 import { EtiquetasService } from './../../services/etiquetas.service';
 import { Etiqueta } from './../../models/Etiqueta';
@@ -22,7 +23,8 @@ import { MyUploadAdapter } from './myCustomUploader';
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   providers: [NoticiasService,
-              EtiquetasService],
+              EtiquetasService,
+              AlertService],
   styleUrls: ['./editor.component.css']
 })
 
@@ -38,7 +40,7 @@ export class EditorComponent implements OnInit {
   //se enviarian los datos
  
  
-  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService) { 
+  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService, private alertService: AlertService) { 
     /*CHIPS PARA LAS ETIQUETAS*/
     this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -206,6 +208,7 @@ export class EditorComponent implements OnInit {
   
   cambiaEstado() {
     this.portada = !this.portada;
+    this.alertService.warn("REDIMENSIONA LA IMAGEN DE PORTADA A LOS ESTÁNDARES PROPORCIONADOS PARA LAS NOTICIAS DE PORTADA");
   }
 
   
