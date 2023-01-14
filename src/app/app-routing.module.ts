@@ -13,8 +13,7 @@ const routes: Routes = [
   { path: 'editor', component: EditorComponent},
   { path: 'socios', component: AbonadosComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
-  { path: '**', component: NotFoundComponent} 
-  // Wildcard route for a 404 page
+  { path: '**', component: NotFoundComponent} // Wildcard route for a 404 page
 ];
 
 @NgModule({

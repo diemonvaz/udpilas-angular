@@ -1,30 +1,88 @@
-<div class="col mt-4 mb-4">
-    <!-- IDEAS NOTICIAS MÁS NUEVAS
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4"></div>
+<div id="homeContainer">
+
+    <h2>Ultimas Noticias</h2>
+    <mat-divider style="margin-bottom: 40px"></mat-divider>
+    <div fxLayout="row wrap"  fxLayoutGap="50px grid" fxLayoutAlign="center center">    
+         <!-- fxFlex que contenta las ultimas 3 noticias-->
+         <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%" *ngFor="let noticia of ultimasInsertadas">
+
+            <mat-card class="mat-elevation-z4" [routerLink]="['/noticia', noticia.idnoticias]">
+    
+                <img mat-card-image src={{noticia.imagen.nombre}}>
+                <mat-card-content>     
+                    <p style="font-size:medium">
+                        {{noticia.tituloNoticia}}
+                    </p>
+                    
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+
     </div>
-    <hr>
-    -->
-    <div class="row mt-2 mb-2">
-        <div class="col-3"></div>
-        <div class="col-3 text-end">
-            <h1>ÚLTIMO PARTIDO</h1>
+
+    <mat-divider style="margin-top: 40px; margin-bottom: 20px"></mat-divider>
+    <br><br>
+    <div fxLayout="row wrap" fxLayoutAlign="center center"> 
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%" >
+            <h2>Clasificación</h2>
         </div>
-        <div class="col-3 text-start">
-            <h1>PRÓXIMO PARTIDO</h1>
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <h2>Partidos pendientes</h2>
         </div>
-        <div class="col-3"></div>
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <h2>Lo último</h2>
+        </div>
     </div>
-    <hr>
-    <div class="row mt-2 mb-2">
-        <div class="col-3"></div>
-        <div class="col-3 text-center">
-            <h1>CLASIFICACIÓN</h1>
+    
+    <div fxLayout="row wrap" fxLayoutGap="50px grid">  
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <iframe style="border:0px" height="400" width="500" src="https://www.lapreferente.com/widgetClasificacion.php?comp=14983&colorFondo=FFFFFF&colorFondoCabecera=&colorTextoCabecera=FFFFFF&anchoEscudos=25&fontSize=12&favorito=&ocultaEvolucion=1&ocultaPosicionAnterior=0"></iframe>
         </div>
-        <div class="col-3 text-center">
-            <h1>MÁXIMOS GOLEADORES</h1>
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <iframe style="border:0px" height="400" width="500" src="https://www.lapreferente.com/widgetEquipo.php?tipo=calendario&comp=14983&colorFondo=FFFFFF&colorFondoCabecera=2B93FF&colorTextoCabecera=FFFFFF&anchoEscudos=25&fontSize=11&favorito=&IDequipo=204&tipoGEP=pendientes"></iframe>
         </div>
-        <div class="col-3"></div>
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <ngx-twitter-timeline 
+            [data]="{sourceType: 'url', url: 'https://twitter.com/UDPilas'}"
+            [opts]="{tweetLimit: 1}"
+        ></ngx-twitter-timeline>
+        </div>
+        
     </div>
+    
+    <mat-divider style="margin-top: 40px; margin-bottom: 40px"></mat-divider>
+
+    <div fxLayout="row wrap" fxLayoutGap="50px grid">
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <div class="card bg-dark text-white">
+                <img src="https://mdbcdn.b-cdn.net/img/new/slides/017.webp" class="card-img" alt="Stony Beach"/>
+                <div class="card-img-overlay">
+                  <h1 class="card-title">Sponsors</h1>
+                </div>
+              </div>
+        </div>
+
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <div class="card bg-dark text-white">
+                <img src="https://mdbcdn.b-cdn.net/img/new/slides/017.webp" class="card-img" alt="Stony Beach"/>
+                <div class="card-img-overlay">
+                  <h1 class="card-title">Promociones</h1>
+                </div>
+              </div>
+        </div>
+
+        <div fxFlex = "33%" fxFlex.xs="100%" fxFlex.sm="100%" fxFlex.md="33%">
+            <div class="card bg-dark text-white">
+                <img src="https://mdbcdn.b-cdn.net/img/new/slides/017.webp" class="card-img" alt="Stony Beach"/>
+                <div class="card-img-overlay">
+                  <h1 class="card-title">Hazte Socio</h1>
+                </div>
+              </div>
+        </div>
+    </div>
+    
+
 </div>
+
+       

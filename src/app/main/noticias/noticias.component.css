@@ -34,12 +34,6 @@ mat-card{
   overflow: auto;
 }
 
-.mat-button {
-  margin-right: 10px;
-  margin-left: 10px;
-    
-  
-}
 
 .mat-custom {
   background-color:  transpagrent;
@@ -54,16 +48,21 @@ mat-chip {
 }
 
 
-mat-button:focus{
-  background:rgb(91, 124, 235);
+.mat-button {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+.mat-button-toggle-checked {
+  background-color: rgb(105, 130, 214);
   color: white;
 }
 
 
-
 mat-button-toggle-group {
   margin-left: 12px;
-  margin-right: 12px;
+  margin-right: 30px;
   border: none !important;
  
 }
@@ -75,3 +74,8 @@ mat-button-toggle-group {
   height: auto;
 }
 
+.material-icons {
+  transform: scale(2);
+  color: rgb(100, 100, 100);
+  margin-right: 25px;
+}

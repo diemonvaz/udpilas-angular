@@ -24,10 +24,15 @@ export class NoticiasComponent implements OnInit {
   
   noticiasArray: NoticiaRequest[] = [];
   noticiasPortadaArray: NoticiaRequest[] = [];
+  displaySearch: Boolean = false;
   
   constructor( private noticiasService: NoticiasService) {
     this.getAllNoticias();
     this.getNoticiasPortada();
+   }
+
+   onPress(): void {
+    this.displaySearch = !this.displaySearch;
    }
 
    

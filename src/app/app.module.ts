@@ -43,8 +43,8 @@ import { DeleteConfirmDialogComponent } from './main/abonados/delete-confirm-dia
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AlertComponent } from './components/alert/alert.component';
-
-
+import {MatDividerModule} from '@angular/material/divider';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [
@@ -95,7 +95,9 @@ import { AlertComponent } from './components/alert/alert.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTooltipModule    
+    MatTooltipModule,
+    MatDividerModule,
+    NgxTwitterTimelineModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

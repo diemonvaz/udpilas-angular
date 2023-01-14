@@ -45,7 +45,10 @@
                     <mat-button-toggle mat-button (click)="searchByEtiqueta('Club')" >Club</mat-button-toggle>
                 </mat-button-toggle-group>
                 <div>
-                    <input type="text" (keyup.enter)="searchByTitulo($event)"><i class="material-icons">search</i>
+                    <button mat-icon-button (click)="onPress()">
+                        <i class="material-icons">search</i>
+                    </button>
+                    <input type="text" (keyup.enter)="searchByTitulo($event)" *ngIf="displaySearch">
                 </div>
             </mat-toolbar>
 
