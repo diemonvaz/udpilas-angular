@@ -1,3 +1,5 @@
+import { IsAuthenticatedGuard } from './is-authenticated.guard';
+import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NoticiaViewComponent } from './main/noticias/noticia-view/noticia-view.component';
 import { NgModule } from '@angular/core';
@@ -10,10 +12,11 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'noticias', component: NoticiasComponent},
-  { path: 'editor', component: EditorComponent},
+  { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard]},
   { path: 'socios', component: AbonadosComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
-  { path: '**', component: NotFoundComponent} // Wildcard route for a 404 page
+  { path: '**', component: NotFoundComponent} // Wildcard route para un 404
 ];
 
 @NgModule({

@@ -43,8 +43,10 @@ import { DeleteConfirmDialogComponent } from './main/abonados/delete-confirm-dia
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AlertComponent } from './components/alert/alert.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { LoginComponent } from './components/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     AddSocioDialogComponent,
     DeleteConfirmDialogComponent,
     NotFoundComponent,
-    AlertComponent
+    AlertComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +100,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     MatSortModule,
     MatTooltipModule,
     MatDividerModule,
-    NgxTwitterTimelineModule 
+    NgxTwitterTimelineModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,59 @@
+<form (ngSubmit)="submitFormRegistro()" [formGroup]="form" autocomplete="off">
+    <div style="display: flex; justify-content: center">
+      <mat-card class="form-container">
+        <mat-card-title>Registro</mat-card-title>
+  
+        <!-- Correo -->
+        <div>
+          <mat-form-field>
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+        <!-- /Correo -->
+  
+        <!-- Password -->
+        <div>
+          <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" placeholder="Ex. s3c3tP@ss" formControlName="password" />
+          </mat-form-field>
+        </div>
+        <!-- /Password -->
+  
+        <div>
+          <button type="submit" mat-raised-button color="primary">Regístrate</button>
+        </div>
+      </mat-card>
+    </div>
+  </form>
+
+  <form (ngSubmit)="submitFormLogin()" [formGroup]="form" autocomplete="off">
+    <div style="display: flex; justify-content: center">
+      <mat-card class="form-container">
+        <mat-card-title>Acceder</mat-card-title>
+  
+        <!-- Correo -->
+        <div>
+          <mat-form-field>
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+        <!-- /Correo -->
+  
+        <!-- Password -->
+        <div>
+          <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" placeholder="Ex. s3c3tP@ss" formControlName="password" />
+          </mat-form-field>
+        </div>
+        <!-- /Password -->
+  
+        <div>
+          <button type="submit" mat-raised-button color="primary">Entrar</button>
+        </div>
+      </mat-card>
+    </div>
+  </form>

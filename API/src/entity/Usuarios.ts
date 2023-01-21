@@ -14,13 +14,13 @@ export class Usuarios {
     @Column({type: "varchar", width: 255, default: null, nullable: true})
     apellidos: string;
 
-    @Column({type: "varchar", width: 255, default: null, nullable: true})
+    @Column({type: "varchar", width: 255, default: null, nullable: false})
     email: string;
 
-    @Column({type: "date", nullable: false})
+    @Column({type: "date", nullable: true})
     fecha_nacimiento: Date;
 
-    @Column({type: "varchar", width: 255, default: null, nullable: true})
+    @Column({type: "text", width: 255, default: null, nullable: false})
     password: string;
 
     @Column({type: "varchar", width: 255, default: null, nullable: true})

@@ -35,15 +35,4 @@ createConnections().then(async  () => {
     // start express server
     app.listen(PORT, ()=>console.log(`Server running on port: ${PORT}`));
 
-    //para añadir una noticia usando el repositorio de noticias
-    /*let noticia = new Noticias();
-    noticia.tituloNoticia = "noticia de test";
-    noticia.contenidoNoticia = "contenido de PUTA MADRE";
-    noticia.fechaPublicacion = null;
-    noticia.fechaCreacion = new Date();
-    noticia.usuario = "Admin";
-    let noticiaRepository = getRepository(Noticias);
-    await noticiaRepository.save(noticia);*/
-    
-
 }).catch(error => console.log(error));
