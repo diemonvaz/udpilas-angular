@@ -1,3 +1,4 @@
+import { AuthInterceptorProvider } from './auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -102,7 +103,7 @@ import { LoginComponent } from './components/login/login.component';
     MatDividerModule,
     NgxTwitterTimelineModule
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

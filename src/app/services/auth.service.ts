@@ -14,13 +14,17 @@ const httpOptions = {
 })
 export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  private readonly TOKEN_NAME = 'access_token';
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   urlUsuarios = 'http://localhost:3000/usuarios/';
 
+  get token() {
+    return localStorage.getItem(this.TOKEN_NAME);
+  }
+
   constructor(private http: HttpClient) { 
-    const token = localStorage.getItem('access_token');
     //tenemos que asegurarnos de que el token no haya expirado antes de cambiar el estado de loggedIn en esta linea
-    this._isLoggedIn$.next(!!token);
+    this._isLoggedIn$.next(!!this.token);
   }
 
  
@@ -35,7 +39,7 @@ export class AuthService {
   return this.http.post(this.urlUsuarios + 'login', { email, password }, httpOptions).pipe(
     tap((response: any) => {
       this._isLoggedIn$.next(true);
-      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem(this.TOKEN_NAME, response.access_token);
     })
   );
 }

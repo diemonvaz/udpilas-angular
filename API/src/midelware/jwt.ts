@@ -29,7 +29,8 @@ export const checkJwt =(req: Request, res: Response, next: NextFunction)=>{
 
 export const checkToken =(req: Request, res: Response, next: NextFunction)=>{
     
-    let token = <string>req.headers['authentication'];
+    let token = <string>req.headers['authorization'];
+    console.log(req.headers)
 
     if (!token) {
         res.status(401).send({
