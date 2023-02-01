@@ -8,12 +8,13 @@ import { NoticiasComponent } from './main/noticias/noticias.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { AbonadosComponent } from './main/abonados/abonados.component';
 import { HomeComponent } from './components/home/home.component';
+import { HasRoleGuard } from './has-role.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard]},
-  { path: 'socios', component: AbonadosComponent},
+  { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'login', component: LoginComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
   { path: '**', component: NotFoundComponent} // Wildcard route para un 404

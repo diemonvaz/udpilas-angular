@@ -6,6 +6,7 @@ import { validate } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import * as jwt from 'jsonwebtoken';
 import config from '../config/config';
+import { Roles } from "../entity/Roles";
 
 
 export class UsuariosController {
@@ -31,6 +32,7 @@ export class UsuariosController {
     static registro = async (req: Request, res: Response) => {
         const email = req.body.email;
         const password = req.body.password;
+        const codigosRoles = req.body.roles;
         
         try {
             const usuariosRepository = getRepository(Usuarios);
@@ -48,7 +50,15 @@ export class UsuariosController {
                 const user = new Usuarios();
                 user.email = email;
                 user.password = passwordHash;
-                
+                //Asignamos los roles pasados como parametro al usuario nuevo que vamos a insertar
+                const rolRepository = getRepository(Roles);
+                let listaRoles: Roles[] = [];
+                for (let i = 0; i < codigosRoles.length; i++) {
+                    const rol = await rolRepository.findOne({ where: { codigo: codigosRoles[i]} });
+                    listaRoles.push(rol);
+                }
+                user.roles = listaRoles;
+
                 await usuariosRepository.save(user);
 
                 var response = {
@@ -71,11 +81,18 @@ export class UsuariosController {
         //const refresh_token = req.body.refresh_token;
         try {
             const usuariosRepository = getRepository(Usuarios);
-            const user = await usuariosRepository.findOne({ where: { email: email} });
+            const user = await usuariosRepository.createQueryBuilder("usuario")
+                    .leftJoinAndSelect("usuario.roles", "roles")
+                    .where("usuario.email = :email", { email: email})
+                    .getOne();
             if (user) {
 
                 if (user.password != null && user.password != "" && user.checkPassword(password)) {
-                    const token = jwt.sign({ userID: user.idusuario, email: user.email }, config.jwtSecret, { expiresIn: "7 days" });
+                    let arrayRoles: String [] = [];
+                    user.roles.forEach(rol => {
+                        arrayRoles.push(rol.codigo);
+                    });
+                    const token = jwt.sign({ userID: user.idusuario, email: user.email, roles: arrayRoles }, config.jwtSecret, { expiresIn: "7 days" });
                     var response = {
                         "access_token": token,
                         "token_type": "bearer",
@@ -84,8 +101,6 @@ export class UsuariosController {
                         "IDuser": user.idusuario,
                     };
 
-                    // await UtilController.sendLoginMail(usuario);
-                    console.log(response);
                     return res.send(response);
                 }
                 else {
