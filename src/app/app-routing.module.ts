@@ -6,6 +6,8 @@ import { NoticiasComponent } from './main/noticias/noticias.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { AbonadosComponent } from './main/abonados/abonados.component';
 import { HomeComponent } from './components/home/home.component';
+import { SeniorComponent } from './main/static-pages/senior/senior.component';
+import { HistoriaComponent } from './main/static-pages/historia/historia.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -13,7 +15,10 @@ const routes: Routes = [
   { path: 'editor', component: EditorComponent},
   { path: 'socios', component: AbonadosComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
-  { path: '**', component: NotFoundComponent} // Wildcard route for a 404 page
+  { path: '**', component: NotFoundComponent}, // Wildcard route for a 404 page
+  { path: 'senior', component: SeniorComponent},
+  { path: 'historia', component: HistoriaComponent},
+  //definir route default para 404
 ];
 
 @NgModule({

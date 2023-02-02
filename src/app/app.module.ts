@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -64,6 +65,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FontAwesomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
