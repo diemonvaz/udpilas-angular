@@ -47,6 +47,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { LoginComponent } from './components/login/login.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { LoginComponent } from './components/login/login.component';
     MatSortModule,
     MatTooltipModule,
     MatDividerModule,
-    NgxTwitterTimelineModule
+    NgxTwitterTimelineModule,
+    MatTabsModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
