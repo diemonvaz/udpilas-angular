@@ -15,10 +15,9 @@ const routes: Routes = [
   { path: 'editor', component: EditorComponent},
   { path: 'socios', component: AbonadosComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
-  { path: '**', component: NotFoundComponent}, // Wildcard route for a 404 page
   { path: 'senior', component: SeniorComponent},
   { path: 'historia', component: HistoriaComponent},
-  //definir route default para 404
+  { path: '**', component: NotFoundComponent}, // Wildcard route for a 404 page
 ];
 
 @NgModule({
