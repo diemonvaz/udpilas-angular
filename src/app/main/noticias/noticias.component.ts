@@ -1,6 +1,9 @@
 import { NoticiasService } from './../../services/noticias.service';
-import { Component, ElementRef, EventEmitter, OnInit, Output, VERSION, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, VERSION, ViewChild } from '@angular/core';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 
 
 
@@ -19,16 +22,36 @@ export class NoticiasComponent implements OnInit {
 
   
   ngOnInit() {
- 
+   
+    this.noticiasService.getNoticias().subscribe(res => {
+      for (let i = 0; i < res.length; i++) {
+        if(!res[i].esPortada) {
+          this.noticiasArray.push(res[i]);
+        }else {
+          this.noticiasPortadaArray.push(res[i]);
+        }
+      }
+
+      this.changeDetectorRef.detectChanges();
+      this.dataSource.paginator = this.paginator;
+      this.obs = this.dataSource.connect();
+    })
   }
   
   noticiasArray: NoticiaRequest[] = [];
   noticiasPortadaArray: NoticiaRequest[] = [];
   displaySearch: Boolean = false;
   
-  constructor( private noticiasService: NoticiasService) {
-    this.getAllNoticias();
-    this.getNoticiasPortada();
+  //creamos un dataSource a partir del array de noticias 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  obs: Observable<any>;
+  dataSource: MatTableDataSource<NoticiaRequest> = new MatTableDataSource<NoticiaRequest>(this.noticiasArray);
+
+
+  constructor( private noticiasService: NoticiasService, private changeDetectorRef: ChangeDetectorRef) {
+    //this.getAllNoticias();
+    //this.getNoticiasPortada();
+    
    }
 
    onPress(): void {
@@ -36,6 +59,8 @@ export class NoticiasComponent implements OnInit {
    }
 
    
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //LLAMADAS A LOS SERVICIOS
@@ -52,7 +77,7 @@ export class NoticiasComponent implements OnInit {
       }
     })
     this.noticiasArray = todasNoticias;
-    
+    this.dataSource = new MatTableDataSource<NoticiaRequest>(this.noticiasArray);
   }
 
   getNoticiasPortada(): void{
@@ -61,7 +86,6 @@ export class NoticiasComponent implements OnInit {
         if(res[i].esPortada) {
           this.noticiasPortadaArray.push(res[i]);
         }
-        
       }
     }) 
   }
@@ -81,10 +105,14 @@ export class NoticiasComponent implements OnInit {
         }
       })
       this.noticiasArray = noticiasFiltradas;
+      this.dataSource = new MatTableDataSource(noticiasFiltradas);
+      this.obs = this.dataSource.connect();
+
     }
    
   }
 
+   //buscar noticias por etiqueta 
   searchByEtiqueta(etiqueta: any): void {
     let noticiasFiltradas: NoticiaRequest[] = [];
     this.noticiasService.getNoticiaByEtiqueta(etiqueta).subscribe(res => {
@@ -92,10 +120,7 @@ export class NoticiasComponent implements OnInit {
         noticiasFiltradas.push(res[i]);
       }
     })
-    console.log(noticiasFiltradas);
-    this.noticiasArray = noticiasFiltradas;
-  
-   
+    this.noticiasArray = noticiasFiltradas;   
   }
 
 
