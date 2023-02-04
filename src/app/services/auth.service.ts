@@ -28,8 +28,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { 
     //tenemos que asegurarnos de que el token no haya expirado antes de cambiar el estado de loggedIn en esta linea
+    //(ver como implementar refresh)
     this._isLoggedIn$.next(!!this.token);
-    this.user = this.getUser(this.token);
+    if(this.token != null) {
+      this.user = this.getUser(this.token);
+    }
   }
 
  
