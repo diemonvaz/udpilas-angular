@@ -45,13 +45,13 @@
             <button mat-menu-item>C.D. TOR DEL REY DE PILAS</button>
             -->
         </mat-menu>      
-        <button mat-button [matMenuTriggerFor]="miembrosMenu">MIEMBROS</button>
+        <button mat-button [matMenuTriggerFor]="miembrosMenu" *ngIf = '(authService.isLoggedIn$ | async)'>MIEMBROS</button>
             <mat-menu #miembrosMenu = "matMenu">
-                <button mat-menu-item routerLink = "/socios" routerLinkActive = "Active">ADMINISTRACION SOCIOS</button>
-                <button mat-menu-item routerLink = "/editor" routerLinkActive = "Active">ADMINISTRACION NOTICIAS</button>
-                <button mat-menu-item routerLink = "/miembros" routerLinkActive = "Active" >ADMINISTRACION MIEMBROS</button>
-                <button mat-menu-item routerLink = "/plantilla" routerLinkActive = "Active">ADMINISTRACION PLANTILLA</button>
-                <button mat-menu-item routerLink = "/cuerpoTecnico" routerLinkActive = "Active" >GESTIÓN CUERPO TÉCNICO</button>
+                <button mat-menu-item routerLink = "/socios" routerLinkActive = "Active" *ngIf = 'accesoAdministracionSocios'>ADMINISTRACION SOCIOS</button>
+                <button mat-menu-item routerLink = "/editor" routerLinkActive = "Active" *ngIf = 'accesoAdministracionNoticias'>ADMINISTRACION NOTICIAS</button>
+                <button mat-menu-item routerLink = "/miembros" routerLinkActive = "Active" *ngIf = 'accesoAdministracionMiembros'>ADMINISTRACION MIEMBROS</button>
+                <button mat-menu-item routerLink = "/plantilla" routerLinkActive = "Active" *ngIf = 'accesoAdministracionPlantilla'>ADMINISTRACION PLANTILLA</button>
+                <button mat-menu-item routerLink = "/cuerpoTecnico" routerLinkActive = "Active" *ngIf = 'accesoAdministracionCuerpoTecnico'>GESTIÓN CUERPO TÉCNICO</button>
             </mat-menu>
         
     
