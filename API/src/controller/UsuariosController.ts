@@ -123,6 +123,8 @@ export class UsuariosController {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    
+
     static registroUsuario = async (req: Request, res: Response) => {
         const nombre_completo = req.body.nombre_completo;
         const email = req.body.email;

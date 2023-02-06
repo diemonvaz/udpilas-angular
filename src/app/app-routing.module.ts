@@ -1,3 +1,6 @@
+import { CuerpoTecnicoComponent } from './main/cuerpo-tecnico/cuerpo-tecnico.component';
+import { PlantillaComponent } from './main/plantilla/plantilla.component';
+import { MiembrosComponent } from './main/miembros/miembros.component';
 import { IsAuthenticatedGuard } from './is-authenticated.guard';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -18,6 +21,9 @@ const routes: Routes = [
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard]},
   { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
+  { path: 'miembros', component: MiembrosComponent},
+  { path: 'plantilla', component: PlantillaComponent},
+  { path: 'cuerpoTecnico', component: CuerpoTecnicoComponent},
   { path: 'login', component: LoginComponent},
   { path: 'noticia/:idnoticias', component: NoticiaViewComponent},
   { path: 'senior', component: SeniorComponent},

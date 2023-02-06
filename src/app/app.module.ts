@@ -49,6 +49,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 import { LoginComponent } from './components/login/login.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MiembrosComponent } from './main/miembros/miembros.component';
+import { PlantillaComponent } from './main/plantilla/plantilla.component';
+import { CuerpoTecnicoComponent } from './main/cuerpo-tecnico/cuerpo-tecnico.component';
+import { AdministracionNoticiasComponent } from './main/administracion-noticias/administracion-noticias.component';
 
 
 @NgModule({
@@ -66,7 +70,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     DeleteConfirmDialogComponent,
     NotFoundComponent,
     AlertComponent,
-    LoginComponent
+    LoginComponent,
+    MiembrosComponent,
+    PlantillaComponent,
+    CuerpoTecnicoComponent,
+    AdministracionNoticiasComponent
   ],
   imports: [
     BrowserModule,
