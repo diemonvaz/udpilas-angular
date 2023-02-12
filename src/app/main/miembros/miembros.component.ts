@@ -48,15 +48,6 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
   }
 
 
-  @ViewChild(MiembrosComponent) private component: MiembrosComponent;
-  onTabChanged(event: MatTabChangeEvent) 
-  {
-    if(event.index == 0) {
-        //this.component.;//Or whatever name the method is called
-    } else {
-    }
-  }
-
 
   dataSource: MatTableDataSource<Miembro>;
   miembrosArray: Miembro[] = [];
@@ -90,6 +81,7 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
       .subscribe((response) => {
         formDirective.resetForm(); // reseteo los validadores
         this.form.reset();  //reseteo el data de los inputs
+        this.ngAfterViewInit();
     });
   }
   
