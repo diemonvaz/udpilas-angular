@@ -1,10 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable, ManyToOne, OneToOne, JoinColumn} from "typeorm";
-import * as bcrypt from "bcryptjs";
-import { Roles } from "./Roles";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn, BaseEntity} from "typeorm";
+import { Usuarios } from "./Usuarios";
+
 
 @Entity("miembros")
 @Unique(['idmiembro'])
-export class Usuarios {
+export class Miembros extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     idmiembro: number;

@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   //y posteriormente cambiar los roles aquí para renderizar solamente los items a los que el miembro pueda acceder
   rolesAdministracionSocios: String [] = ['ADMIN'];
   rolesAdministracionNoticias: String [] = ['ADMIN'];
-  rolesAdministracionMiembros: String [] = ['ADMIN'];
+  rolesAdministracionMiembros: String [] = ['ADMIN', 'GESTOR'];
   rolesAdministracionPlantilla: String [] = ['ADMIN'];
   rolesAdministracionCuerpoTecnico: String [] = ['ADMIN', 'ENTRENADOR'];
 

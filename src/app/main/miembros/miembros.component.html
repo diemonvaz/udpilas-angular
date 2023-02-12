@@ -1,1 +1,148 @@
-<p>miembros works!</p>
+<div class="miembros-container">
+
+    <div class="col mt-4 mb-4">
+        <div class="row mt-2 mb-2 text-center">
+            <h1>MIEMBROS</h1>
+        </div>
+        <mat-tab-group dynamicHeight>
+
+            <mat-tab label="Gestión de miembros">
+                <div class="row mt-4 mb-4 d-flex justify-content-center">
+
+                    <mat-form-field appearance="standard" style="margin-top:5px; margin-bottom:5px; margin-right:5px; float:left">
+                        <mat-label>Búsqueda</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pensionista" #input>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
+                            <td mat-cell *matCellDef="let element"> {{element.usuario.nombre}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="apellidos">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDOS </th>
+                            <td mat-cell *matCellDef="let element"> {{element.usuario.apellidos}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL </th>
+                            <td mat-cell *matCellDef="let element"> {{element.usuario.email}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dni">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
+                            <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="fecha_nacimiento">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> F.NACIMIENTO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.usuario.fecha_nacimiento}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="telefono">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> TELÉFONO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.usuario.telefono}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="domicilio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DOMICILIO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.domicilio}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="poblacion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> POBLACION </th>
+                            <td mat-cell *matCellDef="let element"> {{element.poblacion}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="roles">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ROLES </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <span *ngFor="let rol of element.usuario.roles">
+                                    {{rol.codigo}}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-mini-fab color="secondary" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                <mat-icon>edit</mat-icon>
+                                </button> 
+                                <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
+
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Alta de miembros">
+
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel hideToggle style="margin-left: 20%; margin-right: 20%; margin-top: 20px; margin-bottom: 20px;">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Registrar nuevo miembro
+                        </mat-panel-title>
+                        <mat-icon>add</mat-icon>
+                      </mat-expansion-panel-header>
+                      <form (ngSubmit)="submitFormRegistro(formDirective)" [formGroup]="form" #formDirective="ngForm" autocomplete="off">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Nombre</mat-label>
+                          <input matInput type="text" formControlName="nombre">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Apellidos</mat-label>
+                          <input matInput type="text" formControlName="apellidos">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label >Email</mat-label>
+                          <input matInput type="text" formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Contraseña</mat-label>
+                          <input matInput type="password" formControlName="password" >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>DNI</mat-label>
+                          <input matInput type="text" formControlName="dni" >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Fecha Nacimiento</mat-label>
+                          <input matInput type="date" formControlName="fecha_nacimiento" >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Teléfono</mat-label>
+                          <input matInput type="tel" formControlName="telefono" >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Domicilio</mat-label>
+                          <input matInput type="text" formControlName="domicilio" >
+                        </mat-form-field><mat-form-field appearance="fill">
+                          <mat-label>Poblacion</mat-label>
+                          <input matInput type="text" formControlName="poblacion" >
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Roles</mat-label>
+                          <mat-select formControlName="roles" multiple>
+                              <mat-option *ngFor="let rol of rolesExistentes" [value]="rol.codigo"  name="listaRoles" ngDefaultControl >
+                                {{rol.codigo}}
+                              </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <br>
+                        <div style="text-align: center;">
+                          <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+                              Registrar
+                          </button>
+                        </div>
+                      </form>
+                      
+                    </mat-expansion-panel>
+                </mat-accordion>
+                    
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+</div>

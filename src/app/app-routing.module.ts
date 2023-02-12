@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
-  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
+  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
   { path: 'plantilla', component: PlantillaComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'cuerpoTecnico', component: CuerpoTecnicoComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'login', component: LoginComponent},

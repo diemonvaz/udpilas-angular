@@ -42,18 +42,19 @@ export class AuthService {
   }
 
 
- //metodo de tipo POST para hacer login del usuario
- login(email: string, password: string) {
-  return this.http.post(this.urlUsuarios + 'login', { email, password }, httpOptions).pipe(
-    tap((response: any) => {
-      this._isLoggedIn$.next(true);
-      localStorage.setItem(this.TOKEN_NAME, response.access_token);
-      this.user = this.getUser(response.access_token);
-    })
-   );
+  //metodo de tipo POST para hacer login del usuario
+  login(email: string, password: string) {
+    return this.http.post(this.urlUsuarios + 'login', { email, password }, httpOptions).pipe(
+      tap((response: any) => {
+        this._isLoggedIn$.next(true);
+        localStorage.setItem(this.TOKEN_NAME, response.access_token);
+        this.user = this.getUser(response.access_token);
+      })
+    );
   }
 
   private getUser(token: string): Usuario {
+    console.log(JSON.parse(atob(token.split('.')[1])) as Usuario)
     return JSON.parse(atob(token.split('.')[1])) as Usuario;
   }
 

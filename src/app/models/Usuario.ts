@@ -1,12 +1,12 @@
-//por el momento, el registro se hace solo con email y contraseña, y el jwt llevará
-//el idusuario, email y roles en el payload. Si más adelante vemos que necesitamos mas
-//datos, se incluirán en el registro y se decidirá cuales irán siempre en el jwt
+
+//la interfaz (modelo) del usuario tiene todas sus propiedades, en caso de necesitar mas en el JWT se deberán 
+//incluir en la respuesta del backend, así como en el registro del usuario obviamente. Por el momento idusuario, email y roles.
 export interface Usuario {
     idusuario: String;
-    //nombre: String;
-    //apellidos: String;
+    nombre: String;
+    apellidos: String;
     email: String;
-    //fecha_nacimiento: String;
-    //telefono: String;
+    fecha_nacimiento: String;
+    telefono: String;
     roles: String [];
 }
