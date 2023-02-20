@@ -1,3 +1,4 @@
+import { AdministracionNoticiasComponent } from './main/administracion-noticias/administracion-noticias.component';
 import { CuerpoTecnicoComponent } from './main/cuerpo-tecnico/cuerpo-tecnico.component';
 import { PlantillaComponent } from './main/plantilla/plantilla.component';
 import { MiembrosComponent } from './main/miembros/miembros.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'noticias', component: NoticiasComponent},
   { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
+  { path: 'adm-noticias', component: AdministracionNoticiasComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
   { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
   { path: 'plantilla', component: PlantillaComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},

@@ -1,10 +1,11 @@
 /* ESTE ESTILO SE PUEDE MODIFICAR PARA VARIAR LAS PROPORCIONES DE LA VISTA DE LA NOTICIA*/
 .noticia-view-container{
-    /*display: flex;*/
+    margin: 0 auto;
     margin-top: 50px;
-    margin-left: 20%;
-    margin-right: 20%;
     margin-bottom: 50px;
+    max-width: 1200px;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
   
 
