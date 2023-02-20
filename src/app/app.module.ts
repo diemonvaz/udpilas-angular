@@ -53,6 +53,7 @@ import { MiembrosComponent } from './main/miembros/miembros.component';
 import { PlantillaComponent } from './main/plantilla/plantilla.component';
 import { CuerpoTecnicoComponent } from './main/cuerpo-tecnico/cuerpo-tecnico.component';
 import { AdministracionNoticiasComponent } from './main/administracion-noticias/administracion-noticias.component';
+import { AddMiembroDialogComponent } from './main/add-miembro-dialog/add-miembro-dialog.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { AdministracionNoticiasComponent } from './main/administracion-noticias/
     MiembrosComponent,
     PlantillaComponent,
     CuerpoTecnicoComponent,
-    AdministracionNoticiasComponent
+    AdministracionNoticiasComponent,
+    AddMiembroDialogComponent
   ],
   imports: [
     BrowserModule,

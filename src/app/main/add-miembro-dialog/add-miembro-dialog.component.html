@@ -1,0 +1,43 @@
+<div mat-dialog-title id="editor-date-dialog">{{banner}} 
+    <div mat-dialog-content style="margin-top:30px">
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Nombre" [(ngModel)]= nuevoMiembro.usuario.nombre >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Apellidos" [(ngModel)]= nuevoMiembro.usuario.apellidos>
+        </mat-form-field >
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="email" placeholder="Email" [(ngModel)]="nuevoMiembro.usuario.email" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="DNI" [(ngModel)]="nuevoMiembro.dni" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="date" placeholder="Fecha Nacimiento" [(ngModel)]="nuevoMiembro.usuario.fecha_nacimiento" >
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Teléfono" [(ngModel)]="nuevoMiembro.usuario.telefono">
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Domicilio" [(ngModel)]="nuevoMiembro.domicilio">
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <input matInput type="text" placeholder="Poblacion" [(ngModel)]="nuevoMiembro.poblacion">
+        </mat-form-field>
+        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <mat-label>Roles</mat-label>
+            <mat-select multiple [(ngModel)]="nuevoMiembro.usuario.roles">
+                <mat-option *ngFor="let rol of tipos_roles" [value]="rol.codigo" name="fieldName" ngDefaultControl>
+                  {{rol.codigo}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+
+    </div>
+    <mat-dialog-actions>
+        <button mat-raised-button color=accent *ngIf="!check" (click)="actualizar()">Modificar</button>
+        <button mat-raised-button mat-dialog-close (click)="cancelar()">Cancelar</button>
+    </mat-dialog-actions>
+
+</div>
+

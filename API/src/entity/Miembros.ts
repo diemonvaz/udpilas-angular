@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, OneToOne, JoinColumn, BaseEntity, BeforeRemove} from "typeorm";
 import { Usuarios } from "./Usuarios";
 
 
@@ -18,8 +18,13 @@ export class Miembros extends BaseEntity{
     @Column({type: "varchar", width: 255, default: null, nullable: true})
     dni: string;
 
-    @OneToOne(() => Usuarios)
+    @OneToOne(() => Usuarios, {
+        eager: true,
+        onDelete: "CASCADE"
+    })
     @JoinColumn()
     usuario: Usuarios;
+
+  
   
 }

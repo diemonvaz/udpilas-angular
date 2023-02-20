@@ -4,6 +4,7 @@ import { Miembros } from "../entity/Miembros";
 import * as bcrypt from "bcryptjs";
 import { Usuarios } from "../entity/Usuarios";
 import { Roles } from "../entity/Roles";
+import nodemailer from 'nodemailer';
 
 export class MiembrosController {
 
@@ -71,16 +72,86 @@ export class MiembrosController {
                 miembro.domicilio = domicilio;
                 miembro.poblacion = poblacion;
                 miembro.usuario = user;
-
+                //Logica para notificar al usuario recien creado por correo
+                /*const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'ivanmartin2h@gmail.com', // Tu correo electrónico aquí
+                        pass: 'Dieor$kate69' // Tu contraseña aquí
+                    }
+                });
+                const mailOptions = {
+                    from: 'ivanmartin2h@gmail.com', // Tu correo electrónico aquí
+                    to: email,
+                    subject: 'Registro exitoso',
+                    text: 'Gracias por registrarte en nuestro sitio web!'
+                };
+                await transporter.sendMail(mailOptions);*/
                 await miembrosRepository.save(miembro);
-                //await UtilController.sendRegistroMail(usuario);
-                return res.status(200).json({ message: "Miembro creado con éxito"});  
+                return res.status(200).json({ message: "Miembro creado con éxito", status: 200});  
             }
         }
         catch (e) {
             return res.status(500).json({ message: "Error" });
         }
     };
+
+    static deleteById = async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Miembros);
+        const usRepo = getRepository(Usuarios);
+        const rolRepo = getRepository(Roles);
+        try{
+            //You have to delete referencing side to take cascade deletion to take in effect
+            const miembro = await repository.findOne(id);
+            if(miembro) {
+                const usuario = await usRepo.findOne(miembro.usuario.idusuario);
+                //hay que eliminar tambien los roles asociados a ese usuario, si los tiene
+                //al eliminar el usuario, como tenemos las cascades con roles se eliminan las relaciones
+                //de la tabla intermedia many to many, y ademas como en miembros tenemos las cascades,
+                //se elimina tambien el miembro de la relacion one to one
+                await usRepo.remove(usuario); //usando el repository.delete(...) no funciona
+                res.status(200);
+            }
+            else {
+                res.status(404).json({message: 'Miembro no encontrado'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+    static updateById= async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Miembros);
+        try{
+            const miembro = await repository.findOne(id, {relations: ["usuario", "usuario.roles"]});
+            if(miembro) {
+                //si ha habido cambios en los roles del miembro a actualizar, actualmente el cambio se hará efectivo cuando el token expire y se le regenere
+                const usuario = miembro.usuario;
+                await repository.merge(miembro, req.body);
+                await repository.save(miembro);
+                
+                const rolesActualizados = await getRepository(Roles)
+                    .createQueryBuilder("roles")
+                    .where("roles.codigo IN (:codigos)", { codigos: req.body.usuario.roles })
+                     .getMany();
+                
+                usuario.roles = rolesActualizados;
+                console.log(req.body.usuario.roles)
+                await getRepository(Usuarios).save(usuario);
+                res.status(200);
+            }
+            else {
+                res.status(404).json({message: 'Socio no encontrado'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+    
 
 
 

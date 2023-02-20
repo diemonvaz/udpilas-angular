@@ -18,7 +18,18 @@ export class RolesService {
   constructor(private http: HttpClient) { }
 
   getRoles():Observable<Rol[]> {
-  return this.http.get<Rol[]>(this.urlRoles+"getAll", httpOptions);
+    return this.http.get<Rol[]>(this.urlRoles+"getAll", httpOptions);
   }
 
+  crearRol(codigo: string, descripcion: string): Observable<Response> {
+    return this.http.post<Response>(this.urlRoles + 'crearRol' , {codigo, descripcion}, httpOptions);
+  }
+  
+  deleteById(id: String): Observable<Response> {
+    return this.http.delete<Response>(this.urlRoles + "deleteById/" + id, httpOptions);
+  
+ }
+
+
+ 
 }

@@ -21,21 +21,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitFormRegistro() {
-    if (this.form.invalid) {
-      return;
-    }
-    //se podria crear una componente de gestion de usuarios de la web, desde donde el admin pueda crear super usuarios y demás
-    let roles = [];
-    roles.push('ADMIN');
-    this.authService
-      .registro(this.form.get('email')?.value, this.form.get('password')?.value, roles)
-      .subscribe((response) => {
-        console.log(response);
-        this.router.navigate(['']);
-    });
-
-  }
 
   submitFormLogin() {
     if (this.form.invalid) {

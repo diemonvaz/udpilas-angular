@@ -1,11 +1,12 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, Unique, ManyToMany, JoinTable, OneToOne, JoinColumn} from "typeorm";
 import * as bcrypt from "bcryptjs";
 import { Roles } from "./Roles";
+import { Miembros } from "./Miembros";
 
 @Entity("usuarios")
 @Unique(['idusuario'])
 export class Usuarios {
-
+ 
     @PrimaryGeneratedColumn()
     idusuario: number;
 
@@ -27,7 +28,10 @@ export class Usuarios {
     @Column({type: "varchar", width: 255, default: null, nullable: true})
     telefono: string;
 
-    @ManyToMany(type => Roles, rol => rol.usuarios)
+    @ManyToMany(type => Roles, rol => rol.usuarios, {
+        eager: true,
+        onDelete: "CASCADE"
+    })
     @JoinTable()
     roles: Roles[];
 

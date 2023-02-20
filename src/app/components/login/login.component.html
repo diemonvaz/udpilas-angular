@@ -1,9 +1,9 @@
 
   <mat-tab-group animationDuration="0ms"mat-align-tabs="center">
 
-    <mat-tab label="Inicia Sesión">
+    <mat-tab label="INICIA SESIÓN">
   
-      <form (ngSubmit)="submitFormLogin()" [formGroup]="form" autocomplete="off">
+      <form (ngSubmit)="submitFormLogin()" [formGroup]="form" autocomplete="off" style="margin-top: 40px; margin-bottom: 40px;">
         <div style="display: flex; justify-content: center">
           <mat-card class="form-container">
             <mat-card-title>Acceder</mat-card-title>   
@@ -32,36 +32,7 @@
       
     </mat-tab>
   
-    <mat-tab label="Regístrate">
-  
-      <form (ngSubmit)="submitFormRegistro()" [formGroup]="form" autocomplete="off">
-        <div style="display: flex; justify-content: center">
-          <mat-card class="form-container">
-            <mat-card-title>Registro</mat-card-title>
-            <!-- Correo -->
-            <div>
-              <mat-form-field>
-                <mat-label>Correo electrónico</mat-label>
-                <input matInput formControlName="email" />
-              </mat-form-field>
-            </div>
-            <!-- /Correo -->
-            <!-- Password -->
-            <div>
-              <mat-form-field>
-                <mat-label>Contraseña</mat-label>
-                <input matInput type="password" placeholder="Ex. s3c3tP@ss" formControlName="password" />
-              </mat-form-field>
-            </div>
-            <!-- /Password -->
-            <div>
-              <button type="submit" mat-raised-button color="primary">Regístrate</button>
-            </div>
-          </mat-card>
-        </div>
-      </form>
-  
-    </mat-tab>
+   
     
   </mat-tab-group>
   
