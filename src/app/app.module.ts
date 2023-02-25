@@ -54,7 +54,10 @@ import { PlantillaComponent } from './main/plantilla/plantilla.component';
 import { CuerpoTecnicoComponent } from './main/cuerpo-tecnico/cuerpo-tecnico.component';
 import { AdministracionNoticiasComponent } from './main/administracion-noticias/administracion-noticias.component';
 import { AddMiembroDialogComponent } from './main/add-miembro-dialog/add-miembro-dialog.component';
-
+import { OrganigramaComponent } from './main/static-pages/organigrama/organigrama.component';
+import { EstadioComponent } from './main/static-pages/estadio/estadio.component';
+import { MatTreeModule } from '@angular/material/tree';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,9 @@ import { AddMiembroDialogComponent } from './main/add-miembro-dialog/add-miembro
     PlantillaComponent,
     CuerpoTecnicoComponent,
     AdministracionNoticiasComponent,
-    AddMiembroDialogComponent
+    AddMiembroDialogComponent,
+    OrganigramaComponent,
+    EstadioComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +120,9 @@ import { AddMiembroDialogComponent } from './main/add-miembro-dialog/add-miembro
     MatTooltipModule,
     MatDividerModule,
     NgxTwitterTimelineModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule,
+    MatListModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

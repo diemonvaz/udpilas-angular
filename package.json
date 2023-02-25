@@ -41,6 +41,7 @@
     "html-to-text": "^8.2.1",
     "jquery": "^3.6.1",
     "ngx-twitter-timeline": "^0.1.5",
+    "nodemailer": "^6.9.1",
     "proyecto": "file:",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

@@ -72,22 +72,35 @@ export class MiembrosController {
                 miembro.domicilio = domicilio;
                 miembro.poblacion = poblacion;
                 miembro.usuario = user;
-                //Logica para notificar al usuario recien creado por correo
-                /*const transporter = nodemailer.createTransport({
+                await miembrosRepository.save(miembro);
+
+                /*const nodemailer = require('nodemailer');
+                // configuración del servicio de correo electrónico
+                let transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'ivanmartin2h@gmail.com', // Tu correo electrónico aquí
-                        pass: 'Dieor$kate69' // Tu contraseña aquí
+                        user: testAccount.user, // correo electrónico del remitente
+                        pass: testAccount.pass // contraseña del remitente
                     }
                 });
-                const mailOptions = {
-                    from: 'ivanmartin2h@gmail.com', // Tu correo electrónico aquí
-                    to: email,
-                    subject: 'Registro exitoso',
-                    text: 'Gracias por registrarte en nuestro sitio web!'
+
+                // mensaje de correo electrónico
+                let mailOptions = {
+                    from: testAccount.user, // correo electrónico del remitente
+                    to: email, // correo electrónico del destinatario (el nuevo miembro registrado)
+                    subject: 'Bienvenido al club', // asunto del correo electrónico
+                    text: 'Hola ' + nombre + ', \n\n ¡Bienvenido al club! \n\n Esperamos verte pronto en nuestras instalaciones. \n\n Saludos cordiales, \n\n El equipo del club' // contenido del correo electrónico
                 };
-                await transporter.sendMail(mailOptions);*/
-                await miembrosRepository.save(miembro);
+
+                // enviar el correo electrónico
+                transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Correo electrónico enviado: ' + info.response);
+                    }
+                });*/
+
                 return res.status(200).json({ message: "Miembro creado con éxito", status: 200});  
             }
         }
