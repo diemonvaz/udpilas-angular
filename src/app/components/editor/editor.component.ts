@@ -1,22 +1,23 @@
+import { Imagen } from './../../models/Imagen';
 import { AlertService } from 'src/app/services/alert.service';
-import { Response } from 'express';
 import { EtiquetasService } from './../../services/etiquetas.service';
 import { Etiqueta } from './../../models/Etiqueta';
 import { NoticiasService } from './../../services/noticias.service';
 import { Noticia } from 'src/app/models/Noticia';
 import { EditorDateDialogComponent } from './../editor-date-dialog/editor-date-dialog.component';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as customBuild from '../../ckCustomBuild/build/ckeditor.js';
 import {COMMA, ENTER, O} from '@angular/cdk/keycodes';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
-import { Imagen } from 'src/app/models/Imagen';
 import { MyUploadAdapter } from './myCustomUploader';
+import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -35,20 +36,50 @@ export class EditorComponent implements OnInit {
   ngOnInit(): void {
     
   }
+
+  
   //el ckeditor5 tiene integracion automatica con el textarea de html. Eventualmente se podria modificar,
   //lo que nos ahorraria el editor.getData() y enviarlo, al hacer el submit del form automaticamente
   //se enviarian los datos
  
- 
-  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService, private alertService: AlertService) { 
+ //elementos para habilitar la edicion de noticias ya redactadas sobre la misma componente
+  idNoticiaSeleccionada: String;
+  noticiaSeleccionada: NoticiaRequest;
+  esEdicion: Boolean = false;
+
+
+  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService, private alertService: AlertService,  private route: ActivatedRoute) { 
     /*CHIPS PARA LAS ETIQUETAS*/
     this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
     );
-    /*CHIPS PARA LAS ETIQUETAS*/
+    this.route.paramMap.subscribe(params => {
+      this.idNoticiaSeleccionada = params.get('idnoticias');
+      if(this.idNoticiaSeleccionada) {
+        this.noticiasService.getNoticiaById(this.idNoticiaSeleccionada).subscribe(data => {
+          this.noticiaSeleccionada = data;
+          this.esEdicion = true;
+          this.formEditor.patchValue({
+            tituloPub: this.noticiaSeleccionada.tituloNoticia,
+            nombreArchivoImagen: this.noticiaSeleccionada.imagen.nombre
+          });
+          this.tags = [];
+          this.noticiaSeleccionada.etiquetas.forEach(etiqueta => {
+            this.tags.push(etiqueta.nombre);
+          });
+          this.myEditor.editorInstance.setData(this.noticiaSeleccionada.contenidoNoticia);
+        });
+      }
+    });
   }
+
+  
+  formEditor = new FormGroup({
+    tituloPub: new FormControl(null, Validators.required),
+    nombreArchivoImagen: new FormControl('', Validators.required)
+  });
 
 
   public Editor = customBuild;
@@ -92,12 +123,14 @@ export class EditorComponent implements OnInit {
   urlImagen:any;
   /*SUBIDA DE IMAGEN*/
   @ViewChild('fileInput') fileInput: ElementRef;
-  archivoImagen = '';
+ 
   uploadFileEvt(imgFile: any) {
     if (imgFile.target.files && imgFile.target.files[0]) {
-      this.archivoImagen = '';
+      
       Array.from(imgFile.target.files).forEach((file: any) => {
-        this.archivoImagen += file.name + ' - ';
+        this.formEditor.patchValue({
+          nombreArchivoImagen: file.name + ' - '
+        });
         this.archivoSeleccionado = file;
       });
       // HTML5 FileReader API
@@ -113,7 +146,9 @@ export class EditorComponent implements OnInit {
       // Reset if duplicate image uploaded again
       this.fileInput.nativeElement.value = '';
     } else {
-      this.archivoImagen = 'Imagen de portada';
+      this.formEditor.patchValue({
+        nombreArchivoImagen: '',
+      });
     }
   }
   /*SUBIDA DE IMAGEN*/
@@ -218,13 +253,15 @@ export class EditorComponent implements OnInit {
   }
 
   
+ 
+
+
   @ViewChild('myEditor') myEditor: any;
-  async onSubmit(f: NgForm) {
+  async onSubmit(f: FormGroupDirective) {
     console.log(f.value);  // { first: '', last: '' }
     let tituloPublicacion = f.value.tituloPub;
     let contenidoNoticia;
     if (this.myEditor && this.myEditor.editorInstance) {
-      console.log(this.myEditor.editorInstance.getData());
        contenidoNoticia = this.myEditor.editorInstance.getData();
     }
     //aqui buscamos el nick del usuario logeado que está escribiendo la publicacion
@@ -252,14 +289,21 @@ export class EditorComponent implements OnInit {
     if (this.archivoSeleccionado != null) {
       urlImgPrincipal = await this.storeImage2(); 
     }
+    
     //esta declaracion de imagen es a modo de prueba, para poder enviar noticias a backend provisionalmente.
     //realmente esto no hará falta luego, puesto todas las imagenes (incluyendo la portada) iran referenciadas en el content
     //Si el formulario cumple las validaciones de front-end, lo enviamos a backend
-    console.log(contenidoNoticia);
-    if(f.valid) {
-      this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
-      f.onReset();
-      window.location.reload();
+    if(this.formEditor.valid) {
+      if(this.esEdicion) {
+        this.updateNoticia(tituloPublicacion, contenidoNoticia, "Admin", this.noticiaSeleccionada.fechaCreacion, this.noticiaSeleccionada.fechaPublicacion, etiquetasAsociadas, this.noticiaSeleccionada.esPortada, urlImgPrincipal ? urlImgPrincipal : this.noticiaSeleccionada.imagen.nombre);
+        f.onReset();
+        window.location.reload();
+      }else {
+        this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
+        f.onReset();
+        window.location.reload();
+      }
+      
     }
   }
 
@@ -274,6 +318,12 @@ export class EditorComponent implements OnInit {
   addNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String): void {
     const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen} as Noticia;
     this.noticiasService.addNoticia(nuevaNoticia).subscribe();
+
+  }
+
+  updateNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String): void {
+    const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen} as Noticia;
+    this.noticiasService.updateById(nuevaNoticia, this.idNoticiaSeleccionada).subscribe();
 
   }
 

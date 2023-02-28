@@ -2,12 +2,13 @@ import { NoticiaRequest } from './../../models/NoticiaRequest';
 import { NoticiasService } from './../../services/noticias.service';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Noticia } from 'src/app/models/Noticia';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import { Imagen } from 'src/app/models/Imagen';
+import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-administracion-noticias',
@@ -18,7 +19,7 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
 
   constructor(private noticiasService: NoticiasService,  public dialog: MatDialog) { }
 
-  idnoticias: Number;
+  idnoticias: String;
   tituloNoticia: String;
   contenidoNoticia: String;
   usuario: String;
@@ -54,6 +55,20 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteRowNoticia(noticia: NoticiaRequest) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    let dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {data: {} });
+    dialogRef.afterClosed().subscribe(res => {
+      if(res.data.confirmacion == true) {
+        this.noticiasService.deleteById(noticia.idnoticias).subscribe();
+        window.location.reload();
+      }
+    })       
+  
   }
 
   

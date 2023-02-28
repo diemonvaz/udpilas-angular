@@ -54,5 +54,13 @@ export class NoticiasService {
   getUltimasInsertadas(num: Number):Observable<NoticiaRequest[]> {
     return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getUltimasInsertadas/" + num, httpOptions);
   }
+
+  updateById(noticia: Noticia, id: String): Observable<Noticia> {
+    return this.http.put<Noticia>(this.urlNoticias + "updateById/" + id, noticia, httpOptions);
+ }
+
+ deleteById(id: String): Observable<Response> {
+  return this.http.delete<Response>(this.urlNoticias + "deleteById/" + id, httpOptions);
+}
   
 }

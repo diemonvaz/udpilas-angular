@@ -1,4 +1,4 @@
-import {getRepository} from "typeorm";
+import {getRepository, In} from "typeorm";
 import { Request, Response} from "express";
 import { Noticias } from "../entity/Noticias";
 import { Etiquetas } from "../entity/Etiquetas";
@@ -15,7 +15,6 @@ export class NoticiasController {
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
                     .orderBy("noticia.fechaPublicacion", "DESC")
                     .getMany();
-            console.log(noticia);
             if(noticia) {
                 res.send(noticia);
             }
@@ -40,7 +39,6 @@ export class NoticiasController {
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
                     .getOne();
             if(noticia) {
-                console.log(noticia);
                 res.send(noticia);
             }
             else {
@@ -199,6 +197,74 @@ export class NoticiasController {
             res.status(500).json({message: 'Error'});
         }
         
+    };
+
+    static updateById= async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Noticias);
+        try{
+            const noticia = await repository.findOne(id, { relations: ['imagen', 'etiquetas'] });
+            if(noticia) {
+                noticia.tituloNoticia = req.body.tituloNoticia;
+                noticia.contenidoNoticia = req.body.contenidoNoticia;
+                noticia.fechaPublicacion = req.body.fechaPublicacion;
+                noticia.esPortada = req.body.esPortada;
+                const checkImagen = await Imagenes.findOne({nombre: req.body.urlImagen});
+                if(checkImagen==null){
+                    let nuevaImagen = Imagenes.create();
+                    nuevaImagen.nombre = req.body.urlImagen;
+                    await nuevaImagen.save();
+                    noticia.imagen = nuevaImagen;
+                }else{
+                    noticia.imagen = checkImagen;
+                }
+               
+                const etiquetasNombres = [];
+                req.body.etiquetas.forEach(etiqueta => {
+                    etiquetasNombres.push(etiqueta.nombre);
+                });
+                const etiquetasNuevas = [];
+                console.log(req.body.etiquetas)
+                for (const nombre of etiquetasNombres) {
+                    const etiqueta = await Etiquetas.findOne({ nombre });
+                    if (etiqueta) {
+                        etiquetasNuevas.push(etiqueta);
+                    } else {
+                        const nuevaEtiqueta = Etiquetas.create();
+                        nuevaEtiqueta.nombre = nombre;
+                        await nuevaEtiqueta.save();
+                        etiquetasNuevas.push(nuevaEtiqueta);
+                    }
+                }
+                noticia.etiquetas = etiquetasNuevas;
+            
+                await repository.save(noticia);          
+            }
+            else {
+                res.status(404).json({message: 'Noticia no encontrada'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+    static deleteById = async (req: Request, res: Response)=>{
+        const id = req.params.id;
+        const repository = getRepository(Noticias);
+        try{
+            const noticia = await repository.findOne(id);
+            if(noticia) {
+                await repository.remove(noticia); 
+                res.status(200);
+            }
+            else {
+                res.status(404).json({message: 'Noticia no encontrada'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
     };
 
     

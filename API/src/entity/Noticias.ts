@@ -27,11 +27,17 @@ export class Noticias extends BaseEntity{
     @Column({type: "bool", nullable: false})
     esPortada: Boolean;
 
-    @OneToOne(() => Imagenes)
+    @OneToOne(() => Imagenes, {
+        eager: true,
+        onDelete: "CASCADE"
+    })
     @JoinColumn()
     imagen: Imagenes;
 
-    @ManyToMany(type => Etiquetas, etiqueta => etiqueta.noticias)
+    @ManyToMany(type => Etiquetas, etiqueta => etiqueta.noticias, {
+        eager: true,
+        onDelete: "CASCADE"
+    })
     @JoinTable()
     etiquetas: Etiquetas[];
 

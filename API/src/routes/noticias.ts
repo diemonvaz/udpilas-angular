@@ -21,4 +21,9 @@ router.post('/postNoticia', NoticiasController.postNoticia);
 //buscar ultimas X noticias
 router.get('/getUltimasInsertadas/:num', NoticiasController.getUltimasInsertadas);
 
+router.put('/updateById/:id', NoticiasController.updateById);
+
+router.delete('/deleteById/:id',  NoticiasController.deleteById);
+
+
 export default router;

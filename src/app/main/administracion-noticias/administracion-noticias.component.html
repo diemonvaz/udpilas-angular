@@ -55,7 +55,7 @@
                                 <button mat-mini-fab color="secondary" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" [routerLink]="['/editor', element.idnoticias]" >
                                 <mat-icon>edit</mat-icon>
                                 </button> 
-                                <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="deleteRowNoticia(element)">
                                 <mat-icon>delete</mat-icon>
                                 </button>
                             </td>

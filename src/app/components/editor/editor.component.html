@@ -5,10 +5,12 @@
   <app-alert></app-alert>
   <ckeditor #myEditor [editor]="Editor" (ready)="onReady($event)" id="editor"  ></ckeditor>
 
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate style='margin-top: 50px;'>
+  <form (ngSubmit)="onSubmit(formDirective)" [formGroup]="formEditor" #formDirective="ngForm" autocomplete="off" style='margin-top: 50px;'>
+
 
     <mat-form-field>
-      <input matInput name = "tituloPub" ngModel required placeholder="Título de la publicación" id="form">
+      <input matInput type="text" formControlName="tituloPub" placeholder="Título de la publicación">
+
     </mat-form-field>
    
     <div>
@@ -16,7 +18,7 @@
           <div>
               <mat-toolbar>
                 <!-- Display files names -->
-                <input matInput [(ngModel)]="archivoImagen" readonly name="name" id="imgP" required placeholder="Imagen de portada" />
+                <input matInput type="text" formControlName="nombreArchivoImagen" placeholder="Imagen de portada">
                 <!-- Browse Button -->
                 <button mat-flat-button color="primary">Elegir imagen</button>
               </mat-toolbar>
@@ -63,25 +65,32 @@
       </mat-form-field>
     </div>
 
-    <div style="text-align: center; margin-top: 30px;">
+    <div *ngIf="!esEdicion" style="text-align: center; margin-top: 30px;">
       <mat-slide-toggle *ngIf="!fechaSet" (change)="openDialog()" [checked]="fechaSet" id="toggleProgramar">Programar publicación</mat-slide-toggle>
       <p></p>
       <mat-slide-toggle (change)="cambiaEstado()" id="toggleSetPortada" >Publicación de portada</mat-slide-toggle>
     </div>
     
     
-    <p *ngIf="!fechaSet" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará de inmediato tras su confirmación</p>
+    <p *ngIf="!fechaSet && !esEdicion" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará de inmediato tras su confirmación</p>
     <p *ngIf="fechaSet" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
+    <p *ngIf="esEdicion" style="font-style:italic; margin-top: 75px; text-align: center"> Fecha de publicacion original: {{ noticiaSeleccionada.fechaPublicacion | json }} </p>
 
-    <div *ngIf="!fechaSet" style="text-align: center; margin-top: 65px;">
+    <div *ngIf="!fechaSet && !esEdicion" style="text-align: center; margin-top: 65px;">
         <button mat-raised-button color="primary" style="margin-right: 4px;" type="submit">Publicar</button>
     </div> 
 
-    <div *ngIf="fechaSet" style="text-align: center; margin-top: 65px;">
+    <div *ngIf="fechaSet && !esEdicion" style="text-align: center; margin-top: 65px;">
       <button mat-raised-button color="accent" style="margin-right: 4px;">Programar</button>
       <button mat-raised-button color="warn" style="margin-right: 4px;" (click)="cancelarProgramacion()">Cancelar</button>
     </div>
-                  
+
+    <div *ngIf="esEdicion" style="text-align: center; margin-top: 65px;">
+      <button mat-raised-button color="primary" style="margin-right: 4px;" type="submit" *ngIf="esEdicion">Actualizar</button>
+    </div>
+    <div *ngIf="esEdicion" style="text-align: center; margin-top: 40px;">
+      <button mat-raised-button routerLink = "/adm-noticias" routerLinkActive = "Active" style="margin-right: 4px;" *ngIf="esEdicion">Volver</button>
+    </div>
 
   </form>
     

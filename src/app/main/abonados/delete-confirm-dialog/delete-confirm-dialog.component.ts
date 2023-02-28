@@ -1,3 +1,4 @@
+import { AdministracionNoticiasComponent } from './../../administracion-noticias/administracion-noticias.component';
 import { MiembrosComponent } from './../../miembros/miembros.component';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,7 +11,7 @@ import { AbonadosComponent } from '../abonados.component';
 })
 export class DeleteConfirmDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data,  private dialogRef: MatDialogRef<AbonadosComponent>, private dialogRefMiembros: MatDialogRef<MiembrosComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data,  private dialogRef: MatDialogRef<AbonadosComponent>, private dialogRefMiembros: MatDialogRef<MiembrosComponent>, private dialogRefGesNoticias: MatDialogRef<AdministracionNoticiasComponent>) { }
 
   ngOnInit(): void {
   }
