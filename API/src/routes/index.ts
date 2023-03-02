@@ -7,6 +7,9 @@ import estados_socios from './estados_socios';
 import usuarios from './usuarios';
 import miembros from './miembros';
 import roles from './roles';
+import jugadores from './jugadores';
+import equipos from './equipos';
+import registros_corporales from './registros_corporales';
 
 const routes = Router();
 routes.use('/socios',socios);
@@ -17,5 +20,8 @@ routes.use('/estados_socios', estados_socios);
 routes.use('/usuarios', usuarios);
 routes.use('/miembros', miembros);
 routes.use('/roles', roles);
+routes.use('/jugadores', jugadores);
+routes.use('/equipos', equipos);
+routes.use('/registros_corporales', registros_corporales);
 
 export default routes;
