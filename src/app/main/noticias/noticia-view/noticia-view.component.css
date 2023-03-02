@@ -19,8 +19,6 @@
   #mas-noticias-btn{
     width: 100%;
     display: block;
-    background-color:rgb(173, 173, 173);
-    color: rgb(49, 49, 49);
     margin-top: 30px;
     margin-bottom: 5px;
   }
@@ -32,10 +30,3 @@
   }
 
 
-  
-  #imagen-principal{
-    /*object-fit: cover; /*this makes the image in src fit to the size specified below*/
-    /*width: 60%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-    /*height: 60%;*/
-  }
-  

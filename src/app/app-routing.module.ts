@@ -21,11 +21,11 @@ import { HasRoleGuard } from './has-role.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'noticias', component: NoticiasComponent},
-  { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
+  { path: 'editor', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN , EDITOR'},},
   { path: 'editor/:idnoticias', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'adm-noticias', component: AdministracionNoticiasComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
-  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
+  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR, EDITOR',},},
   { path: 'plantilla', component: PlantillaComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'cuerpoTecnico', component: CuerpoTecnicoComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN',},},
   { path: 'login', component: LoginComponent},
