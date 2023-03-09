@@ -58,6 +58,10 @@ import { OrganigramaComponent } from './main/static-pages/organigrama/organigram
 import { EstadioComponent } from './main/static-pages/estadio/estadio.component';
 import { MatTreeModule } from '@angular/material/tree';
 import {MatListModule} from '@angular/material/list';
+import { UpdateJugadorDialogComponent } from './main/plantilla/update-jugador-dialog/update-jugador-dialog.component';
+import { AddRegistroCorpDialogComponent } from './main/plantilla/add-registro-corp-dialog/add-registro-corp-dialog.component';
+import { TransferirJugadorDialogComponent } from './main/plantilla/transferir-jugador-dialog/transferir-jugador-dialog.component';
+import { DetalleJugadorDialogComponent } from './main/plantilla/detalle-jugador-dialog/detalle-jugador-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,11 @@ import {MatListModule} from '@angular/material/list';
     AdministracionNoticiasComponent,
     AddMiembroDialogComponent,
     OrganigramaComponent,
-    EstadioComponent
+    EstadioComponent,
+    UpdateJugadorDialogComponent,
+    AddRegistroCorpDialogComponent,
+    TransferirJugadorDialogComponent,
+    DetalleJugadorDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -4,27 +4,143 @@
         <div class="row mt-2 mb-2 text-center">
             <h1>PLANTILLA</h1>
         </div>
-        <mat-tab-group dynamicHeight>
-
-            <mat-tab label="Senior">   
-            </mat-tab>
-
-            <mat-tab label="Juveniles">
-                
-            </mat-tab>
-
-            <mat-tab label="Cadetes">
-                
-            </mat-tab>
-
-            <mat-tab label="ETC">
-                
-            </mat-tab>
+        <mat-tab-group #tabsEquipos dynamicHeight (selectedTabChange)="tabChanged($event)">
 
             <mat-tab label="Registrar nuevo jugador">
-                
+                <div class="row mt-4 mb-4 d-flex justify-content-center" style="margin-left:5px; margin-right:5px">
+                    <mat-card class="text-center custom-card-width">
+                        <form [formGroup]="formRegistroJugador" #formDirective="ngForm" (ngSubmit)="submitFormRegistroJugador(formDirective)" autocomplete="off">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Nombre</mat-label>
+                              <input matInput type="text" formControlName="nombre">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Apellidos</mat-label>
+                              <input matInput type="text" formControlName="apellidos">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Posicion</mat-label>
+                                <mat-select formControlName="posicion">
+                                    <mat-option *ngFor="let pos of posiciones" [value]="pos" name="listaPosiciones" ngDefaultControl >
+                                      {{pos}}
+                                    </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Fecha Nacimiento</mat-label>
+                              <input matInput type="date" formControlName="fecha_nacimiento" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>DNI</mat-label>
+                              <input matInput type="text" formControlName="dni" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Rec. Medico</mat-label>
+                              <input matInput type="date" formControlName="rec_medico" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Duracion</mat-label>
+                              <input matInput type="date" formControlName="duracion" >
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <mat-label>Equipo</mat-label>
+                              <mat-select formControlName="equipo">
+                                  <mat-option *ngFor="let equipo of equiposArray" [value]="equipo.nombre" name="listaEquipos" ngDefaultControl >
+                                    {{equipo.nombre}}
+                                  </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Observaciones</mat-label>
+                                <input matInput type="text" formControlName="observaciones" >
+                              </mat-form-field>
+                            <br>
+                            <mat-form-field style="margin: 40px 0; width: 400px !important;">
+                                <div>
+                                    <mat-toolbar>
+                                    <input matInput type="text" formControlName="imagen" placeholder="Imagen de perfil">
+                                    <button mat-flat-button color="primary" style="text-align: center;">Elegir imagen</button>
+                                    </mat-toolbar>
+                                    <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile" multiple="multiple" accept="image/*"/>
+                                </div>
+                            </mat-form-field>
+                            
+                            <div style="text-align: center;">
+                              <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+                                  Registrar
+                              </button>
+                            </div>
+                          </form>   
+                    </mat-card>
+                </div>
             </mat-tab>
 
+            <mat-tab *ngFor="let equipo of equiposArray" label="{{equipo.nombre}}">
+
+                <div class="row mt-4 mb-4 d-flex justify-content-center" style="margin-left:5px; margin-right:5px">
+
+                    <mat-form-field appearance="standard" style="float:left; margin-top:5px; margin-bottom:5px; margin-right:5px;">
+                        <mat-label>Búsqueda</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pensionista" #input>
+                    </mat-form-field>
+                    <table mat-table [dataSource]="dataSourceJugadores" matSort class="mat-elevation-z8">
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="apellidos">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDOS </th>
+                            <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="posicion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> POSICION </th>
+                            <td mat-cell *matCellDef="let element"> {{element.posicion}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="fecha_nacimiento">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA NACIMIENTO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fecha_nacimiento}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dni">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
+                            <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="reconocimiento_medico">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> REC. MEDICO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.reconocimiento_medico}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="duracion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DURACION </th>
+                            <td mat-cell *matCellDef="let element"> {{element.duracion}} </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-mini-fab color="secondary" matTooltip="Editar" aria-label="Boton de edicion de registro" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                <mat-icon>edit</mat-icon>
+                                </button> 
+                                <button mat-mini-fab color="secondary" matTooltip="Nuevo registro corporal"  aria-label="Boton para anyadir nuevo seguimiento corporal" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                    <mat-icon>add</mat-icon>
+                                </button> 
+                                <button mat-mini-fab color="secondary" matTooltip="Transferir jugador de equipo"  aria-label="Boton para anyadir nuevo seguimiento corporal" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                    <mat-icon>compare_arrows</mat-icon>
+                                </button> 
+                                <button mat-mini-fab color="warn"  matTooltip="Eliminar" aria-label="Boton para eliminar registro" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="deleteRowJugador(element)" >
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialogDetalleJugador(row)"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
+
+                </div>
+            </mat-tab>
+           
         </mat-tab-group>
+        
     </div>
 </div>

@@ -40,14 +40,16 @@ export class Jugadores extends BaseEntity{
 
     @OneToOne(() => Imagenes, {
         eager: true,
-        onDelete: "CASCADE"
+        cascade: true,
     })
     @JoinColumn()
     imagen: Imagenes;
 
     /*este oneToMany es opcional, con tener el manyToOne en la otra entidad basta,
     pero nos puede ser util para que, si cargamos un jugador, nos venga con la lista de sus registros corporales */
-    @OneToMany(() => RegistrosCorporales, (reg) => reg.jugador)
+    @OneToMany(() => RegistrosCorporales, (reg) => reg.jugador, {
+        eager: true,
+    })
     registros: RegistrosCorporales[];
 
 }

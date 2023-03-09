@@ -13,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 
+
 @Component({
   selector: 'app-miembros',
   templateUrl: './miembros.component.html',
@@ -41,6 +42,7 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
       this.dataSource = new MatTableDataSource(this.miembrosArray);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(this.dataSource)
     })
 
     this.rolesService.getRoles().subscribe(data => {

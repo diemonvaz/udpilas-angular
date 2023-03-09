@@ -14,7 +14,6 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {NgForm} from '@angular/forms';
 import { MyUploadAdapter } from './myCustomUploader';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 import { ActivatedRoute } from '@angular/router';

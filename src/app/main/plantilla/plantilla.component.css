@@ -1,8 +1,4 @@
 .adm-plantilla-container{
-    /*margin-top: 50px;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-bottom: 50px;*/
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -11,3 +7,30 @@
     box-sizing: border-box;
     
   }
+
+
+  .adm-plantilla-container mat-form-field  {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .custom-card-width {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  #uploadFile {
+    top: 0px;
+    left: 0px;
+    width: 100%;    
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+ }
+
+ .mat-table tr:hover {
+  cursor: pointer;
+}
+

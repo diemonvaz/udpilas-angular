@@ -8,8 +8,7 @@ export class EquiposController {
     static getAll = async (req: Request, res: Response)=>{
         const repository = getRepository(Equipos);
         try{
-            const equipos = await repository.createQueryBuilder("equipos")
-            .getMany();
+            const equipos = await repository.find();
             res.send(equipos);
         }catch(e){
             console.log(e);
