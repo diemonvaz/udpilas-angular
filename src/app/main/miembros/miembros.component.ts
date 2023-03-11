@@ -129,10 +129,10 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
     copia.usuario.telefono = miembro.usuario.telefono ?? null;
     copia.usuario.email = miembro.usuario.email ?? null;
     copia.usuario.fecha_nacimiento = miembro.usuario.fecha_nacimiento ?? null;
-    //para la fecha
+    //QUITAR
     let fechaSplitted = miembro.usuario.fecha_nacimiento.split("/",3) ?? null;
     let stringAlterado = fechaSplitted[2] + "-" + fechaSplitted [1] + "-" + fechaSplitted [0];
-    //para la fecha
+    //QUITAR
     copia.dni = miembro.dni ?? null;
     copia.usuario.roles = miembro.usuario.roles ?? null;
     console.log(copia)

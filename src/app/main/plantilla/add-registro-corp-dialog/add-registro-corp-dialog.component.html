@@ -1,1 +1,43 @@
-<p>add-registro-corp-dialog works!</p>
+<mat-card style="width: fit-content;">
+    <mat-card-title style="font-size: large; margin-bottom: 25px;">Nuevo registro corporal para el NIF {{jugador.dni}} </mat-card-title>
+    <app-alert></app-alert>
+    <form [formGroup]="formRegistroCorporal" (ngSubmit)="submitFormNuevoRegCorporal(formDirective)" #formDirective="ngForm"  autocomplete="off" fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="fill">
+          <mat-label>Altura (cm)</mat-label>
+          <input matInput type="number" formControlName="altura">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Peso (kg)</mat-label>
+          <input matInput type="number" formControlName="peso">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>IMC (%)</mat-label>
+          <input matInput type="number" formControlName="imc" step=".01">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Masa muscular (kg)</mat-label>
+          <input matInput type="number" formControlName="masa_muscular">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Masa ósea (kg)</mat-label>
+          <input matInput type="number" formControlName="masa_osea">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>TMB</mat-label>
+          <input matInput type="number" formControlName="tmb">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Agua (%)</mat-label>
+          <input matInput type="number" formControlName="agua">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Observaciones</mat-label>
+          <input matInput type="text" formControlName="observaciones">
+        </mat-form-field>  
+        <div style="text-align: center;">
+          <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+              Añadir registro
+          </button>
+        </div>
+      </form>   
+</mat-card>

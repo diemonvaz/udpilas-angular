@@ -22,6 +22,7 @@
     </div>
   </div>
   <div style="margin-top: 20px;">
+    <p>Histórico de registros corporales asociados al jugador</p>
     <table mat-table [dataSource]="jugador.registros" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="ALTURA">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ALTURA (cm) </th>
@@ -58,7 +59,6 @@
       <tr mat-header-row *matHeaderRowDef="columnasTablaRegistros"></tr>
       <tr mat-row *matRowDef="let row; columns: columnasTablaRegistros;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of users"></mat-paginator> 
 
   </div>
     

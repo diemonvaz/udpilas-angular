@@ -55,7 +55,45 @@ export class RegistrosCorporalesController {
             res.status(500).json({message: 'Error'});
         }
     };
-    
+
+   
+    static nuevoRegCorporal = async (req: Request, res: Response)=>{
+        try {
+            const {
+                idjugador,
+                altura,
+                peso,
+                imc,
+                masa_muscular,
+                masa_osea,
+                tmb,
+                agua,
+                observaciones
+            } = req.body;
+            
+            const jugador = await Jugadores.findOne(idjugador);
+            const nuevoRegistro = RegistrosCorporales.create({
+                altura: altura,
+                peso: peso,
+                imc: imc,
+                masa_muscular: masa_muscular,
+                masa_osea: masa_osea,
+                TMB: tmb,
+                agua: agua,
+                observaciones: observaciones,
+                fecha: new Date(),
+                jugador: jugador
+            });
+            await getRepository(RegistrosCorporales).save(nuevoRegistro);
+            return res.json(nuevoRegistro);
+        }catch(e) {
+            console.log(e);
+            return res.status(500).json({message: 'Error'});
+        }
+    };
+
+
+
 
 
 

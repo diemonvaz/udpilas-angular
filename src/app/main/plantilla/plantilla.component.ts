@@ -1,3 +1,5 @@
+import { UpdateJugadorDialogComponent } from './update-jugador-dialog/update-jugador-dialog.component';
+import { AddRegistroCorpDialogComponent } from './add-registro-corp-dialog/add-registro-corp-dialog.component';
 import { JugadoresService } from './../../services/jugadores.service';
 import { Equipo } from './../../models/Equipo';
 import { MatTableDataSource } from '@angular/material/table';
@@ -99,13 +101,13 @@ export class PlantillaComponent implements OnInit {
       if (this.archivoSeleccionado != null) {
         urlImgPerfil = await this.storeImage2(); 
       }
-      console.log(urlImgPerfil);
       this.jugadoresService.registrarJugador(this.formRegistroJugador.get('nombre')?.value, this.formRegistroJugador.get('apellidos')?.value, this.formRegistroJugador.get('posicion')?.value,
             this.formRegistroJugador.get('fecha_nacimiento')?.value, this.formRegistroJugador.get('dni')?.value, this.formRegistroJugador.get('rec_medico')?.value, 
             this.formRegistroJugador.get('duracion')?.value, this.formRegistroJugador.get('equipo')?.value, this.formRegistroJugador.get('observaciones')?.value,  urlImgPerfil)
             .subscribe((response) => {
               formDirective.resetForm(); 
-              this.formRegistroJugador.reset();  
+              this.formRegistroJugador.reset();
+              this.archivoSeleccionado = null;  
               this.ngOnInit();
       });
     }
@@ -137,6 +139,31 @@ export class PlantillaComponent implements OnInit {
     let dialogRef = this.dialog.open(DetalleJugadorDialogComponent, {data: {jugadorSeleccionado:row} });
     dialogRef.afterClosed().subscribe(res => {
     })       
+  }
+
+  openDialogAddRegistroCorporal(jugador: Jugador) {
+    let dialogRef = this.dialog.open(AddRegistroCorpDialogComponent, {data: {jugador: jugador} });
+    dialogRef.afterClosed().subscribe(res => {
+      if(res.data.creacion) {
+        this.ngOnInit();
+      }
+    })       
+  }
+
+  openDialogActualizarJugador(jugador: Jugador) {
+    let copia = {} as Jugador;
+    copia.nombre = jugador.nombre;
+    copia.apellidos = jugador.apellidos;
+    copia.fecha_nacimiento = jugador.fecha_nacimiento;
+    copia.observaciones = jugador.observaciones;
+    copia.posicion = jugador.posicion;
+    copia.dni = jugador.dni;
+    copia.reconocimiento_medico = jugador.reconocimiento_medico;
+    copia.duracion = jugador.duracion;
+    copia.posicion = jugador.posicion;
+    /*let dialogRef = this.dialog.open(UpdateJugadorDialogComponent, {data: {jugadorSeleccionado: copia} });
+    dialogRef.afterClosed().subscribe(res => {
+    })*/       
   }
 
 

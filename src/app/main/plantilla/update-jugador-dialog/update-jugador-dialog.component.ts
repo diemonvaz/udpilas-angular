@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PlantillaComponent } from '../plantilla.component';
 
 @Component({
   selector: 'app-update-jugador-dialog',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateJugadorDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<PlantillaComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  
+  public jugadorSeleccionado = this.data.jugadorSeleccionado;
+
+
+  actualizar() {
+    this.dialogRef.close({data:{jugadorSeleccionado:this.jugadorSeleccionado, modificacion:true}})
   }
 
 }
