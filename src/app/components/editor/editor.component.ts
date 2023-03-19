@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Imagen } from './../../models/Imagen';
 import { AlertService } from 'src/app/services/alert.service';
 import { EtiquetasService } from './../../services/etiquetas.service';
@@ -47,7 +48,7 @@ export class EditorComponent implements OnInit {
   esEdicion: Boolean = false;
 
 
-  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService, private alertService: AlertService,  private route: ActivatedRoute) { 
+  constructor(public dialog: MatDialog, private noticiasService: NoticiasService, private etiquetasService: EtiquetasService, private alertService: AlertService,  private route: ActivatedRoute, private authService: AuthService) { 
     /*CHIPS PARA LAS ETIQUETAS*/
     this.allTags = this.getAllEtiquetas();
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
@@ -294,11 +295,11 @@ export class EditorComponent implements OnInit {
     //Si el formulario cumple las validaciones de front-end, lo enviamos a backend
     if(this.formEditor.valid) {
       if(this.esEdicion) {
-        this.updateNoticia(tituloPublicacion, contenidoNoticia, "Admin", this.noticiaSeleccionada.fechaCreacion, this.noticiaSeleccionada.fechaPublicacion, etiquetasAsociadas, this.noticiaSeleccionada.esPortada, urlImgPrincipal ? urlImgPrincipal : this.noticiaSeleccionada.imagen.nombre);
+        this.updateNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, this.noticiaSeleccionada.fechaCreacion, this.noticiaSeleccionada.fechaPublicacion, etiquetasAsociadas, this.noticiaSeleccionada.esPortada, urlImgPrincipal ? urlImgPrincipal : this.noticiaSeleccionada.imagen.nombre);
         f.onReset();
         window.location.reload();
       }else {
-        this.addNoticia(tituloPublicacion, contenidoNoticia, "Admin", fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
+        this.addNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
         f.onReset();
         window.location.reload();
       }

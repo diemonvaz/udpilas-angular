@@ -7,7 +7,6 @@ export interface Jugador {
     nombre: String;
     apellidos: String;
     fecha_nacimiento: String;
-    observaciones: String;
     posicion: String;
     dni: String;
     reconocimiento_medico: String;

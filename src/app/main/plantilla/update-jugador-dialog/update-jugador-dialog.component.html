@@ -1,1 +1,47 @@
-<p>update-jugador-dialog works!</p>
+<mat-card style="width: fit-content;">
+    <mat-card-title style="font-size: large; margin-bottom: 25px;">Editar datos para el NIF {{jugador.dni}} </mat-card-title>
+    <app-alert></app-alert>
+    <form [formGroup]="formEdicionJugador" (ngSubmit)="actualizar(formDirective)" #formDirective="ngForm"  autocomplete="off" fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Apellidos</mat-label>
+            <input matInput type="text" formControlName="apellidos">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+            <mat-label>Posicion</mat-label>
+            <mat-select formControlName="posicion">
+                <mat-option *ngFor="let pos of posiciones" [value]="pos" name="listaPosiciones" ngDefaultControl >
+                  {{pos}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput type="date" formControlName="fecha_nacimiento">
+        </mat-form-field>  
+        <mat-form-field appearance="fill">
+            <mat-label>DNI</mat-label>
+            <input matInput type="text" formControlName="dni">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+            <mat-label>Rec. Médico</mat-label>
+            <input matInput type="date" formControlName="rec_medico">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+            <mat-label>Duracion</mat-label>
+            <input matInput type="date" formControlName="duracion">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+            <mat-label>Observaciones</mat-label>
+            <input matInput type="text" formControlName="observaciones">
+        </mat-form-field>
+        <div style="text-align: center;">
+          <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+              Actualizar registro
+          </button>
+        </div>
+      </form>   
+</mat-card>

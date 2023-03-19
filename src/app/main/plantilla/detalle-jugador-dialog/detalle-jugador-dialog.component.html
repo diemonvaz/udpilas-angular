@@ -16,14 +16,13 @@
           <p *ngIf="jugador.duracion">Duracion: {{jugador.duracion}}</p>
           <p *ngIf="!jugador.duracion">Duracion: No especificada</p>
           <p *ngIf="jugador.observaciones">Observaciones: {{jugador.observaciones}}</p>
-          <p *ngIf="!jugador.observaciones">Observaciones: No existen observaciones</p>
         </mat-card-content>
       </mat-card>
     </div>
   </div>
   <div style="margin-top: 20px;">
     <p>Histórico de registros corporales asociados al jugador</p>
-    <table mat-table [dataSource]="jugador.registros" matSort class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="ALTURA">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ALTURA (cm) </th>
         <td mat-cell *matCellDef="let element"> {{element.altura}} </td>
@@ -59,6 +58,8 @@
       <tr mat-header-row *matHeaderRowDef="columnasTablaRegistros"></tr>
       <tr mat-row *matRowDef="let row; columns: columnasTablaRegistros;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar pagina de jugadores"></mat-paginator>        
+
 
   </div>
     

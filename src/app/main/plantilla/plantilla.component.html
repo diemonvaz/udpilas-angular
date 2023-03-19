@@ -25,7 +25,7 @@
                                       {{pos}}
                                     </mat-option>
                                 </mat-select>
-                              </mat-form-field>
+                            </mat-form-field>
                             <mat-form-field appearance="fill">
                               <mat-label>Fecha Nacimiento</mat-label>
                               <input matInput type="date" formControlName="fecha_nacimiento" >
@@ -50,10 +50,6 @@
                                   </mat-option>
                               </mat-select>
                             </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Observaciones</mat-label>
-                                <input matInput type="text" formControlName="observaciones" >
-                              </mat-form-field>
                             <br>
                             <mat-form-field style="margin: 40px 0; width: 400px !important;">
                                 <div>
@@ -79,10 +75,21 @@
 
                 <div class="row mt-4 mb-4 d-flex justify-content-center" style="margin-left:5px; margin-right:5px">
 
-                    <mat-form-field appearance="standard" style="float:left; margin-top:5px; margin-bottom:5px; margin-right:5px;">
-                        <mat-label>Búsqueda</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pensionista" #input>
-                    </mat-form-field>
+                    <div  fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field appearance="standard" style="margin-right: 5px;">
+                          <mat-label>Búsqueda</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por nombre, DNI..." #input>
+                        </mat-form-field>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Exportar a Excel
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><button  class="dropdown-item" (click)="exportAsExcel(true)">Info general</button></li>
+                              <li><button  class="dropdown-item" (click)="exportAsExcel(false)">Info + registros</button></li>
+                            </ul>
+                          </div>
+                      </div>
                     <table mat-table [dataSource]="dataSourceJugadores" matSort class="mat-elevation-z8">
                         <ng-container matColumnDef="nombre">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
@@ -122,7 +129,7 @@
                                 <button mat-mini-fab color="secondary" matTooltip="Nuevo registro corporal"  aria-label="Boton para anyadir nuevo seguimiento corporal" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="openDialogAddRegistroCorporal(element)">
                                     <mat-icon>add</mat-icon>
                                 </button> 
-                                <button mat-mini-fab color="secondary" matTooltip="Transferir jugador de equipo"  aria-label="Boton para anyadir nuevo seguimiento corporal" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" >
+                                <button mat-mini-fab color="secondary" matTooltip="Transferir jugador de equipo"  aria-label="Boton para anyadir nuevo seguimiento corporal" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="openDialogTransferencia(element)">
                                     <mat-icon>compare_arrows</mat-icon>
                                 </button> 
                                 <button mat-mini-fab color="warn"  matTooltip="Eliminar" aria-label="Boton para eliminar registro" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="deleteRowJugador(element)" >

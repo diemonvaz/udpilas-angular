@@ -1,3 +1,4 @@
+import { TransferirJugadorDialogComponent } from './transferir-jugador-dialog/transferir-jugador-dialog.component';
 import { UpdateJugadorDialogComponent } from './update-jugador-dialog/update-jugador-dialog.component';
 import { AddRegistroCorpDialogComponent } from './add-registro-corp-dialog/add-registro-corp-dialog.component';
 import { JugadoresService } from './../../services/jugadores.service';
@@ -11,6 +12,8 @@ import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DetalleJugadorDialogComponent } from './detalle-jugador-dialog/detalle-jugador-dialog.component';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
+import * as XLSX from 'xlsx';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-plantilla',
@@ -37,7 +40,8 @@ export class PlantillaComponent implements OnInit {
   displayedColumns: string[] =['nombre', 'apellidos' ,'posicion', 'fecha_nacimiento', 'dni', 'reconocimiento_medico', 'duracion', 'acciones']
   
   
-  
+  public equipoTabActual: any;
+
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     //console.log('tabChangeEvent => ', tabChangeEvent);
     //console.log('index => ', tabChangeEvent.index);
@@ -45,6 +49,7 @@ export class PlantillaComponent implements OnInit {
     if(equipo) {
       const jugadoresArray = equipo.jugadores;
       this.dataSourceJugadores = new MatTableDataSource(jugadoresArray);
+      this.equipoTabActual = equipo;
     }
   }
 
@@ -57,7 +62,6 @@ export class PlantillaComponent implements OnInit {
     rec_medico: new FormControl(null),
     duracion: new FormControl(null),
     equipo: new FormControl(null, Validators.required),
-    observaciones:  new FormControl(null),
     imagen: new FormControl('')
   });
 
@@ -144,28 +148,49 @@ export class PlantillaComponent implements OnInit {
   openDialogAddRegistroCorporal(jugador: Jugador) {
     let dialogRef = this.dialog.open(AddRegistroCorpDialogComponent, {data: {jugador: jugador} });
     dialogRef.afterClosed().subscribe(res => {
-      if(res.data.creacion) {
-        this.ngOnInit();
+      if(res) {
+        if(res.data.creacion) {
+          this.ngOnInit();
+        }
       }
     })       
   }
 
   openDialogActualizarJugador(jugador: Jugador) {
     let copia = {} as Jugador;
+    copia.idjugadores = jugador.idjugadores;
     copia.nombre = jugador.nombre;
     copia.apellidos = jugador.apellidos;
     copia.fecha_nacimiento = jugador.fecha_nacimiento;
-    copia.observaciones = jugador.observaciones;
     copia.posicion = jugador.posicion;
     copia.dni = jugador.dni;
     copia.reconocimiento_medico = jugador.reconocimiento_medico;
     copia.duracion = jugador.duracion;
     copia.posicion = jugador.posicion;
-    /*let dialogRef = this.dialog.open(UpdateJugadorDialogComponent, {data: {jugadorSeleccionado: copia} });
+    let dialogRef = this.dialog.open(UpdateJugadorDialogComponent, {data: {jugadorSeleccionado: copia, posiciones: this.posiciones} });
     dialogRef.afterClosed().subscribe(res => {
-    })*/       
+      if (res) {
+        if(res.data.jugador) {
+          this.jugadoresService.updateById(res.data.jugador).subscribe(res => {
+            this.ngOnInit();
+          });
+          
+        }
+      }
+    })
   }
 
+  openDialogTransferencia(row: any) {
+    let dialogRef = this.dialog.open(TransferirJugadorDialogComponent, {data: {jugadorSeleccionado:row, equipos: this.equiposArray, equipoTabActual: this.equipoTabActual}});
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.jugadoresService.transferirJugador(row.idjugadores, res.data.equipoDestino.idequipos).subscribe(res => {
+          this.ngOnInit();
+        });;
+        
+      }
+    })       
+  }
 
   deleteRowJugador(jugador: Jugador) {
     const dialogConfig = new MatDialogConfig();
@@ -174,13 +199,54 @@ export class PlantillaComponent implements OnInit {
     let dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {data: {} });
     dialogRef.afterClosed().subscribe(res => {
       if(res.data.confirmacion == true) {
-        this.jugadoresService.deleteById(jugador.idjugadores).subscribe();
-        window.location.reload();
+        this.jugadoresService.deleteById(jugador.idjugadores).subscribe(res => {
+          this.ngOnInit();
+        });
       }
     })       
   
   }
 
+  exportAsExcel(infoGeneral: boolean) {
+    if(infoGeneral) {
+      let copiaDataSource = this.dataSourceJugadores;
+      const dataParaExportar = copiaDataSource.data.map(({ imagen, registros, ...rest }) => rest);
+      const workSheet = XLSX.utils.json_to_sheet(dataParaExportar, {header:[]});
+      const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+      XLSX.writeFile(workBook, 'plantilla' + this.equipoTabActual.nombre + '.xlsx');
+    }else {
+      let copiaDataSource = this.dataSourceJugadores;
+      const dataParaExportar = copiaDataSource.data.map(({ imagen, registros, ...rest }) => {
+        const ultimoRegistro = registros.length > 0 ? registros[registros.length - 1] : null;
+        const altura = ultimoRegistro ? ultimoRegistro.altura : null;
+        const peso = ultimoRegistro ? ultimoRegistro.peso : null;
+        const imc = ultimoRegistro ? ultimoRegistro.altura : null;
+        const mm = ultimoRegistro ? ultimoRegistro.masa_muscular : null;
+        const mo = ultimoRegistro ? ultimoRegistro.masa_osea : null;
+        const agua = ultimoRegistro ? ultimoRegistro.agua : null;
+        const tmb = ultimoRegistro ? ultimoRegistro.TMB : null;
+        const observaciones = ultimoRegistro ? ultimoRegistro.observaciones : null;
+        
+        return {
+          ...rest,
+          altura: altura,
+          peso: peso,
+          imc: imc,
+          masa_muscular: mm,
+          masa_osea: mo,
+          agua: agua,
+          TMB: tmb,
+          observaciones: observaciones
+        };
+      });
+      console.log(dataParaExportar)
+      const workSheet = XLSX.utils.json_to_sheet(dataParaExportar, {header:[]});
+      const workBook: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+      XLSX.writeFile(workBook, 'plantilla' + this.equipoTabActual.nombre + '.xlsx');
+    }
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -18,14 +18,11 @@ export class Jugadores extends BaseEntity{
 
     @Column({type: "date", nullable: false})
     fecha_nacimiento: Date;
-
-    @Column({type: "varchar", width: 255, default: null, nullable: true})
-    observaciones: string;
   
     @Column({type: "varchar", width: 255, default: null, nullable: true})
     posicion: string;
 
-    //valorar ponerle eager = true para que siempre carge todas las relaciones, sin tener que especificar en el queryBuilder
+    //aqui el cascade se podria quitar no?
     @ManyToOne(() => Equipos,  (equipo) => equipo.jugadores)
     equipo: Equipos;
     
@@ -49,6 +46,7 @@ export class Jugadores extends BaseEntity{
     pero nos puede ser util para que, si cargamos un jugador, nos venga con la lista de sus registros corporales */
     @OneToMany(() => RegistrosCorporales, (reg) => reg.jugador, {
         eager: true,
+        onDelete: 'CASCADE'
     })
     registros: RegistrosCorporales[];
 

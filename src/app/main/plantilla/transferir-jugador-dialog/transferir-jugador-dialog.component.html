@@ -1,1 +1,13 @@
-<p>transferir-jugador-dialog works!</p>
+<div class="transfer-container">
+    <app-alert></app-alert>
+    <p>Transferir al NIF {{jugador.dni}}</p>
+        <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="trasnferir-radio-group"
+        [(ngModel)]="equipoElegido">
+            <mat-radio-button class="radio-button" *ngFor="let equipo of equipos" [value]="equipo">
+                {{equipo.nombre}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <button mat-raised-button color="primary" (click)="transferir()">Transferir</button>
+</div>

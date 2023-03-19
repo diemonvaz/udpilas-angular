@@ -41,7 +41,6 @@ export class JugadoresController {
                 nombre: nombre,
                 apellidos: apellidos,
                 fecha_nacimiento: fecha_nacimiento,
-                observaciones: observaciones,
                 posicion: posicion,
                 equipo: equipoAsignado,
                 dni: dni,
@@ -71,7 +70,6 @@ export class JugadoresController {
 
 
   
-
     static deleteById = async (req: Request, res: Response)=>{
         const id = req.params.id;
         const repository = getRepository(Jugadores);
@@ -79,8 +77,8 @@ export class JugadoresController {
         try{
             const jugador = await repository.findOne(id);
             if(jugador) {
-                await repository.remove(jugador); //usando el repository.delete(...) no funciona
-                res.status(200);
+                await repository.remove(jugador); 
+                res.status(200).json({ message: "Jugador eliminado correctamente" });
             }
             else {
                 res.status(404).json({message: 'Jugador no encontrado'});
@@ -95,9 +93,11 @@ export class JugadoresController {
         const id = req.params.id;
         const repository = getRepository(Jugadores);
         try{
-            const jugador = await repository.findOne(id, {relations: []});
+            const jugador = await repository.findOne(id);
             if(jugador) {
-                res.status(200);
+                await repository.merge(jugador, req.body);
+                await repository.save(jugador);
+                res.status(200).json({ message: "Jugador actualizado correctamente" });
             }
             else {
                 res.status(404).json({message: 'Jugador no encontrado'});
@@ -107,8 +107,29 @@ export class JugadoresController {
             res.status(500).json({message: 'Error'});
         }
     };
-    
 
+    static transferirJugador = async (req: Request, res: Response)=>{
+        try {
+            const {
+                id,
+                idEquipoDestino
+            } = req.body;
+            const repository = getRepository(Jugadores);
+            const jugador = await repository.findOne(id);
+            if (jugador) {
+                const equipoDestino = await Equipos.findOne(idEquipoDestino);
+                jugador.equipo = equipoDestino;
+                repository.save(jugador);
+                res.status(200).json({ message: "Jugador transferido correctamente" });
+            } else {
+                res.status(500).json({message: 'Error, jugador no encontrado'}); 
+            }
+        } catch(e) {
+            res.status(500).json({message: e});
+        }
+        
+    };
+ 
 
 
 

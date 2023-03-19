@@ -62,6 +62,9 @@ import { UpdateJugadorDialogComponent } from './main/plantilla/update-jugador-di
 import { AddRegistroCorpDialogComponent } from './main/plantilla/add-registro-corp-dialog/add-registro-corp-dialog.component';
 import { TransferirJugadorDialogComponent } from './main/plantilla/transferir-jugador-dialog/transferir-jugador-dialog.component';
 import { DetalleJugadorDialogComponent } from './main/plantilla/detalle-jugador-dialog/detalle-jugador-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 
 @NgModule({
   declarations: [
@@ -130,7 +133,8 @@ import { DetalleJugadorDialogComponent } from './main/plantilla/detalle-jugador-
     NgxTwitterTimelineModule,
     MatTabsModule,
     MatTreeModule,
-    MatListModule
+    MatListModule,
+    MatRadioModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
