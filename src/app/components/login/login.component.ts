@@ -1,5 +1,5 @@
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -29,10 +29,15 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.form.get('email')?.value, this.form.get('password')?.value)
       .subscribe((response) => {
-        this.router.navigate(['']);
+        setTimeout(() => {
+          if (localStorage.getItem('access_token')) {
+            //refrescar header component
+            this.router.navigate(['']);
+          }
+        }, 2000);
     });
-
   }
 
+  
 
 }

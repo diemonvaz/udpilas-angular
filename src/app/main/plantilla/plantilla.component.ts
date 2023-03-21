@@ -14,6 +14,7 @@ import { DetalleJugadorDialogComponent } from './detalle-jugador-dialog/detalle-
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import * as XLSX from 'xlsx';
 import { data } from 'jquery';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-plantilla',
@@ -38,7 +39,6 @@ export class PlantillaComponent implements OnInit {
   equiposArray: Equipo[] = [];
   dataSourceJugadores: MatTableDataSource<Jugador>;
   displayedColumns: string[] =['nombre', 'apellidos' ,'posicion', 'fecha_nacimiento', 'dni', 'reconocimiento_medico', 'duracion', 'acciones']
-  
   
   public equipoTabActual: any;
 
@@ -244,7 +244,7 @@ export class PlantillaComponent implements OnInit {
       const workSheet = XLSX.utils.json_to_sheet(dataParaExportar, {header:[]});
       const workBook: XLSX.WorkBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
-      XLSX.writeFile(workBook, 'plantilla' + this.equipoTabActual.nombre + '.xlsx');
+      XLSX.writeFile(workBook, 'plantilla' + this.equipoTabActual.nombre + 'Extendido' + '.xlsx');
     }
   }
 

@@ -119,7 +119,7 @@ export class JugadoresController {
             if (jugador) {
                 const equipoDestino = await Equipos.findOne(idEquipoDestino);
                 jugador.equipo = equipoDestino;
-                repository.save(jugador);
+                await repository.save(jugador);
                 res.status(200).json({ message: "Jugador transferido correctamente" });
             } else {
                 res.status(500).json({message: 'Error, jugador no encontrado'}); 

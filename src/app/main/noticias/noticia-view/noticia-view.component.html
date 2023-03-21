@@ -14,14 +14,13 @@
         
                 </mat-card-title>
 
-                <mat-card-actions>
-                    <div class="icons-box">
-                        <mat-icon svgIcon="instagram"></mat-icon>
-                        <mat-icon svgIcon="twitter"></mat-icon>
-                        <mat-icon svgIcon="facebook"></mat-icon>
-                        <mat-icon svgIcon="whatsapp"></mat-icon>
+                <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center" >
+                    <button mat-raised-button basic="primary" (click)="share()">Compartir</button>
+
+                    <div fxLayout="row" fxLayoutGap="5px">
+                        <p fxLayout="row" fxLayoutAlign=" center" ><mat-icon>person</mat-icon>{{noticiaSeleccionada?.usuario}}</p>
+                        <p fxLayout="row" fxLayoutAlign=" center" ><mat-icon>access_time</mat-icon>-</p>
                     </div>
-                    
                 </mat-card-actions>
 
                 <mat-card-content>
@@ -43,19 +42,10 @@
 
                     <mat-card class="mat-elevation-z4">
 
-                        <mat-card-title>
-                            <h1 style="font-size:medium; font-weight: bold; text-align: center; background-color: rgb(91, 124, 235); color: white ;" >
-                                PRÓXIMOS PARTIDOS
-                            </h1>
-                
-                        </mat-card-title>
-                        <mat-card-content>
-                            <mat-grid-list cols="1" rowHeight="100px">
-                                <mat-grid-tile>1</mat-grid-tile>
-                                <mat-grid-tile>2</mat-grid-tile>
-                                <mat-grid-tile>3</mat-grid-tile>
-                            </mat-grid-list>
-                        </mat-card-content>
+                        <ngx-twitter-timeline 
+            [data]="{sourceType: 'url', url: 'https://twitter.com/UDPilas'}"
+            [opts]="{tweetLimit: 1}"
+        ></ngx-twitter-timeline>
 
                     </mat-card>
 

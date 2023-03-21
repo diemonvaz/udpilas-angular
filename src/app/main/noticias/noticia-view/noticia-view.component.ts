@@ -54,12 +54,26 @@ export class NoticiaViewComponent implements OnInit {
     });
   }
 
+  
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: this.noticiaSeleccionada.tituloNoticia.toString(),
+        url: window.location.href
+      })
+        .then(() => console.log('Contenido compartido'))
+        .catch(error => console.error('Error al compartir', error));
+    } else {
+      console.log('La API de Web Share no está soportada en este navegador');
+    }
+  }
   //Llamadas a los servicios necesarios
   
  
   getNoticiaById(id): void{
     this.noticiasService.getNoticiaById(id).subscribe(res => {
       this.noticiaSeleccionada = res;
+      console.log(this.noticiaSeleccionada)
     })
   }
 

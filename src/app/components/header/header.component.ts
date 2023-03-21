@@ -16,10 +16,10 @@ export class HeaderComponent implements OnInit {
   //de modo que aun modificando el html no podría acceder a la vista. 
   //para cambiar los roles de acceso a una vista primero cambiarlo en el routing, de este modo ya estaría funcionando como tal,
   //y posteriormente cambiar los roles aquí para renderizar solamente los items a los que el miembro pueda acceder
-  rolesAdministracionSocios: String [] = ['ADMIN'];
-  rolesAdministracionNoticias: String [] = ['ADMIN'];
-  rolesAdministracionMiembros: String [] = ['ADMIN', 'GESTOR', 'EDITOR'];
-  rolesAdministracionPlantilla: String [] = ['ADMIN'];
+  rolesAdministracionSocios: String [] = ['ADMIN', 'GESTOR'];
+  rolesAdministracionNoticias: String [] = ['ADMIN', 'EDITOR'];
+  rolesAdministracionMiembros: String [] = ['ADMIN', 'GESTOR'];
+  rolesAdministracionPlantilla: String [] = ['ADMIN', 'ENTRENADOR', 'GESTOR'];
   rolesAdministracionCuerpoTecnico: String [] = ['ADMIN', 'ENTRENADOR'];
 
   accesoAdministracionSocios: Boolean = true;
@@ -30,6 +30,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(public authService: AuthService) { }
 
+  isLoggedIn = false;
+  user: any;
+
   ngOnInit(): void {
     //checkeamos roles solo si el usuario está logado
     if(this.authService.user) {
@@ -39,7 +42,11 @@ export class HeaderComponent implements OnInit {
       this.accesoAdministracionPlantilla = this.authService.user.roles.some(r=> this.rolesAdministracionPlantilla.includes(r));
       this.accesoAdministracionCuerpoTecnico = this.authService.user.roles.some(r=> this.rolesAdministracionCuerpoTecnico.includes(r));
     }
-   
+  }
+
+  async logout() {
+    await this.authService.logout();
+    window.location.reload();
   }
 
 

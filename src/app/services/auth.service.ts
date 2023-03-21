@@ -53,9 +53,19 @@ export class AuthService {
     );
   }
 
+  logout() {
+    localStorage.removeItem(this.TOKEN_NAME);
+    this._isLoggedIn$.next(false);
+    this.user = undefined;
+  }
+
+  
   private getUser(token: string): Usuario {
     console.log(JSON.parse(atob(token.split('.')[1])) as Usuario)
     return JSON.parse(atob(token.split('.')[1])) as Usuario;
   }
+
+ 
+ 
 
 }
