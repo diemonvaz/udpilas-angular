@@ -1,0 +1,9 @@
+.estadio-container{
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    max-width: 1200px;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+

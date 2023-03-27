@@ -1,3 +1,7 @@
+import { HazteSocioComponent } from './main/static-pages/hazte-socio/hazte-socio.component';
+import { PromocionesComponent } from './main/static-pages/promociones/promociones.component';
+import { SponsorsComponent } from './main/static-pages/sponsors/sponsors.component';
+import { EstadioComponent } from './main/static-pages/estadio/estadio.component';
 import { EquiposComponent } from './main/equipos/equipos.component';
 import { OrganigramaComponent } from './main/static-pages/organigrama/organigrama.component';
 import { AdministracionNoticiasComponent } from './main/administracion-noticias/administracion-noticias.component';
@@ -33,6 +37,10 @@ const routes: Routes = [
   { path: 'equipo/:nombre', component: EquiposComponent},
   { path: 'historia', component: HistoriaComponent},
   { path: 'organigrama', component: OrganigramaComponent},
+  { path: 'estadio', component: EstadioComponent},
+  { path: 'sponsors', component: SponsorsComponent},
+  { path: 'promociones', component: PromocionesComponent},
+  { path: 'hazte-socio', component: HazteSocioComponent},
   { path: '**', component: NotFoundComponent} // Wildcard route para un 404
 ];
 

@@ -64,6 +64,9 @@ import { TransferirJugadorDialogComponent } from './main/plantilla/transferir-ju
 import { DetalleJugadorDialogComponent } from './main/plantilla/detalle-jugador-dialog/detalle-jugador-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { EquiposComponent } from './main/equipos/equipos.component';
+import { SponsorsComponent } from './main/static-pages/sponsors/sponsors.component';
+import { PromocionesComponent } from './main/static-pages/promociones/promociones.component';
+import { HazteSocioComponent } from './main/static-pages/hazte-socio/hazte-socio.component';
 
 
 
@@ -95,7 +98,10 @@ import { EquiposComponent } from './main/equipos/equipos.component';
     AddRegistroCorpDialogComponent,
     TransferirJugadorDialogComponent,
     DetalleJugadorDialogComponent,
-    EquiposComponent
+    EquiposComponent,
+    SponsorsComponent,
+    PromocionesComponent,
+    HazteSocioComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,7 @@
 .mat-card:hover {
   background-color: rgba(243, 243, 243, 0.938);
   transition: all .35s ease-in-out;
-  
+  cursor: pointer;
 }
 .mat-card:not(:hover) {
   transition: all .35s ease-in-out;
@@ -26,3 +26,6 @@
   background-color: rgba(243, 243, 243, 0.938);
 }
 
+.cLast:hover{
+  cursor: pointer;
+}
