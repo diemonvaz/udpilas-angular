@@ -1,0 +1,81 @@
+<div class="container">
+        
+    <div style="background-color: rgb(233, 233, 233);">
+        <h1 *ngIf="equipo != 'Senior'" style="text-align: center; margin-bottom: 35px;">{{equipo}}</h1>
+        <h1 *ngIf="equipo === 'Senior'" style="text-align: center; margin-bottom: 35px;">Primer equipo</h1>            
+    </div>
+    <h1 style="font-family: Roboto Condensed,sans-serif; font-size: 1.60rem; font-weight: 700;">PORTEROS</h1>
+
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="25px grid" >
+
+        <div fxFlex = "20%"  fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let jugador of porteros">
+            <mat-card class="mat-elevation-z4 zoom-card"> 
+                <img mat-card-image class="zoom-img" [src]="jugador.imagen ? jugador.imagen.nombre : '../../assets/images/avatar-default.jpg'" >
+                <mat-card-content>              
+                    <p style="font-size:medium">
+                        {{jugador.nombre}}
+                    </p>
+                    <p style="font-size: small; font-style: italic; color: gray">{{jugador.posicion}}</p>       
+                </mat-card-content>         
+            </mat-card>
+        </div>
+
+    </div>
+
+    <h1 style="font-family: Roboto Condensed,sans-serif; font-size: 1.60rem; font-weight: 700; margin-top: 35px;">Defensores</h1>
+
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="25px grid" >
+
+        <div fxFlex = "20%"  fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let jugador of defensores">
+            <mat-card class="mat-elevation-z4 zoom-card"> 
+                <img mat-card-image class="zoom-img" [src]="jugador.imagen ? jugador.imagen.nombre : '../../assets/images/avatar-default.jpg'">
+                <mat-card-content>              
+                    <p style="font-size:medium">
+                        {{jugador.nombre}}
+                    </p>
+                    <p style="font-size: small; font-style: italic; color: gray">{{jugador.posicion}}</p>       
+                </mat-card-content>         
+            </mat-card>
+        </div>
+
+    </div>
+
+    <h1 style="font-family: Roboto Condensed,sans-serif; font-size: 1.60rem; font-weight: 700; margin-top: 35px;">Centrocampistas</h1>
+
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="25px grid" >
+
+        <div fxFlex = "20%"  fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let jugador of centrocampistas">
+            <mat-card class="mat-elevation-z4 zoom-card"> 
+                <img mat-card-image class="zoom-img" [src]="jugador.imagen ? jugador.imagen.nombre : '../../assets/images/avatar-default.jpg'">
+                <mat-card-content>              
+                    <p style="font-size:medium">
+                        {{jugador.nombre}}
+                    </p>
+                    <p style="font-size: small; font-style: italic; color: gray">{{jugador.posicion}}</p>              
+                </mat-card-content>         
+            </mat-card>
+        </div>
+
+    </div>
+
+    <h1 style="font-family: Roboto Condensed,sans-serif; font-size: 1.60rem; font-weight: 700; margin-top: 35px;">Delanteros</h1>
+
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="25px grid" >
+
+        <div fxFlex = "20%"  fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let jugador of delanteros">
+            <mat-card class="mat-elevation-z4 zoom-card"> 
+                <img mat-card-image class="zoom-img" [src]="jugador.imagen ? jugador.imagen.nombre : '../../assets/images/avatar-default.jpg'" style="object-fit: cover; width: 200px; height: 200px;" >
+                <mat-card-content>              
+                    <p style="font-size:medium">
+                        {{jugador.nombre}}
+                    </p>
+                    <p style="font-size: small; font-style: italic; color: gray">{{jugador.posicion}}</p>              
+                </mat-card-content>         
+            </mat-card>
+        </div>
+
+    </div>
+    
+
+</div>
+

@@ -63,6 +63,8 @@ import { AddRegistroCorpDialogComponent } from './main/plantilla/add-registro-co
 import { TransferirJugadorDialogComponent } from './main/plantilla/transferir-jugador-dialog/transferir-jugador-dialog.component';
 import { DetalleJugadorDialogComponent } from './main/plantilla/detalle-jugador-dialog/detalle-jugador-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { EquiposComponent } from './main/equipos/equipos.component';
+
 
 
 
@@ -92,7 +94,8 @@ import { MatRadioModule } from '@angular/material/radio';
     UpdateJugadorDialogComponent,
     AddRegistroCorpDialogComponent,
     TransferirJugadorDialogComponent,
-    DetalleJugadorDialogComponent
+    DetalleJugadorDialogComponent,
+    EquiposComponent
   ],
   imports: [
     BrowserModule,

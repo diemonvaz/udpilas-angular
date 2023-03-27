@@ -1,5 +1,7 @@
+import { EquiposService } from './../../services/equipos.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Equipo } from 'src/app/models/Equipo';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class HeaderComponent implements OnInit {
   accesoAdministracionPlantilla: Boolean = false;
   accesoAdministracionCuerpoTecnico: Boolean = false;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private equiposService: EquiposService) { }
 
   isLoggedIn = false;
   user: any;
@@ -42,7 +44,13 @@ export class HeaderComponent implements OnInit {
       this.accesoAdministracionPlantilla = this.authService.user.roles.some(r=> this.rolesAdministracionPlantilla.includes(r));
       this.accesoAdministracionCuerpoTecnico = this.authService.user.roles.some(r=> this.rolesAdministracionCuerpoTecnico.includes(r));
     }
+    this.equiposService.getEquipos().subscribe(data => {
+      this.equipos = data;
+    })
+    
   }
+
+  equipos: Equipo[];
 
   async logout() {
     await this.authService.logout();
