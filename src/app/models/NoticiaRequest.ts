@@ -8,8 +8,8 @@ export interface NoticiaRequest {
     tituloNoticia: String;
     contenidoNoticia: String;
     usuario: String;
-    fechaCreacion: String;
-    fechaPublicacion: String;
+    fechaCreacion: string;
+    fechaPublicacion: string;
     esPortada: Boolean;
     imagen: Imagen;
     etiquetas: Etiqueta[];

@@ -74,7 +74,6 @@
     
     <p *ngIf="!fechaSet && !esEdicion" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará de inmediato tras su confirmación</p>
     <p *ngIf="fechaSet" style="font-style:italic; margin-top: 75px; text-align: center"> El artículo se publicará en la fecha programada: {{ fechaSetted | json }} </p>
-    <p *ngIf="esEdicion" style="font-style:italic; margin-top: 75px; text-align: center"> Fecha de publicacion original: {{ noticiaSeleccionada.fechaPublicacion | json }} </p>
 
     <div *ngIf="!fechaSet && !esEdicion" style="text-align: center; margin-top: 65px;">
         <button mat-raised-button color="primary" style="margin-right: 4px;" type="submit">Publicar</button>

@@ -4,6 +4,7 @@ import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -23,11 +24,13 @@ export class NoticiasComponent implements OnInit {
   
   ngOnInit() {
    
-    this.noticiasService.getNoticias().subscribe(res => {
+    this.noticiasService.getNoticiasAfterDate().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         if(!res[i].esPortada) {
+          res[i].fechaPublicacion = this.datePipe.transform(res[i].fechaPublicacion, 'dd/MM/yyyy');
           this.noticiasArray.push(res[i]);
         }else {
+          res[i].fechaPublicacion = this.datePipe.transform(res[i].fechaPublicacion, 'dd/MM/yyyy');
           this.noticiasPortadaArray.push(res[i]);
         }
       }
@@ -48,7 +51,7 @@ export class NoticiasComponent implements OnInit {
   dataSource: MatTableDataSource<NoticiaRequest> = new MatTableDataSource<NoticiaRequest>(this.noticiasArray);
 
 
-  constructor( private noticiasService: NoticiasService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor( private noticiasService: NoticiasService, private changeDetectorRef: ChangeDetectorRef, private datePipe: DatePipe) {
 
    }
 
@@ -67,7 +70,7 @@ export class NoticiasComponent implements OnInit {
   getAllNoticias(): void {
    
     let todasNoticias: NoticiaRequest[] = [];
-    this.noticiasService.getNoticias().subscribe(res => {
+    this.noticiasService.getNoticiasAfterDate().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         if(!res[i].esPortada) {
           todasNoticias.push(res[i]);
@@ -82,7 +85,7 @@ export class NoticiasComponent implements OnInit {
   }
 
   getNoticiasPortada(): void{
-    this.noticiasService.getNoticias().subscribe(res => {
+    this.noticiasService.getNoticiasAfterDate().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         if(res[i].esPortada) {
           this.noticiasPortadaArray.push(res[i]);
@@ -103,6 +106,7 @@ export class NoticiasComponent implements OnInit {
     }else{
       this.noticiasService.getNoticiaByTitulo(titulo).subscribe(res => {
         for (let i = 0; i < res.length; i++) {
+          res[i].fechaPublicacion = this.datePipe.transform(res[i].fechaPublicacion, 'dd/MM/yyyy');
           noticiasFiltradas.push(res[i]);
           cont = cont + 1;  
         }
@@ -119,6 +123,7 @@ export class NoticiasComponent implements OnInit {
     let noticiasFiltradas: NoticiaRequest[] = [];
     this.noticiasService.getNoticiaByEtiqueta(etiqueta).subscribe(res => {
       for (let i = 0; i < res.length; i++) {
+        res[i].fechaPublicacion = this.datePipe.transform(res[i].fechaPublicacion, 'dd/MM/yyyy');
         noticiasFiltradas.push(res[i]);
       }
       this.dataSource = new MatTableDataSource(noticiasFiltradas);

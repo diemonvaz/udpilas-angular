@@ -9,6 +9,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Etiqueta } from 'src/app/models/Etiqueta';
 import { Imagen } from 'src/app/models/Imagen';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-administracion-noticias',
@@ -17,14 +19,14 @@ import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/
 })
 export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRequest {
 
-  constructor(private noticiasService: NoticiasService,  public dialog: MatDialog) { }
+  constructor(private noticiasService: NoticiasService,  public dialog: MatDialog, private datePipe: DatePipe) { }
 
   idnoticias: String;
   tituloNoticia: String;
   contenidoNoticia: String;
   usuario: String;
-  fechaCreacion: String;
-  fechaPublicacion: String;
+  fechaCreacion: string;
+  fechaPublicacion: string;
   esPortada: Boolean;
   imagen: Imagen;
   etiquetas: Etiqueta[];
@@ -34,6 +36,10 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
   ngAfterViewInit(): void {
     this.noticiasService.getNoticias().subscribe(data => {
       this.noticiasArray = data;
+      this.noticiasArray.forEach(noticia => {
+        noticia.fechaPublicacion = this.datePipe.transform(noticia.fechaPublicacion, 'yyyy-MM-dd HH:mm');
+        noticia.fechaCreacion = this.datePipe.transform(noticia.fechaCreacion, 'yyyy-MM-dd HH:mm');
+      });
       this.dataSource = new MatTableDataSource(this.noticiasArray);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -38,6 +38,7 @@ export class NoticiaViewComponent implements OnInit {
   //el resultado y se actualice la variable con valores
   idNoticiaSeleccionada: String;
   noticiaSeleccionada: NoticiaRequest;
+  horaPublicacion: string;
   contenidoNoticia: Text;
   ultimasInsertadas: NoticiaRequest[] = [];
 
@@ -73,6 +74,7 @@ export class NoticiaViewComponent implements OnInit {
   getNoticiaById(id): void{
     this.noticiasService.getNoticiaById(id).subscribe(res => {
       this.noticiaSeleccionada = res;
+      this.horaPublicacion = new Date(this.noticiaSeleccionada.fechaPublicacion).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       console.log(this.noticiaSeleccionada)
     })
   }

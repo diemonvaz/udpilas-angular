@@ -1,7 +1,7 @@
 import { AuthInterceptorProvider } from './auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule, DatePipe } from '@angular/common'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -136,7 +136,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatListModule,
     MatRadioModule
   ],
-  providers: [AuthInterceptorProvider],
+  providers: [AuthInterceptorProvider, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

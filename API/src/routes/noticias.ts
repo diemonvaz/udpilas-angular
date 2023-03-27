@@ -15,6 +15,9 @@ router.get('/getByEtiqueta/:etiqueta', NoticiasController.getByEtiqueta);
 //get a todas las noticias
 router.get('/getAll', NoticiasController.getAll);
 
+//get a todas las noticias aplicando restriccion de fecha publicacion
+router.get('/getAllAfterDate', NoticiasController.getAllAfterDate);
+
 //insertar nuevas noticias
 router.post('/postNoticia', NoticiasController.postNoticia);
 

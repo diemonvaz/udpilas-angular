@@ -16,6 +16,28 @@ export class NoticiasController {
                     .orderBy("noticia.fechaPublicacion", "DESC")
                     .getMany();
             if(noticia) {
+                console.log(noticia)
+                res.send(noticia);
+            }
+            else {
+                res.status(404).json({message: 'Error al realizar GET sobre Noticias'});
+            }
+        }catch(e){
+            console.log(e);
+            res.status(500).json({message: 'Error'});
+        }
+    };
+
+    static getAllAfterDate = async (req: Request, res: Response)=>{
+        const repository = getRepository(Noticias);
+        try {
+            const noticia = await repository.createQueryBuilder("noticia")
+                    .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .where('noticia.fechaPublicacion <= :fechaActual', { fechaActual: new Date() })
+                    .orderBy("noticia.fechaPublicacion", "DESC")
+                    .getMany();
+            if(noticia) {
+                console.log(noticia)
                 res.send(noticia);
             }
             else {
@@ -60,6 +82,7 @@ export class NoticiasController {
         try{
             const noticia = await repository.createQueryBuilder("noticia")
                     .where("noticia.tituloNoticia like :tituloNoticia", { tituloNoticia: `%${tituloNoticia}%`})
+                    .andWhere('noticia.fechaPublicacion <= :fechaActual', { fechaActual: new Date() })
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
                     .getMany();
             if(noticia) {
@@ -83,6 +106,7 @@ export class NoticiasController {
             const noticia = await repository.createQueryBuilder("noticia")
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
                     .where('etiquetas.nombre = :etiqueta', { etiqueta: etiqueta})
+                    .andWhere('noticia.fechaPublicacion <= :fechaActual', { fechaActual: new Date() })
                     .getMany();
             if(noticia) {
                 console.log(noticia);
@@ -104,6 +128,7 @@ export class NoticiasController {
         try {
             const noticia = await repository.createQueryBuilder("noticia")
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
+                    .where("noticia.fechaPublicacion <= :fechaActual", { fechaActual: new Date() })
                     .orderBy("noticia.idnoticias", "DESC")
                     .getMany();
             let arrayRes: Noticias[] = [];

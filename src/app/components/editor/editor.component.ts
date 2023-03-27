@@ -271,10 +271,14 @@ export class EditorComponent implements OnInit {
     let fechaPubStr;
 
     if(this.fechaSet){ //Si programamos la fecha
-      fechaCreStr = fechaCre.toISOString().slice(0, 19).replace('T', ' ');
+      const offset = 120;
+      const fechaElegidaUtc = new Date(fechaCre.getTime() + offset * 60 * 1000);
+      fechaCreStr = fechaElegidaUtc.toISOString().slice(0, 19).replace('T', ' ');
       fechaPubStr = this.fechaSetted;
     }else{
-      let fechaElegida = this.fechaSetted.toISOString().slice(0, 19).replace('T', ' ');
+      const offset = 120; // Ajuste de la zona horaria en minutos. El isostring devuelve la fecha en UTC, y nuestra zona horaria es UTC + 2 (horario verano)
+      const fechaElegidaUtc = new Date(this.fechaSetted.getTime() + offset * 60 * 1000);
+      let fechaElegida = fechaElegidaUtc.toISOString().slice(0, 19).replace('T', ' ');
       fechaCreStr = fechaElegida;
       fechaPubStr = fechaElegida;
     }

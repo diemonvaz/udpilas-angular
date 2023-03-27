@@ -38,6 +38,10 @@ export class NoticiasService {
     return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAll", httpOptions);
   }
 
+  getNoticiasAfterDate():Observable<NoticiaRequest[]> {
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAllAfterDate", httpOptions);
+  }
+
   getNoticiaById(id: String):Observable<NoticiaRequest> {
     return this.http.get<NoticiaRequest>(this.urlNoticias+"getById/" + id, httpOptions);
   }

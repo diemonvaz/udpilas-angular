@@ -18,10 +18,10 @@ export class Noticias extends BaseEntity{
     @Column({type: "text", nullable: true})
     usuario: string;
 
-    @Column({type: "date", nullable: false})
+    @Column({type: "datetime", nullable: false})
     fechaCreacion: Date;
 
-    @Column({type: "date", nullable: true})
+    @Column({type: "datetime", nullable: true})
     fechaPublicacion: Date;
 
     @Column({type: "bool", nullable: false})
