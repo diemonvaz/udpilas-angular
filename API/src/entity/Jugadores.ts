@@ -1,7 +1,8 @@
 import { RegistrosCorporales } from './RegistrosCorporales';
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Equipos } from "./Equipos";
 import { Imagenes } from "./Imagenes";
+import { Entrenamientos } from './Entrenamientos';
 
 @Entity("jugadores")
 @Unique(['idjugadores'])
@@ -22,7 +23,6 @@ export class Jugadores extends BaseEntity{
     @Column({type: "varchar", width: 255, default: null, nullable: true})
     posicion: string;
 
-    //aqui el cascade se podria quitar no?
     @ManyToOne(() => Equipos,  (equipo) => equipo.jugadores)
     equipo: Equipos;
     
@@ -49,5 +49,10 @@ export class Jugadores extends BaseEntity{
         onDelete: 'CASCADE'
     })
     registros: RegistrosCorporales[];
+
+
+    @ManyToMany(type => Entrenamientos, entreno => entreno.jugadores)
+    //@JoinTable()
+    entrenamientos: Entrenamientos[];
 
 }

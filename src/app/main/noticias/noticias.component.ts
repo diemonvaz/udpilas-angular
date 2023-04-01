@@ -73,6 +73,7 @@ export class NoticiasComponent implements OnInit {
     this.noticiasService.getNoticiasAfterDate().subscribe(res => {
       for (let i = 0; i < res.length; i++) {
         if(!res[i].esPortada) {
+          res[i].fechaPublicacion = this.datePipe.transform(res[i].fechaPublicacion, 'dd/MM/yyyy');
           todasNoticias.push(res[i]);
         }
       }

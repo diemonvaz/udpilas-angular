@@ -92,7 +92,7 @@ export class UsuariosController {
                     user.roles.forEach(rol => {
                         arrayRoles.push(rol.codigo);
                     });
-                    const token = jwt.sign({ userID: user.idusuario, nombre: user.nombre, email: user.email, roles: arrayRoles }, config.jwtSecret, { expiresIn: "7 days" });
+                    const token = jwt.sign({ idusuario: user.idusuario, nombre: user.nombre, email: user.email, roles: arrayRoles }, config.jwtSecret, { expiresIn: "7 days" });
                     var response = {
                         "access_token": token,
                         "token_type": "bearer",

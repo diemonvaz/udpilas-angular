@@ -1,1 +1,29 @@
-<p>hazte-socio works!</p>
+<div class="container">
+    <div style="background-color: rgb(233, 233, 233); text-align: center;">
+        <h2>HAZTE SOCIO</h2>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="35px" style="margin-top: 35px;">
+        <img src="../../../../assets/images/abonos/abonate.png">
+        <p>En esta temporada 2022/2023 en la que cumplimos el Cincuentenario, la campaña de abonos tiene el siguiente lema: LO CELEBRAMOS Y PRESUME DE SER TITULAR.
+        </p>
+        <p>Ello se debe a que el nombre de todas las personas que saquen su carnet de socio figurará en la camiseta conmemorativa del Cincuentenario que nuestro equipo estrenará en fechas próximas. </p>
+        <p>Se trata, sin duda, de un aliciente añadido para apoyar al equipo en lo económico y en lo deportivo. La Junta Directiva, además, considerando las circunstancias difíciles por las que atravesamos, ha decidido rebajar los precios de los abonos, que son los siguientes:</p>
+    
+        <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef > TIPO ABONO </th>
+                <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="precio">
+                <th mat-header-cell *matHeaderCellDef > PRECIO (€) </th>
+                <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <p>Puedes adquirir tus entradas para ver a la Ud Pilas, una hora antes del horario fijado para el encuentro en las taquillas del Estadio Municipal Manuel Leonardo.</p>
+        <img src="../../../../assets/images/abonos/venta.jpg">
+    
+    </div>  
+</div>

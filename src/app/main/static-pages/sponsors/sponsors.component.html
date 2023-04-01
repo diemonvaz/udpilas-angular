@@ -1,1 +1,68 @@
-<p>sponsors works!</p>
+<div class="container">
+    <div style="background-color: rgb(233, 233, 233); text-align: center;">
+        <h2>PUBLICIDAD EN EL ESTADIO “MANUEL LEONARDO VENTURA”</h2>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="35px">   
+        <h3>TEMPORADA 2022/2023</h3>
+        <img src="../../../../assets/images/com-oficial.jpg">
+        <p>De los partidos de la UD Pilas, se graban en vídeo, tanto para el Canal Oficial del pueblo, como para distintos sitios de internet.
+            Se realizan amplios reportajes fotográficos, que luego aparecen tanto en FACEBOOK, como en TWITTER e INSTAGRAM, medios que registran un alto número de visitas.
+            Por lo que, se facilitan las siguientes opciones a elegir por el cliente, para publicitar su negocio:
+            </p>
+
+        <p>De los partidos de la UD Pilas, se graban en vídeo, tanto para el Canal Oficial del pueblo, como para distintos sitios de internet.
+            Se realizan amplios reportajes fotográficos, que luego aparecen tanto en FACEBOOK, como en TWITTER e INSTAGRAM, medios que registran un alto número de visitas.
+        </p>
+
+        <h3>Se facilitan las siguientes opciones a elegir por el cliente para publicitar su negocio</h3>
+
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <h3 style="font-weight: bold;">OPCIÓN 1: Valla a pie de campo</h3>
+            <p>3 x 1.30 m: 150€</p>
+            <p>5 x 1.30 m: 200€</p>
+            <img src="../../../../assets/images/sponsors/opcion1.jpg">
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <h3 style="font-weight: bold;">OPCIÓN 2: Valla interior alta</h3>
+            <p>250€</p>
+            <p style="font-size: small; font-style: oblique;">*Preguntar tamaños disponibles</p>
+            <img src="../../../../assets/images/sponsors/opcion2.jpg">
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <h3 style="font-weight: bold;">OPCIÓN 3: Valla interior baja</h3>
+            <p>250€</p>
+            <p style="font-size: small; font-style: oblique;">*Preguntar tamaños disponibles</p>
+            <img src="../../../../assets/images/sponsors/opcion3.jpg">
+        </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="35px" style="margin-top: 170px;">
+        <h3>Se podría estudiar alguna opción diferente a las dadas. Para ello, contáctanos sin ningún tipo de compromiso a través del siguiente formulario.</h3>
+        <mat-card style="width: fit-content;">
+            <mat-card-title style="font-size: large; margin-bottom: 25px;">Contacta con nosotros para presupuesto a medida</mat-card-title>
+            <form [formGroup]="formContacto" (ngSubmit)="submitFormContacto(formDirective)" #formDirective="ngForm"  autocomplete="off" fxLayout="column" fxLayoutAlign="space-around center">
+                <mat-form-field appearance="fill">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" formControlName="email">
+                </mat-form-field> 
+                <mat-form-field appearance="fill">
+                <mat-label>Nombre contacto</mat-label>
+                <input matInput type="text" formControlName="nombre">
+                </mat-form-field> 
+                <mat-form-field appearance="fill">
+                    <mat-label>Asunto</mat-label>
+                    <input matInput type="text" formControlName="asunto">
+                </mat-form-field> 
+            
+                <div style="text-align: center;">
+                <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+                    Enviar
+                </button>
+                </div>
+            </form>   
+        </mat-card>
+    </div>
+    
+</div>
+

@@ -1,0 +1,36 @@
+.cuerpo-tecnico-container{
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    max-width: 1800px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    
+  }
+
+  .mat-table tr:hover {
+    cursor: pointer;
+  }
+
+  .senior-chip{
+    background-color: rgb(68, 248, 158);
+}
+
+.juveniles-chip{
+  background-color: rgb(221, 206, 70);
+}
+
+.cadetes-chip{
+  background-color: rgb(221, 78, 78);
+}
+
+.trasnferir-radio-group{
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.radio-button {
+  margin: 5px;
+}

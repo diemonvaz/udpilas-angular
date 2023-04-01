@@ -1,1 +1,97 @@
-<p>cuerpo-tecnico works!</p>
+<div class="cuerpo-tecnico-container">
+
+    <div class="col mt-4 mb-4">
+        <div class="row mt-2 mb-2 text-center">
+            <h1>GESTIÓN CUERPO TÉCNICO</h1>
+        </div>
+
+        <mat-tab-group mat-stretch-tabs #tabsCuerpoTecnico dynamicHeight>
+
+            <mat-tab label="Control asistencia sesiones entrenamiento">
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" style="margin-top: 45px ;">
+                    <mat-radio-group
+                        aria-labelledby="example-radio-group-label"
+                        class="trasnferir-radio-group"
+                        [(ngModel)]="equipoSeleccionado">
+                            <mat-radio-button class="radio-button" *ngFor="let equipo of equiposArray" [value]="equipo" (change)="onRadioChange(equipo)">
+                                {{equipo.nombre}}
+                            </mat-radio-button>
+                            <mat-radio-button class="radio-button" (click)="mostrarTodos()">Todos</mat-radio-button>
+                        </mat-radio-group>
+                </div>
+
+                <div class="row mt-4 mb-4 d-flex justify-content-center" style="margin-left:5px; margin-right:5px">
+                    
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-form-field appearance="standard" style="margin-right: 5px;">
+                          <mat-label>Búsqueda</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por datos de sesion" #input>
+                        </mat-form-field>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Registrar nueva sesión
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><button  class="dropdown-item"  *ngFor="let equipo of equiposArray" (click) = "openDialogAddRegistroSesion(equipo)">{{equipo.nombre}}</button></li>
+                            </ul>
+                          </div>
+                    </div>
+
+                    <table mat-table [dataSource]="dataSourceEntrenos" matSort class="mat-elevation-z8">
+                        <ng-container matColumnDef="fecha">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+                            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="miembro">
+                            <th mat-header-cell *matHeaderCellDef > MIEMBRO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.miembro.usuario.nombre}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="observaciones">
+                            <th mat-header-cell *matHeaderCellDef > OBSERVACIONES </th>
+                            <td mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="equipo">
+                            <th mat-header-cell *matHeaderCellDef > EQUIPO </th>
+                            <td mat-cell *matCellDef="let element"> 
+                              <mat-chip-list>
+                                <mat-chip class="senior-chip" *ngIf="element.equipo.nombre == 'Senior'">
+                                    {{element.equipo.nombre}}
+                                </mat-chip>
+                                <mat-chip class="juveniles-chip" *ngIf="element.equipo.nombre == 'Juveniles'">
+                                    {{element.equipo.nombre}}
+                                </mat-chip>
+                                <mat-chip class="cadetes-chip" *ngIf="element.equipo.nombre == 'Cadetes'">
+                                    {{element.equipo.nombre}}
+                                </mat-chip>
+                              </mat-chip-list>
+                            </td>
+                          </ng-container>
+                        
+                        
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-mini-fab color="warn"  matTooltip="Eliminar" aria-label="Boton para eliminar registro" style="margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px" (click)="deleteRowEntrenamiento(element)" >
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialogDetalleEntrenamiento(row)"></tr>
+
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
+
+                </div>
+                
+                
+            </mat-tab>
+
+        </mat-tab-group>
+
+    </div>
+
+</div>

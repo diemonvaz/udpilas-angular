@@ -1,0 +1,22 @@
+<p style="text-align: center;">Registro de asistencia a la sesión con fecha {{entrenamiento.fecha}}</p>
+<div class="row mt-4 mb-4 d-flex justify-content-center" style="margin-left:5px; margin-right:5px">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef > NOMBRE </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+        <ng-container matColumnDef="apellidos">
+            <th mat-header-cell *matHeaderCellDef > NOMBRE </th>
+            <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+          </ng-container>
+       
+        <tr mat-header-row *matHeaderRowDef="columnasTablaRegistros"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTablaRegistros;"></tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Seleccionar pagina de jugadores"></mat-paginator>  
+</div>
+      
+
+
+

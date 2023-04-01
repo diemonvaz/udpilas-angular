@@ -10,6 +10,7 @@ import roles from './roles';
 import jugadores from './jugadores';
 import equipos from './equipos';
 import registros_corporales from './registros_corporales';
+import entrenamientos from './entrenamientos';
 
 const routes = Router();
 routes.use('/socios',socios);
@@ -23,5 +24,7 @@ routes.use('/roles', roles);
 routes.use('/jugadores', jugadores);
 routes.use('/equipos', equipos);
 routes.use('/registros_corporales', registros_corporales);
+routes.use('/entrenamientos', entrenamientos);
+
 
 export default routes;

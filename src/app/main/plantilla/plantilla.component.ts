@@ -13,8 +13,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DetalleJugadorDialogComponent } from './detalle-jugador-dialog/detalle-jugador-dialog.component';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import * as XLSX from 'xlsx';
-import { data } from 'jquery';
-import { MatSort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-plantilla',

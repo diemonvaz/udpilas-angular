@@ -67,6 +67,8 @@ import { EquiposComponent } from './main/equipos/equipos.component';
 import { SponsorsComponent } from './main/static-pages/sponsors/sponsors.component';
 import { PromocionesComponent } from './main/static-pages/promociones/promociones.component';
 import { HazteSocioComponent } from './main/static-pages/hazte-socio/hazte-socio.component';
+import { DetalleEntrenoDialogComponent } from './main/cuerpo-tecnico/detalle-entreno-dialog/detalle-entreno-dialog.component';
+import { RegistrarSesionDialogComponent } from './main/cuerpo-tecnico/registrar-sesion-dialog/registrar-sesion-dialog.component';
 
 
 
@@ -101,7 +103,9 @@ import { HazteSocioComponent } from './main/static-pages/hazte-socio/hazte-socio
     EquiposComponent,
     SponsorsComponent,
     PromocionesComponent,
-    HazteSocioComponent
+    HazteSocioComponent,
+    DetalleEntrenoDialogComponent,
+    RegistrarSesionDialogComponent
   ],
   imports: [
     BrowserModule,

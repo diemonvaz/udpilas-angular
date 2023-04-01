@@ -1,0 +1,54 @@
+<mat-card *ngIf="!update" style="width: fit-content;">
+    <mat-card-title style="font-size: large; margin-bottom: 25px;">Registrar nueva sesión para el equipo {{equipo.nombre}} </mat-card-title>
+    <app-alert></app-alert>
+    <form [formGroup]="formRegistroEntrenamiento" (ngSubmit)="submitFormNuevoRegSesion(formDirective)" #formDirective="ngForm"  autocomplete="off" fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha de la sesión</mat-label>
+          <input matInput type="datetime-local" formControlName="fecha">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Observaciones</mat-label>
+          <input matInput type="text" formControlName="observaciones">
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Jugadores que asistieron</mat-label>
+          <mat-select formControlName="jugadores" multiple>
+            <mat-option *ngFor="let jugador of equipo.jugadores" [value]="jugador">{{jugador.nombre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <div style="text-align: center;">
+          <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+              Añadir registro
+          </button>
+        </div>
+      </form>   
+</mat-card>
+
+<mat-card *ngIf="update" style="width: fit-content;">
+  <mat-card-title style="font-size: large; margin-bottom: 25px;">Actualizar sesión</mat-card-title>
+  <app-alert></app-alert>
+  <form [formGroup]="formRegistroEntrenamiento" (ngSubmit)="submitFormNuevoRegSesion(formDirective)" #formDirective="ngForm"  autocomplete="off" fxLayout="column" fxLayoutAlign="space-around center">
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de la sesión</mat-label>
+        <input matInput type="datetime-local" formControlName="fecha">
+      </mat-form-field> 
+      <mat-form-field appearance="fill">
+        <mat-label>Observaciones</mat-label>
+        <input matInput type="text" formControlName="observaciones">
+      </mat-form-field> 
+      <mat-form-field appearance="fill">
+        <mat-label>Jugadores que asistieron</mat-label>
+        <mat-select formControlName="jugadores" multiple>
+          <mat-option *ngFor="let jugador of equipo.jugadores" [value]="jugador">{{jugador.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <div style="text-align: center;">
+        <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
+            Actualizar
+        </button>
+      </div>
+    </form>   
+</mat-card>
+
