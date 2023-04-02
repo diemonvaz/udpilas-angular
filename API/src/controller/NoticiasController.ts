@@ -16,7 +16,6 @@ export class NoticiasController {
                     .orderBy("noticia.fechaPublicacion", "DESC")
                     .getMany();
             if(noticia) {
-                console.log(noticia)
                 res.send(noticia);
             }
             else {
@@ -37,7 +36,6 @@ export class NoticiasController {
                     .orderBy("noticia.fechaPublicacion", "DESC")
                     .getMany();
             if(noticia) {
-                console.log(noticia)
                 res.send(noticia);
             }
             else {
@@ -86,7 +84,6 @@ export class NoticiasController {
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
                     .getMany();
             if(noticia) {
-                console.log(noticia);
                 res.send(noticia);
             }
             else {
@@ -101,7 +98,6 @@ export class NoticiasController {
     static getByEtiqueta = async (req: Request, res: Response)=>{
         const etiqueta = req.params.etiqueta;
         const repository = getRepository(Noticias);
-        console.log(etiqueta);
         try{
             const noticia = await repository.createQueryBuilder("noticia")
                     .leftJoinAndSelect("noticia.imagen", "imagen").leftJoinAndSelect("noticia.etiquetas", "etiquetas")
@@ -109,7 +105,6 @@ export class NoticiasController {
                     .andWhere('noticia.fechaPublicacion <= :fechaActual', { fechaActual: new Date() })
                     .getMany();
             if(noticia) {
-                console.log(noticia);
                 res.send(noticia);
             }
             else {
@@ -135,7 +130,6 @@ export class NoticiasController {
             for (let k = 0; k <= y; k++) {
                 arrayRes.push(noticia[k]);
             }
-            console.log(arrayRes);
             if(arrayRes) {
                 res.send(arrayRes);
             }
@@ -249,7 +243,6 @@ export class NoticiasController {
                     etiquetasNombres.push(etiqueta.nombre);
                 });
                 const etiquetasNuevas = [];
-                console.log(req.body.etiquetas)
                 for (const nombre of etiquetasNombres) {
                     const etiqueta = await Etiquetas.findOne({ nombre });
                     if (etiqueta) {

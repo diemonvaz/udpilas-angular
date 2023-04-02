@@ -145,7 +145,7 @@
                   <mat-expansion-panel hideToggle style="margin-left: 20%; margin-right: 20%; margin-top: 20px; margin-bottom: 20px;">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        Gestionar roles
+                        Información roles existentes
                       </mat-panel-title>
                       <mat-icon>info</mat-icon>
                     </mat-expansion-panel-header>
@@ -170,35 +170,6 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsRoles"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumnsRoles;"></tr>
                       </table>
-                      <mat-accordion class="example-headers-align">
-                        <mat-expansion-panel hideToggle>
-                          <mat-expansion-panel-header>
-                            <mat-panel-title>
-                              Crear nuevo rol
-                            </mat-panel-title>
-                            <mat-icon>add</mat-icon>
-                          </mat-expansion-panel-header>
-                          <form (ngSubmit)="submitFormCrearRol(formDirective)" [formGroup]="formRoles" #formDirective="ngForm" autocomplete="off">
-                            <mat-form-field appearance="fill">
-                              <mat-label>Codigo</mat-label>
-                              <input matInput type="text" formControlName="codigo">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                              <mat-label>Descripcion</mat-label>
-                              <input matInput type="text" formControlName="descripcion">
-                            </mat-form-field>
-                            <br>
-                            <div style="text-align: center;">
-                              <button type="submit" mat-raised-button style="background-color: rgb(0, 223, 0);">
-                                  Crear
-                              </button>
-                            </div>
-                          </form>
-                          
-          
-                        </mat-expansion-panel>
-                      </mat-accordion>
-
                     </div>
                     </mat-expansion-panel>
                 </mat-accordion>

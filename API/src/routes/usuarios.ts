@@ -8,6 +8,5 @@ router.get('/:id', UsuariosController.getById);
 router.post('/', UsuariosController.registroUsuario);
 router.post('/registro', UsuariosController.registro);
 router.post('/login', UsuariosController.login);
-//router.post('/',[checkToken], SociosController.newCitaFromTicket);
 
 export default router;

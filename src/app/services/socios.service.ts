@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Socio } from '../models/Socio';
 
 
@@ -25,8 +25,14 @@ export class SociosService {
 
 
   getSocios():Observable<Socio[]> {
-    return this.http.get<Socio[]>(this.urlSocios+"getAll", httpOptions);
+    return this.http.get<Socio[]>(this.urlSocios+"getAll", httpOptions).pipe(
+      catchError((error) => {
+        console.error(error.status);
+        return throwError(() => error);
+      })
+    );
   }
+
 
   //metodo de tipo POST que ataca al controller de la API
   addSocio(socio: Socio): Observable<Socio> {

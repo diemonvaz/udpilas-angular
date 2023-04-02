@@ -40,13 +40,19 @@ export class AbonadosComponent implements AfterViewInit, Socio {
 
 
   ngAfterViewInit() {
-    this.sociosService.getSocios().subscribe(data => {
-      this.sociosArray = data;
-      this.dataSource = new MatTableDataSource(this.sociosArray);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+    this.sociosService.getSocios().subscribe(
+      (data: Socio[]) => {
+        this.sociosArray = data;
+        this.dataSource = new MatTableDataSource(this.sociosArray);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      (error) => {
+        console.error(error.status);
+      }
+    )
   }
+  
 
   
 
