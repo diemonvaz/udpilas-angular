@@ -2,7 +2,7 @@ import { NoticiaRequest } from '../models/NoticiaRequest';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Noticia } from '../models/Noticia';
 
 const httpOptions = {
@@ -35,7 +35,11 @@ export class NoticiasService {
   }
 
   getNoticias():Observable<NoticiaRequest[]> {
-    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAll", httpOptions);
+    return this.http.get<NoticiaRequest[]>(this.urlNoticias+"getAll", httpOptions).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
   getNoticiasAfterDate():Observable<NoticiaRequest[]> {
@@ -64,7 +68,11 @@ export class NoticiasService {
  }
 
  deleteById(id: String): Observable<Response> {
-  return this.http.delete<Response>(this.urlNoticias + "deleteById/" + id, httpOptions);
+  return this.http.delete<Response>(this.urlNoticias + "deleteById/" + id, httpOptions).pipe(
+    catchError((error) => {
+      return throwError(() => error);
+    })
+  );;
 }
   
 }

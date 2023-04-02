@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { Usuario } from '../models/Usuario';
 
 const httpOptions = {
@@ -49,6 +49,8 @@ export class AuthService {
         this._isLoggedIn$.next(true);
         localStorage.setItem(this.TOKEN_NAME, response.access_token);
         this.user = this.getUser(response.access_token);
+      }), catchError((error) => {
+        return throwError(() => error);
       })
     );
   }

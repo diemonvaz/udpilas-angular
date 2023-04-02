@@ -27,7 +27,6 @@ export class SociosService {
   getSocios():Observable<Socio[]> {
     return this.http.get<Socio[]>(this.urlSocios+"getAll", httpOptions).pipe(
       catchError((error) => {
-        console.error(error.status);
         return throwError(() => error);
       })
     );

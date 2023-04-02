@@ -13,6 +13,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DetalleJugadorDialogComponent } from './detalle-jugador-dialog/detalle-jugador-dialog.component';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import * as XLSX from 'xlsx';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -23,13 +24,21 @@ import * as XLSX from 'xlsx';
 
 export class PlantillaComponent implements OnInit {
 
-  constructor(private equiposService: EquiposService, private jugadoresService: JugadoresService,  public dialog: MatDialog) { }
+  constructor(private equiposService: EquiposService, private jugadoresService: JugadoresService, private authService: AuthService, public dialog: MatDialog) { }
  
 
   ngOnInit() {
-    this.equiposService.getEquipos().subscribe(data => {
+    this.equiposService.getEquiposAdm().subscribe(
+      data => {
       this.equiposArray = data;
       this.tabsEquipos.selectedIndex = 1;
+    }, error => {
+      if(error.status == '401') {
+        this.authService.logout();
+        window.location.reload();
+      }else {
+        console.log(error);
+      }
     })
   }
 

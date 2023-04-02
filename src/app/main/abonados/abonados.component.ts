@@ -11,6 +11,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { AddSocioDialogComponent } from '../add-socio-dialog/add-socio-dialog.component';
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 import * as XLSX from 'xlsx';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ import * as XLSX from 'xlsx';
 })
 export class AbonadosComponent implements AfterViewInit, Socio {
 
-  constructor(private sociosService: SociosService, private alertService: AlertService, public dialog: MatDialog) { 
+  constructor(private sociosService: SociosService, private alertService: AlertService, public dialog: MatDialog, private authService: AuthService) { 
     this.dataSource = new MatTableDataSource(this.sociosArray);
     
   }
@@ -48,7 +49,10 @@ export class AbonadosComponent implements AfterViewInit, Socio {
         this.dataSource.sort = this.sort;
       },
       (error) => {
-        console.error(error.status);
+        if(error.status == '401') {
+          this.authService.logout();
+          window.location.reload();
+        }
       }
     )
   }

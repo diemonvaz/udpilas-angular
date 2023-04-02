@@ -11,6 +11,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import { MatSort } from '@angular/material/sort';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cuerpo-tecnico',
@@ -19,7 +20,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class CuerpoTecnicoComponent implements OnInit {
 
-  constructor(private entrenamientosService: EntrenamientosService, private equiposService: EquiposService, private datePipe: DatePipe,  public dialog: MatDialog) { }
+  constructor(private entrenamientosService: EntrenamientosService, private equiposService: EquiposService, private authService: AuthService, private datePipe: DatePipe,  public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.entrenamientosService.getEntrenamientos().subscribe(data => {
@@ -30,8 +31,15 @@ export class CuerpoTecnicoComponent implements OnInit {
       this.dataSourceEntrenos = new MatTableDataSource(this.entrenosArray);
       this.dataSourceEntrenos.sort = this.sort;
       //console.log(this.entrenosArray)
+    }, error => {
+      if(error.status == '401') {
+        this.authService.logout();
+        window.location.reload();
+      }else {
+        console.log(error);
+      }
     })
-    this.equiposService.getEquipos().subscribe(data => {
+    this.equiposService.getEquiposAdm().subscribe(data => {
       this.equiposArray = data;
     });
     this.equipoSeleccionado = null;

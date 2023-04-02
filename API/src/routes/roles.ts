@@ -1,10 +1,11 @@
 import { Roles } from './../entity/Roles';
 import { RolesController } from './../controller/RolesController';
 import {Router} from 'express';
+import { checkToken } from '../midelware/jwt';
 const router = Router();
 
-router.get('/getAll', RolesController.getAll);
-router.post('/crearRol', RolesController.crearRol);
-router.delete('/deleteById/:id',  RolesController.deleteById);
+router.get('/getAll', [checkToken], RolesController.getAll);
+router.post('/crearRol', [checkToken],RolesController.crearRol);
+router.delete('/deleteById/:id', [checkToken], RolesController.deleteById);
 
 export default router;

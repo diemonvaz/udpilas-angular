@@ -10,6 +10,7 @@ import { Etiqueta } from 'src/app/models/Etiqueta';
 import { Imagen } from 'src/app/models/Imagen';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRequest {
 
-  constructor(private noticiasService: NoticiasService,  public dialog: MatDialog, private datePipe: DatePipe) { }
+  constructor(private noticiasService: NoticiasService, private authService: AuthService, public dialog: MatDialog, private datePipe: DatePipe) { }
 
   idnoticias: String;
   tituloNoticia: String;
@@ -34,7 +35,8 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
   
   
   ngAfterViewInit(): void {
-    this.noticiasService.getNoticias().subscribe(data => {
+    this.noticiasService.getNoticias().subscribe(
+      data => {
       this.noticiasArray = data;
       this.noticiasArray.forEach(noticia => {
         noticia.fechaPublicacion = this.datePipe.transform(noticia.fechaPublicacion, 'yyyy-MM-dd HH:mm');
@@ -44,7 +46,15 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log(data)
-    })
+      }, error =>  {
+        if(error.status == '401') {
+          this.authService.logout();
+          window.location.reload();
+        }else {
+          console.log(error);
+        }
+      }
+    )
   }
 
   dataSource: MatTableDataSource<NoticiaRequest>;

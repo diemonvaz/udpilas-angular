@@ -1,8 +1,9 @@
 
   <mat-tab-group animationDuration="0ms"mat-align-tabs="center">
-
     <mat-tab label="INICIA SESIÓN">
-  
+      <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
+        <app-alert></app-alert>
+      </div>
       <form (ngSubmit)="submitFormLogin()" [formGroup]="form" autocomplete="off" style="margin-top: 40px; margin-bottom: 40px;">
         <div style="display: flex; justify-content: center">
           <mat-card class="form-container">

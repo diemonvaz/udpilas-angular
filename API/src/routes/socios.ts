@@ -4,11 +4,11 @@ import {checkToken} from '../midelware/jwt';
 
 const router = Router();
 
-router.get('/getById/:id', SociosController.getById);
+router.get('/getById/:id', [checkToken], SociosController.getById);
 router.get('/getAll', [checkToken], SociosController.getAll);
-router.post('/postSocio', SociosController.postSocio);
-router.delete('/deleteById/:id',  SociosController.deleteById);
-router.put('/updateById/:id', SociosController.updateById);
+router.post('/postSocio', [checkToken], SociosController.postSocio);
+router.delete('/deleteById/:id', [checkToken], SociosController.deleteById);
+router.put('/updateById/:id', [checkToken], SociosController.updateById);
 //
 //router.post('/',[checkToken], SociosController.newCitaFromTicket);
 

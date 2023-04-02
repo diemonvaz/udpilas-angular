@@ -2,6 +2,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, Validators.required),
   });
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private alertService: AlertService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +36,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['']);
           }
         }, 2000);
-    });
+      }, error  => {
+        this.alertService.error(error.error.message);
+      });
   }
 
   

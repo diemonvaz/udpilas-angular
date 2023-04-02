@@ -1,5 +1,6 @@
 import {Router} from 'express'; 
 import NoticiasController from '../controller/NoticiasController';
+import { checkToken } from '../midelware/jwt';
 
 const router = Router();
 
@@ -13,20 +14,20 @@ router.get('/getByTitulo/:tituloNoticia', NoticiasController.getByTitulo);
 router.get('/getByEtiqueta/:etiqueta', NoticiasController.getByEtiqueta);
 
 //get a todas las noticias
-router.get('/getAll', NoticiasController.getAll);
+router.get('/getAll', [checkToken], NoticiasController.getAll);
 
 //get a todas las noticias aplicando restriccion de fecha publicacion
 router.get('/getAllAfterDate', NoticiasController.getAllAfterDate);
 
 //insertar nuevas noticias
-router.post('/postNoticia', NoticiasController.postNoticia);
+router.post('/postNoticia', [checkToken], NoticiasController.postNoticia);
 
 //buscar ultimas X noticias
 router.get('/getUltimasInsertadas/:num', NoticiasController.getUltimasInsertadas);
 
-router.put('/updateById/:id', NoticiasController.updateById);
+router.put('/updateById/:id', [checkToken], NoticiasController.updateById);
 
-router.delete('/deleteById/:id',  NoticiasController.deleteById);
+router.delete('/deleteById/:id', [checkToken], NoticiasController.deleteById);
 
 
 export default router;

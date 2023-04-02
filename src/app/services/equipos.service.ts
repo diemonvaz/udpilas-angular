@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Equipo } from '../models/Equipo';
 
 
@@ -23,6 +23,14 @@ export class EquiposService {
 
   getEquipos():Observable<Equipo[]> {
     return this.http.get<Equipo[]>(this.urlEquipos+"getAll", httpOptions);
+  }
+
+  getEquiposAdm():Observable<Equipo[]> {
+    return this.http.get<Equipo[]>(this.urlEquipos+"getAllAdm", httpOptions).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
 

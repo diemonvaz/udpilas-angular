@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/delete-confirm-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { DeleteConfirmDialogComponent } from '../abonados/delete-confirm-dialog/
 })
 export class MiembrosComponent implements  AfterViewInit, Miembro {
 
-  constructor(private miembrosService: MiembrosService, private rolesService: RolesService, public dialog: MatDialog) { 
+  constructor(private miembrosService: MiembrosService, private rolesService: RolesService, private authService: AuthService, public dialog: MatDialog) { 
 
   }
   
@@ -42,7 +43,13 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
       this.dataSource = new MatTableDataSource(this.miembrosArray);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource)
+    }, error => {
+      if(error.status == '401') {
+        this.authService.logout();
+        window.location.reload();
+      }else {
+        console.log(error);
+      }
     })
 
     this.rolesService.getRoles().subscribe(data => {
@@ -50,6 +57,13 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
       this.dataSourceRoles = new MatTableDataSource(this.rolesExistentes);
       this.dataSourceRoles.paginator = this.paginator;
       this.dataSourceRoles.sort = this.sort;
+    }, error => {
+      if(error.status == '401') {
+        this.authService.logout();
+        window.location.reload();
+      }else {
+        console.log(error);
+      }
     })
   }
 

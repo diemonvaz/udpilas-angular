@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Miembro } from '../models/Miembro';
 
 
@@ -19,23 +19,39 @@ export class MiembrosService {
   constructor(private http: HttpClient) {}
 
   getMiembros():Observable<Miembro[]> {
-    return this.http.get<Miembro[]>(this.urlMiembros+"getAll", httpOptions);
+    return this.http.get<Miembro[]>(this.urlMiembros+"getAll", httpOptions).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
   //metodo de tipo POST para hacer registro del usuario
   registrarMiembro(email: string, password: string, nombre: string, apellidos: string, dni: string,
     poblacion: string, telefono: string, fecha_nacimiento: string, domicilio: string, roles: string[]): Observable<Miembro> {
     return this.http.post<Miembro>(this.urlMiembros + 'registro', { email, password, nombre, apellidos, dni, poblacion, telefono,
-      fecha_nacimiento, domicilio, roles }, httpOptions);
+      fecha_nacimiento, domicilio, roles }, httpOptions).pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
   }
 
 
   deleteById(id: String): Observable<Response> {
-    return this.http.delete<Response>(this.urlMiembros + "deleteById/" + id, httpOptions);
+    return this.http.delete<Response>(this.urlMiembros + "deleteById/" + id, httpOptions).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
   updateById(miembro: Miembro): Observable<Miembro> {
-     return this.http.put<Miembro>(this.urlMiembros + "updateById/" + miembro.idmiembro, miembro, httpOptions);
+     return this.http.put<Miembro>(this.urlMiembros + "updateById/" + miembro.idmiembro, miembro, httpOptions).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
   }
 
 }
