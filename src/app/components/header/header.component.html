@@ -9,10 +9,8 @@
     <div class="row" style="background-color: white;">
         <div class="col-1"></div>
         <div class="col-2 mt-2 mb-2">
-            <a routerLink = "/calendario" routerLinkActive="active"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i> CALENDARIO</a>
             <button mat-button routerLink = "/login" routerLinkActive="active" *ngIf = '!(authService.isLoggedIn$ | async)'><mat-icon>person</mat-icon>Acceder</button>
             <button mat-button *ngIf = '(authService.isLoggedIn$ | async)' (click)="logout()"><mat-icon>power_settings_new</mat-icon> Desconectar</button>            
-            
         </div>
         <div class="col-7"></div>
         <div class="col-2 mt-2 mb-2">
