@@ -77,6 +77,8 @@ export class UsuariosController {
     static login = async (req: Request, res: Response) => {
         const email = req.body.email;
         const password = req.body.password;
+        console.log(email)
+        console.log(password)
         //const grant_type = req.body.grant_type;
         //const refresh_token = req.body.refresh_token;
         try {

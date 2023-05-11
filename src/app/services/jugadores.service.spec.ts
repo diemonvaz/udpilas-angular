@@ -31,8 +31,8 @@ describe('JugadoresService', () => {
     spyOn(http, 'post').and.returnValue(of(nuevoJugador));
   
     service.registrarJugador(nuevoJugador.nombre.toString(), nuevoJugador.apellidos.toString(), nuevoJugador.posicion.toString(), nuevoJugador.fecha_nacimiento.toString(), nuevoJugador.posicion.toString(),
-        nuevoJugador.dni.toString(), nuevoJugador.reconocimiento_medico.toString(), 'observaciones' ,nuevoJugador.duracion.toString(), "urlImagen").subscribe((entrenamiento) => {
-      expect(entrenamiento).toEqual(nuevoJugador);
+        nuevoJugador.dni.toString(), nuevoJugador.reconocimiento_medico.toString(), 'observaciones' ,nuevoJugador.duracion.toString(), "urlImagen").subscribe((jugador) => {
+      expect(jugador).toEqual(nuevoJugador);
     });
   });
 
