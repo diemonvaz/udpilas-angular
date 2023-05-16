@@ -1,7 +1,6 @@
 import {getRepository, Repository} from "typeorm";
 import { Request, Response} from "express";
 import { Socios } from "../entity/Socios";
-import moment = require("moment");
 import { TiposAbono } from "../entity/TiposAbono";
 import { EstadosSocios } from "../entity/EstadosSocios";
 

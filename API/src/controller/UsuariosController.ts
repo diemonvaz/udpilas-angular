@@ -1,8 +1,6 @@
 import { getRepository } from "typeorm";
 import { Request, Response } from "express";
 import { Usuarios } from "../entity/Usuarios";
-import moment = require("moment");
-import { validate } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import * as jwt from 'jsonwebtoken';
 import config from '../config/config';

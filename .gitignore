@@ -4,3 +4,5 @@ API\node_modules
 API\package-lock.json
 *.pack
 *.json
+dist/
+nginx.conf

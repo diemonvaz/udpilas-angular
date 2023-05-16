@@ -1,0 +1,12 @@
+version: "4.19.0"
+services:
+  angular:
+    image: udpilasangular
+    ports: 
+      - "8080:80"
+    restart: always
+  api:
+    image: express-typeorm-api
+    ports: 
+      - "3000:3000"
+    restart: always

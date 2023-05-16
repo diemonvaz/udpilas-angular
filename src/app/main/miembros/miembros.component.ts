@@ -72,7 +72,7 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
   dataSource: MatTableDataSource<Miembro>;
   miembrosArray: Miembro[] = [];
   displayedColumns: string[] = ['nombre', 'apellidos', 'email', 'dni', 'fecha_nacimiento', 'telefono', 'domicilio', 'poblacion', 'roles', 'acciones'];
-  displayedColumnsRoles: string[] = ['codigo', 'descripcion', 'acciones'];
+  displayedColumnsRoles: string[] = ['codigo', 'descripcion'];
 
   
   

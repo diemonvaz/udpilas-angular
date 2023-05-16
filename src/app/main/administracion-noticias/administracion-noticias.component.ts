@@ -59,7 +59,7 @@ export class AdministracionNoticiasComponent implements AfterViewInit, NoticiaRe
 
   dataSource: MatTableDataSource<NoticiaRequest>;
   noticiasArray: NoticiaRequest[] = [];
-  displayedColumns: string[] = ['tituloNoticia', 'fechaPublicacion', 'fechaCreacion', 'etiquetas', 'esPortada','acciones'];
+  displayedColumns: string[] = ['tituloNoticia', 'fechaPublicacion', 'fechaCreacion', 'etiquetas','acciones'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

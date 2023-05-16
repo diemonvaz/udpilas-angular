@@ -1,8 +1,6 @@
 import {getRepository} from "typeorm";
 import { Request, Response} from "express";
 import { Etiquetas } from "../entity/Etiquetas";
-import moment = require("moment");
-import { validate } from "class-validator";
 
 export class EtiquetasController {
 
