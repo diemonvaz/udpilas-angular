@@ -1,43 +1,51 @@
-<div mat-dialog-title id="editor-date-dialog">{{banner}} 
-    <div mat-dialog-content style="margin-top:30px; display: flex; flex-direction: column;">
-        <mat-form-field style="margin-left:10px; margin-right:10px">
-            <input matInput type="text" placeholder="Nombre Completo" [(ngModel)]= nuevoSocio.nombre_completo >
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
-            <input matInput type="text" placeholder="Domicilio" [(ngModel)]= nuevoSocio.domicilio >
-        </mat-form-field >
-        <mat-form-field style="margin-left:10px; margin-right:10px">
-            <input matInput type="text" placeholder="Población" [(ngModel)]="nuevoSocio.poblacion" >
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
-            <input matInput type="tel" placeholder="Teléfono" [(ngModel)]="nuevoSocio.telefono" >
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
+<div mat-dialog-title id="editor-date-dialog" style="text-align: center;">{{banner}} 
+    <app-alert></app-alert>
+    <div mat-dialog-content style="margin-top:30px;">
+        <div class="form-row">
+          <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Nombre Completo" [(ngModel)]="nuevoSocio.nombre_completo">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Domicilio" [(ngModel)]="nuevoSocio.domicilio">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Población" [(ngModel)]="nuevoSocio.poblacion">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="form-field">
+            <input matInput type="tel" placeholder="Teléfono" [(ngModel)]="nuevoSocio.telefono">
+          </mat-form-field>
+          <mat-form-field class="form-field">
             <input matInput type="email" placeholder="Correo Electrónico" [(ngModel)]="nuevoSocio.correo_electronico">
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
-            <input matInput type="date" placeholder="Fecha Nacimiento" [(ngModel)]="nuevoSocio.fecha_nacimiento" >
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <input matInput type="date" placeholder="Fecha Nacimiento" [(ngModel)]="nuevoSocio.fecha_nacimiento">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="form-field">
             <input matInput type="text" placeholder="DNI" [(ngModel)]="nuevoSocio.dni">
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
+          </mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>Tipo de abono</mat-label>
-            <mat-select  [(ngModel)]="nuevoSocio.tipo_abono.tipo">
-                <mat-option *ngFor="let tipo_abono of tipos_abono" [value]="tipo_abono.tipo"  name="fieldName" ngDefaultControl>
-                  {{tipo_abono.tipo}}
-                </mat-option>
-              </mat-select>
-        </mat-form-field>
-        <mat-form-field style="margin-left:10px; margin-right:10px">
+            <mat-select [(ngModel)]="nuevoSocio.tipo_abono.tipo">
+              <mat-option *ngFor="let tipo_abono of tipos_abono" [value]="tipo_abono.tipo" name="fieldName" ngDefaultControl>
+                {{tipo_abono.tipo}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="form-field">
             <mat-label>Estado abono 22/23</mat-label>
             <mat-select [(ngModel)]="nuevoSocio.estado_2223.codigo">
-                <mat-option *ngFor="let estado of estados_socios" [value]="estado.codigo"  name="fieldName" ngDefaultControl >
-                  {{estado.codigo}}
-                </mat-option>
+              <mat-option *ngFor="let estado of estados_socios" [value]="estado.codigo" name="fieldName" ngDefaultControl>
+                {{estado.codigo}}
+              </mat-option>
             </mat-select>
-        </mat-form-field>
-    </div>
+          </mat-form-field>
+        </div>
+      </div>
+      
     <mat-dialog-actions>
         <button mat-raised-button style="background-color: rgb(0, 223, 0);" *ngIf="check" (click)="registrar()">Registrar</button>
         <button mat-raised-button color=accent *ngIf="!check" (click)="actualizar()">Modificar</button>

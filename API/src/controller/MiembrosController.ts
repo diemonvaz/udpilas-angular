@@ -43,7 +43,7 @@ export class MiembrosController {
                 .getOne();
 
             if (usuario_existe) {
-                return res.status(401).json({ message: "Email ya registrado" });
+                return res.status(400).json({ message: "Email ya registrado" });
             }
             else {
                 const salt = bcrypt.genSaltSync(10);

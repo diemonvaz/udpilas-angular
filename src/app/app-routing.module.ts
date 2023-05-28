@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'editor/:idnoticias', component: EditorComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, EDITOR'},},
   { path: 'adm-noticias', component: AdministracionNoticiasComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, EDITOR'},},
   { path: 'socios', component: AbonadosComponent,  canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
-  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR',},},
+  { path: 'miembros', component: MiembrosComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, GESTOR, ENTRENADOR',},},
   { path: 'plantilla', component: PlantillaComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, ENTRENADOR'},},
   { path: 'cuerpoTecnico', component: CuerpoTecnicoComponent, canActivate: [IsAuthenticatedGuard, HasRoleGuard],  data: {role: 'ADMIN, ENTRENADOR'},},
   { path: 'login', component: LoginComponent},

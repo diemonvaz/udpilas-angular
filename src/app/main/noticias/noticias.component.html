@@ -14,7 +14,7 @@
                   <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="[i]" class="active" aria-current="true" aria-label="Slide 1"></button>                  
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item" *ngFor="let noticia of noticiasPortadaArray let i = index" [ngClass]="{'active': i == 0 }">
+                    <div class="carousel-item" *ngFor="let noticia of noticiasPortadaArray let i = index" [ngClass]="{'active': i == 0 }"  [routerLink]="['/noticia', noticia.idnoticias]" >
                         <img src={{noticia.imagen.nombre}}  class="carouselImg" >
                         <div class="carousel-caption d-none d-md-block">
                             <h5 style="font-size: large;">{{noticia.tituloNoticia}}</h5>

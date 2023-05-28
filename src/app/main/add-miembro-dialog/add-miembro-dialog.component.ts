@@ -53,7 +53,9 @@ export class AddMiembroDialogComponent implements OnInit, Miembro, AfterViewInit
      this.dialogRef.close({data:{nuevoMiembro: this.nuevoMiembro, modificacion:false}})
    }
   
-
+   compareRoles(role1: Rol, role2: Rol): boolean {
+    return role1.codigo === role2.codigo;
+}
  
 s
 }

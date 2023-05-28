@@ -13,7 +13,7 @@ import {FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/f
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {finalize, map, startWith} from 'rxjs/operators';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { MyUploadAdapter } from './myCustomUploader';
 import { NoticiaRequest } from 'src/app/models/NoticiaRequest';
@@ -300,8 +300,9 @@ export class EditorComponent implements OnInit {
     if(this.formEditor.valid) {
       if(this.esEdicion) {
         this.updateNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, this.noticiaSeleccionada.fechaCreacion, this.noticiaSeleccionada.fechaPublicacion, etiquetasAsociadas, this.noticiaSeleccionada.esPortada, urlImgPrincipal ? urlImgPrincipal : this.noticiaSeleccionada.imagen.nombre);
-        f.onReset();
-        window.location.reload();
+        this.route.paramMap.subscribe(params => {
+          window.location.reload();
+        });
       }else {
         this.addNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
         f.onReset();

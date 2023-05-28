@@ -23,7 +23,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MiembrosComponent implements  AfterViewInit, Miembro {
 
-  constructor(private miembrosService: MiembrosService, private rolesService: RolesService, private authService: AuthService, public dialog: MatDialog) { 
+  constructor(private miembrosService: MiembrosService, private rolesService: RolesService, private authService: AuthService, public dialog: MatDialog, private alertService: AlertService) { 
 
   }
   
@@ -110,6 +110,8 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
         formDirective.resetForm(); // reseteo los validadores
         this.form.reset();  //reseteo el data de los inputs
         this.ngAfterViewInit();
+    }, error => {
+      this.alertService.error(error.error.message);
     });
   }
 
@@ -149,15 +151,15 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
     //QUITAR
     copia.dni = miembro.dni ?? null;
     copia.usuario.roles = miembro.usuario.roles ?? null;
-    console.log(copia)
+    console.log(miembro)
     let dialogRef = this.dialog.open(AddMiembroDialogComponent, {data: {nuevoMiembro:copia, banner: "Modificar datos de registro", check:false} });
     dialogRef.afterClosed().subscribe(res => {
       if(res.data.modificacion) {
         console.log(res.data.nuevoMiembro)
         this.miembrosService.updateById(res.data.nuevoMiembro).subscribe();
+        this.ngAfterViewInit();
         window.location.reload();
       }
-    
     })    
 
 

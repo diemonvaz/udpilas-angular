@@ -8,6 +8,7 @@ import { Socio } from 'src/app/models/Socio';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipoAbono } from 'src/app/models/TipoAbono';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-add-socio-dialog',
@@ -22,7 +23,7 @@ export class AddSocioDialogComponent implements OnInit, Socio, AfterViewInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<AbonadosComponent>, private tiposCarnetService: TiposCarnetService,
-      private estadosSociosService: EstadosSociosService) {
+      private estadosSociosService: EstadosSociosService, private alertService: AlertService) {
    
   }
 
@@ -58,9 +59,19 @@ export class AddSocioDialogComponent implements OnInit, Socio, AfterViewInit {
   public check = this.data.check;
  
 registrar() {
-  if(this.nuevoSocio.fecha_nacimiento != undefined) {
-    this.dialogRef.close({data:{nuevoSocio:this.nuevoSocio, modificacion:true}})
-
+  if(this.nuevoSocio.fecha_nacimiento != undefined  && this.nuevoSocio.nombre_completo != undefined && this.nuevoSocio.nombre_completo != "" && this.nuevoSocio.tipo_abono.tipo != undefined
+          && this.nuevoSocio.estado_2223.codigo != undefined) {
+      this.dialogRef.close({data:{nuevoSocio:this.nuevoSocio, modificacion:true}})
+  }else {
+    if(this.nuevoSocio.fecha_nacimiento == undefined) {
+      this.alertService.error("Introduzca una fecha de nacimiento válida");
+    }else if (this.nuevoSocio.nombre_completo == undefined || this.nuevoSocio.nombre_completo == ""){
+      this.alertService.error("Introduzca un nombre completo");
+    }else if (this.nuevoSocio.tipo_abono.tipo == undefined) {
+      this.alertService.error("Seleccione un tipo de abono");
+    }else if (this.nuevoSocio.estado_2223.codigo == undefined) {
+      this.alertService.error("Seleccione un estado de socio");
+    }
   }
 }
 

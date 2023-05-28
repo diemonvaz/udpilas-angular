@@ -1,5 +1,5 @@
 
-  <mat-tab-group animationDuration="0ms"mat-align-tabs="center">
+  <mat-tab-group animationDuration="0ms"mat-align-tabs="center" style="margin-bottom: 400px;">
     <mat-tab label="INICIA SESIÓN">
       <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
         <app-alert></app-alert>
@@ -7,7 +7,7 @@
       <form (ngSubmit)="submitFormLogin()" [formGroup]="form" autocomplete="off" style="margin-top: 40px; margin-bottom: 40px;">
         <div style="display: flex; justify-content: center">
           <mat-card class="form-container">
-            <mat-card-title>Acceder</mat-card-title>   
+            <mat-card-title style="text-align: center;">Acceder</mat-card-title>   
             <!-- Correo -->
             <div>
               <mat-form-field>
@@ -24,7 +24,7 @@
               </mat-form-field>
             </div>
             <!-- /Password -->
-            <div>
+            <div style="text-align: center;">
               <button type="submit" mat-raised-button color="primary">Entrar</button>
             </div>
           </mat-card>

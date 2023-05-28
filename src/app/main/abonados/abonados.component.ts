@@ -87,8 +87,8 @@ export class AbonadosComponent implements AfterViewInit, Socio {
     let nuevoSocio = {} as Socio;
     let tipoCarnetNuevoSocio = {} as TipoAbono;
     let estadoNuevoSocio = {} as EstadoSocio;
-    estadoNuevoSocio.codigo = 'ESTADO_POR_PAGAR';
-    tipoCarnetNuevoSocio.precio = 0;
+    //estadoNuevoSocio.codigo = 'ESTADO_POR_PAGAR';
+    //tipoCarnetNuevoSocio.precio = 0;
     nuevoSocio.tipo_abono = tipoCarnetNuevoSocio;
     nuevoSocio.estado_2223 = estadoNuevoSocio;
     let dialogRef = this.dialog.open(AddSocioDialogComponent, {data: {nuevoSocio:nuevoSocio, banner: "Registrar nuevo socio", check:true} });
@@ -149,13 +149,27 @@ export class AbonadosComponent implements AfterViewInit, Socio {
     })       
   
   }
-
+  /* Funcion duplicada pero sin exportar las columnas de estado y tipo de abono
   exportAsExcel() {
+    console.log(this.dataSource.data);
     const workSheet = XLSX.utils.json_to_sheet(this.dataSource.data, {header:[]});
     const workBook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
     XLSX.writeFile(workBook, 'socios.xlsx');
+  }*/
+
+  exportAsExcel() {
+    const dataCopy = JSON.parse(JSON.stringify(this.dataSource.data));
+    for (let i = 0; i < dataCopy.length; i++) {
+      dataCopy[i].estado_2223 = dataCopy[i].estado_2223.codigo;
+      dataCopy[i].tipo_abono = dataCopy[i].tipo_abono.tipo;
+    }
+    const workSheet = XLSX.utils.json_to_sheet(dataCopy, { header: [] });
+    const workBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'SheetName');
+    XLSX.writeFile(workBook, 'socios.xlsx');
   }
+  
 
 
   delay(ms: number) {

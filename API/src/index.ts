@@ -19,7 +19,7 @@ const PORT_WEBSOCKET = 3001;
 
 createConnections().then(async  () => {
 
-    // create express app
+    // Creacion instancia express
     const app = express();
 
     //Middlewares
@@ -29,10 +29,9 @@ createConnections().then(async  () => {
     app.use(express.json());
 
     app.use('/', routes);
-
+    
     const server = http.createServer(app);
-
-    // start express server
+    // inicio del servidor express
     app.listen(PORT, ()=>console.log(`Server running on port: ${PORT}`));
 
 }).catch(error => console.log(error));

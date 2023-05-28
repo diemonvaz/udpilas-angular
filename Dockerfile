@@ -12,7 +12,7 @@ COPY . .
 RUN npm install --force
 RUN npm run build 
 
-# Crea una nueva imagen y copia los archivos generados, usamos ultima version de nginx
+# Crea una nueva imagen y copia los archivos generados usando la última versión de nginx
 FROM nginx:latest
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/proyecto /usr/share/nginx/html

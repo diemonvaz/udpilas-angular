@@ -11,7 +11,7 @@
 
                     <mat-form-field appearance="standard" style="float:left; margin-top:5px; margin-bottom:5px; margin-right:5px;">
                         <mat-label>Búsqueda</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pensionista" #input>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. DNI, Domicilio" #input>
                     </mat-form-field>
                     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
                         <ng-container matColumnDef="nombre">
@@ -77,7 +77,7 @@
             </mat-tab>
 
             <mat-tab label="Alta de miembros">
-
+                
                 <mat-accordion class="example-headers-align">
                     <mat-expansion-panel hideToggle style="margin-left: 20%; margin-right: 20%; margin-top: 20px; margin-bottom: 20px;">
                       <mat-expansion-panel-header>
@@ -86,6 +86,9 @@
                         </mat-panel-title>
                         <mat-icon>add</mat-icon>
                       </mat-expansion-panel-header>
+                      <div>
+                        <app-alert></app-alert>
+                      </div>
                       <form (ngSubmit)="submitFormRegistro(formDirective)" [formGroup]="form" #formDirective="ngForm" autocomplete="off">
                         <mat-form-field appearance="fill">
                           <mat-label>Nombre</mat-label>

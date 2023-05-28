@@ -104,7 +104,7 @@ export class UsuariosController {
                     return res.send(response);
                 }
                 else {
-                    return res.status(404).json({ message: "Email o Password no válidos" });
+                    return res.status(404).json({ message: "Contraseña incorrecta" });
                 }
             }
             else {

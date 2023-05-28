@@ -33,9 +33,11 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           if (localStorage.getItem('access_token')) {
             //refrescar header component
-            this.router.navigate(['']);
+            window.location.reload();
+            this.router.navigate(['/']);
           }
-        }, 2000);
+        }, 10);
+        this.router.navigate(['/']);
       }, error  => {
         this.alertService.error(error.error.message);
       });
