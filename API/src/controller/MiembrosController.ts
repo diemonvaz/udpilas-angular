@@ -154,10 +154,10 @@ export class MiembrosController {
                 usuario.roles = rolesActualizados;
                 console.log(req.body.usuario.roles)
                 await getRepository(Usuarios).save(usuario);
-                res.status(200);
+                res.status(200).json({message: 'Miembro actualizado correctamente'});
             }
             else {
-                res.status(404).json({message: 'Socio no encontrado'});
+                res.status(404).json({message: 'Miembro no encontrado'});
             }
         }catch(e){
             console.log(e);

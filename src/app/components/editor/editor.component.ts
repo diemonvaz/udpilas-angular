@@ -300,9 +300,7 @@ export class EditorComponent implements OnInit {
     if(this.formEditor.valid) {
       if(this.esEdicion) {
         this.updateNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, this.noticiaSeleccionada.fechaCreacion, this.noticiaSeleccionada.fechaPublicacion, etiquetasAsociadas, this.noticiaSeleccionada.esPortada, urlImgPrincipal ? urlImgPrincipal : this.noticiaSeleccionada.imagen.nombre);
-        this.route.paramMap.subscribe(params => {
-          window.location.reload();
-        });
+        this.alertService.success("Noticia actualizada con éxito")
       }else {
         this.addNoticia(tituloPublicacion, contenidoNoticia, this.authService.user.nombre, fechaCreStr, fechaPubStr, etiquetasAsociadas, this.portada, urlImgPrincipal);
         f.onReset();
@@ -328,8 +326,7 @@ export class EditorComponent implements OnInit {
 
   updateNoticia(tituloNoticia: String, contenidoNoticia: String, usuario: String, fechaCreacion: String, fechaPublicacion: String, etiquetas: Etiqueta[], esPortada: Boolean, urlImagen: String): void {
     const nuevaNoticia: Noticia = {tituloNoticia, contenidoNoticia, usuario, fechaCreacion, fechaPublicacion, etiquetas, esPortada, urlImagen} as Noticia;
-    this.noticiasService.updateById(nuevaNoticia, this.idNoticiaSeleccionada).subscribe();
-
+    this.noticiasService.updateById(nuevaNoticia, this.idNoticiaSeleccionada).subscribe();   
   }
 
    getAllEtiquetas(): String[] {

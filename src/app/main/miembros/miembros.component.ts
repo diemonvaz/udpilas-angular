@@ -150,22 +150,24 @@ export class MiembrosComponent implements  AfterViewInit, Miembro {
     let stringAlterado = fechaSplitted[2] + "-" + fechaSplitted [1] + "-" + fechaSplitted [0];
     //QUITAR
     copia.dni = miembro.dni ?? null;
-    copia.usuario.roles = miembro.usuario.roles ?? null;
-    console.log(miembro)
+    //copia.usuario.roles = miembro.usuario.roles ?? null;
+    copia.usuario.roles = [];
+    miembro.usuario.roles.forEach(x => {
+      copia.usuario.roles.push(x['codigo']);
+    });
     let dialogRef = this.dialog.open(AddMiembroDialogComponent, {data: {nuevoMiembro:copia, banner: "Modificar datos de registro", check:false} });
     dialogRef.afterClosed().subscribe(res => {
       if(res.data.modificacion) {
         console.log(res.data.nuevoMiembro)
-        this.miembrosService.updateById(res.data.nuevoMiembro).subscribe();
-        this.ngAfterViewInit();
-        window.location.reload();
+        this.miembrosService.updateById(res.data.nuevoMiembro).subscribe(res => {
+          this.ngAfterViewInit();
+        });   
       }
     })    
-
-
   }
 
 
+  
   deleteRowMiembro(miembro: Miembro) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
