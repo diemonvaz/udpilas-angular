@@ -1,4 +1,4 @@
-# Proyecto sitio web U.D. Pilas
+# Sitio web U.D. Pilas
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
